@@ -1,0 +1,71 @@
+{
+  "explodeAt120ms": {
+    "state": "Exploding assembly",
+    "label": {
+      "x": 440.8190002441406,
+      "y": 26.515625,
+      "width": 175.74996948242188,
+      "height": 44.21875
+    }
+  },
+  "explodeAt900ms": {
+    "state": "Exploding assembly",
+    "label": {
+      "x": 431.4380187988281,
+      "y": 34.605987548828125,
+      "width": 175.74996948242188,
+      "height": 44.21875
+    }
+  },
+  "explodeDurationMs": 2264,
+  "explodedLabel": null,
+  "reassembleAt120ms": {
+    "state": "Reassembling",
+    "label": {
+      "x": 454.95465087890625,
+      "y": 6.048248291015625,
+      "width": 175.75,
+      "height": 44.21875
+    }
+  },
+  "reassembleDurationMs": 2018,
+  "reverse": {
+    "durationMs": 610,
+    "stateAtCommand": "assembling",
+    "labelBefore": {
+      "x": 431.87872314453125,
+      "y": 38.109039306640625,
+      "width": 175.75,
+      "height": 44.21875
+    },
+    "labelImmediate": {
+      "x": 432.5254211425781,
+      "y": 35.9716796875,
+      "width": 175.74996948242188,
+      "height": 44.21875
+    },
+    "labelAfter80ms": {
+      "x": 437.5132141113281,
+      "y": 28.290740966796875,
+      "width": 175.74996948242188,
+      "height": 44.21875
+    }
+  },
+  "focusAt180ms": {
+    "label": {
+      "x": 452.5378112792969,
+      "y": 19.303741455078125,
+      "width": 175.75003051757812,
+      "height": 44.21875
+    }
+  },
+  "focusAfter940ms": {
+    "label": {
+      "x": 447.37420654296875,
+      "y": 47.6953125,
+      "width": 175.75,
+      "height": 44.21875
+    }
+  },
+  "errors": []
+}

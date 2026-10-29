@@ -73,10 +73,12 @@ export class SelectionController{
     if(!this.selected){this.label.hidden=true;return;}
     this.helper.box.copy(this.registry.getBounds(this.selected));
     const point=this.registry.getAnchor(this.selected).project(this.camera);
-    if(point.z<-1||point.z>1){this.label.hidden=true;return;}
+    if(point.z<-1||point.z>1||point.x<-1.06||point.x>1.06||point.y<-1.06||point.y>1.06){this.label.hidden=true;return;}
     const rect=this.stage.getBoundingClientRect();
     const x=Math.min(rect.width-86,Math.max(86,(point.x*.5+.5)*rect.width));
     const y=Math.min(rect.height-62,Math.max(58,(-point.y*.5+.5)*rect.height));
+    const viewportX=rect.left+x;const viewportY=rect.top+y;
+    if(viewportX<24||viewportX>globalThis.innerWidth-24||viewportY<24||viewportY>globalThis.innerHeight-24){this.label.hidden=true;return;}
     this.label.style.setProperty('--label-x',`${x}px`);this.label.style.setProperty('--label-y',`${y}px`);this.label.hidden=false;
   }
 
