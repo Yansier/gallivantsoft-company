@@ -18,6 +18,10 @@ if(root&&root.dataset.viewerBound!=='true'){
   const selectedSystem=root.querySelector('[data-selected-system]');
   const selectedFunction=root.querySelector('[data-selected-function]');
   const selectedConstruction=root.querySelector('[data-selected-construction]');
+  const assemblySlider=root.querySelector('[data-assembly-slider]');
+  const assemblyPercent=root.querySelector('[data-assembly-percent]');
+  const assemblyMode=root.querySelector('[data-assembly-mode]');
+  const assemblyTools=root.querySelector('[data-assembly-tools]');
   const copyNode=document.querySelector('[data-viewer-copy]');
   const copy=copyNode?JSON.parse(copyNode.textContent||'{}'):{};
   const expectedComponents=[...root.querySelectorAll('[data-component-name]')].map((node)=>node.dataset.componentName);
@@ -62,14 +66,28 @@ if(root&&root.dataset.viewerBound!=='true'){
     if(selectedConstruction)selectedConstruction.textContent=detail?.construction||'';
     selectionButtons.forEach((button)=>button.setAttribute('aria-pressed',String(button.dataset.selectComponent===state.selectedKey)));
 
-    const animating=state.assembly==='exploding'||state.assembly==='assembling';
+    const progressValue=Math.round((state.assemblyProgress||0)*100);
+    const progressCopy=copy.assemblyControl||{};
+    const progressState=progressValue<=0?progressCopy.assembled:progressValue>=100?progressCopy.exploded:progressCopy.partial;
+    const modeCopy=state.assemblyMode==='auto'?progressCopy.automatic:['manual','scrubbing'].includes(state.assemblyMode)?progressCopy.manual:progressState;
+    if(assemblySlider){
+      assemblySlider.value=String(progressValue);
+      assemblySlider.style.setProperty('--assembly-progress',`${progressValue}%`);
+      assemblySlider.setAttribute('aria-valuetext',`${progressValue}% — ${progressState||state.displayState}`);
+    }
+    if(assemblyPercent)assemblyPercent.textContent=`${progressValue}%`;
+    if(assemblyMode)assemblyMode.textContent=modeCopy||progressState||'';
+    if(assemblyTools)assemblyTools.dataset.mode=state.assemblyMode;
+
+    const animating=state.assemblyMode==='auto';
+    const manipulating=animating||state.assemblyMode==='scrubbing';
     const hasSelection=Boolean(state.selectedKey);
-    actionButtons.focus.disabled=!hasSelection||animating;
-    actionButtons.isolate.disabled=!hasSelection||animating||state.isolated;
+    actionButtons.focus.disabled=!hasSelection||manipulating;
+    actionButtons.isolate.disabled=!hasSelection||manipulating||state.isolated;
     actionButtons['show-full'].disabled=!state.isolated;
     actionButtons['clear-selection'].disabled=!hasSelection;
-    actionButtons.explode.disabled=state.assembly==='exploded'||state.assembly==='exploding';
-    actionButtons.reassemble.disabled=state.assembly==='assembled'||state.assembly==='assembling';
+    actionButtons.explode.disabled=progressValue>=100||state.assembly==='exploding';
+    actionButtons.reassemble.disabled=progressValue<=0||state.assembly==='assembling';
     actionButtons['reset-all'].disabled=false;
   };
 
@@ -81,6 +99,27 @@ if(root&&root.dataset.viewerBound!=='true'){
   actionButtons.explode?.addEventListener('click',()=>viewer?.explode());
   actionButtons.reassemble?.addEventListener('click',()=>viewer?.reassemble());
   actionButtons['reset-all']?.addEventListener('click',()=>viewer?.resetAll());
+
+  let sliderActive=false;
+  const beginSliderControl=()=>{
+    if(!viewer||assemblySlider?.disabled||sliderActive)return;
+    sliderActive=true;viewer.beginAssemblyScrub();
+  };
+  const updateSliderControl=()=>{
+    if(!viewer||!assemblySlider)return;
+    const requestedProgress=Number(assemblySlider.value)/100;
+    beginSliderControl();
+    viewer.setAssemblyProgress(requestedProgress);
+  };
+  const endSliderControl=()=>{
+    if(!viewer||!sliderActive)return;
+    sliderActive=false;viewer.endAssemblyScrub();
+  };
+  assemblySlider?.addEventListener('pointerdown',beginSliderControl);
+  assemblySlider?.addEventListener('input',updateSliderControl);
+  assemblySlider?.addEventListener('change',endSliderControl);
+  assemblySlider?.addEventListener('pointercancel',endSliderControl);
+  assemblySlider?.addEventListener('blur',endSliderControl);
 
   const start=async()=>{
     if(launching||viewer)return;
@@ -102,6 +141,7 @@ if(root&&root.dataset.viewerBound!=='true'){
       updateStructure(viewer.structure);
       loading.hidden=true;controls.hidden=false;root.classList.add('viewer-ready');
       selectionButtons.forEach((button)=>{button.disabled=false;});
+      if(assemblySlider)assemblySlider.disabled=false;
       renderState(viewer.getState());
     }catch(error){showFallback(error);}
     finally{launching=false;}

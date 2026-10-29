@@ -85,10 +85,11 @@ const stationTranslations = {
 const explorerTranslations = {
   en: {
     explorerTitle:'Assembly explorer',selectedComponent:'Selected component',noSelectionTitle:'Select a component',noSelectionText:'Click the model or choose a named assembly below to inspect its role.',systemLabel:'System',functionLabel:'Function',constructionLabel:'Structure',assemblyControls:'Assembly controls',componentGroups:'Primary assemblies',keyDetails:'Key detail groups',interactionGuide:'Quick controls',
+    assemblyControl:{title:'Precision Assembly Control',progress:'Assembly Progress',assembled:'Assembled',partial:'Partially Exploded',exploded:'Fully Exploded',manual:'Manual Control',automatic:'Automatic Motion',scrubbing:'Manual Control',sliderLabel:'Assembly progress',hint:'Drag, tap, or use the arrow keys. Home returns to 0%; End moves to 100%.'},
     actions:{focus:'Focus Component',isolate:'Isolate Component',showFull:'Show Full Assembly',clearSelection:'Reset Selection',explode:'Explode Assembly',reassemble:'Reassemble',resetAll:'Reset All'},
-    hints:['Drag to Rotate','Scroll or Pinch to Zoom','Click a Component','Explode and Reassemble'],
-    states:{assembled:'Assembly ready',exploding:'Exploding assembly',exploded:'Exploded view',assembling:'Reassembling',isolated:'Component isolated'},
-    messages:{ready:'Viewer ready. Select a component or explode the assembly.',selected:'Component selected.',selectionCleared:'Selection cleared.',focused:'Camera focused on the selected component.',isolated:'Selected component isolated.',fullAssembly:'Full assembly restored.',exploding:'Beginning staged assembly separation.',exploded:'Exploded assembly ready for inspection.',assembling:'Returning every component to its saved transform.',assembled:'Assembly restored without transform drift.',reset:'Viewer, selection, visibility, and assembly reset.'},
+    hints:['Drag to Rotate','Scroll or Pinch to Zoom','Click a Component','Drag Assembly Progress'],
+    states:{assembled:'Assembly ready',partial:'Partially exploded',scrubbing:'Manual control',exploding:'Exploding assembly',exploded:'Exploded view',assembling:'Reassembling',isolated:'Component isolated'},
+    messages:{ready:'Viewer ready. Select a component or control assembly progress.',selected:'Component selected.',selectionCleared:'Selection cleared.',focused:'Camera focused on the selected component.',isolated:'Selected component isolated.',fullAssembly:'Full assembly restored.',scrubbing:'Manual assembly control active.',partial:'Assembly held at the selected progress.',exploding:'Beginning staged assembly separation.',exploded:'Exploded assembly ready for inspection.',assembling:'Returning every component along the same assembly path.',assembled:'Assembly restored without transform drift.',reset:'Viewer, selection, visibility, and assembly reset.'},
     componentDetails:{
       MainChassis:{name:'Main Chassis',system:'Structural enclosure',function:'Supports and protects the inspection systems.',construction:'Chamfered shell sections, service panels, handles, hinges, seams, and controlled fasteners.'},
       InspectionChamber:{name:'Inspection Chamber',system:'Safety enclosure',function:'Defines the protected volume where visual inspection takes place.',construction:'Independent metal frame, transparent safety glazing, door hardware, internal liner, and inspection lighting.'},
@@ -107,10 +108,11 @@ const explorerTranslations = {
   },
   zh: {
     explorerTitle:'装配探索器',selectedComponent:'当前组件',noSelectionTitle:'请选择组件',noSelectionText:'点击模型，或从下方命名组件中选择，以查看它在设备中的作用。',systemLabel:'所属系统',functionLabel:'功能说明',constructionLabel:'结构特点',assemblyControls:'装配控制',componentGroups:'主要组件',keyDetails:'精选细节组',interactionGuide:'快速操作',
+    assemblyControl:{title:'精密装配控制',progress:'装配进度',assembled:'完整组装',partial:'部分拆解',exploded:'完全拆解',manual:'手动控制',automatic:'自动运动',scrubbing:'手动控制',sliderLabel:'装配拆解进度',hint:'拖动、轻触或使用方向键。Home 返回 0%，End 前往 100%。'},
     actions:{focus:'聚焦组件',isolate:'隔离组件',showFull:'显示完整装配',clearSelection:'取消选择',explode:'爆炸拆解',reassemble:'重新组装',resetAll:'全部重置'},
-    hints:['拖动旋转','滚轮或双指缩放','点击选择组件','拆解与重新组装'],
-    states:{assembled:'装配就绪',exploding:'正在拆解',exploded:'爆炸视图',assembling:'正在重新组装',isolated:'组件已隔离'},
-    messages:{ready:'浏览器已就绪，可选择组件或启动爆炸拆解。',selected:'组件已选中。',selectionCleared:'已取消组件选择。',focused:'相机已聚焦到选中组件。',isolated:'已隔离选中组件。',fullAssembly:'已恢复完整装配显示。',exploding:'正在按设计顺序分离组件。',exploded:'爆炸装配已就绪，可以继续查看组件。',assembling:'正在把所有组件恢复到保存的原始变换。',assembled:'装配已准确恢复，没有累计位移。',reset:'相机、选择、可见性与装配状态均已重置。'},
+    hints:['拖动旋转','滚轮或双指缩放','点击选择组件','拖动装配进度'],
+    states:{assembled:'装配就绪',partial:'部分拆解',scrubbing:'手动控制',exploding:'正在拆解',exploded:'爆炸视图',assembling:'正在重新组装',isolated:'组件已隔离'},
+    messages:{ready:'浏览器已就绪，可选择组件或控制装配进度。',selected:'组件已选中。',selectionCleared:'已取消组件选择。',focused:'相机已聚焦到选中组件。',isolated:'已隔离选中组件。',fullAssembly:'已恢复完整装配显示。',scrubbing:'手动装配控制已启用。',partial:'装配已停留在所选进度。',exploding:'正在按设计顺序分离组件。',exploded:'爆炸装配已就绪，可以继续查看组件。',assembling:'正在沿同一装配路径准确复位。',assembled:'装配已准确恢复，没有累计位移。',reset:'相机、选择、可见性与装配状态均已重置。'},
     componentDetails:{
       MainChassis:{name:'主机架',system:'结构外壳系统',function:'支撑并保护检测设备的各个系统。',construction:'由倒角壳体、检修面板、把手、铰链、接缝和适量紧固件组成。'},
       InspectionChamber:{name:'检测舱',system:'安全防护系统',function:'定义视觉检测发生的受保护空间。',construction:'独立金属框架、安全玻璃、门部件、内部背板和检查照明。'},
@@ -129,10 +131,11 @@ const explorerTranslations = {
   },
   ms: {
     explorerTitle:'Penjelajah pemasangan',selectedComponent:'Komponen dipilih',noSelectionTitle:'Pilih komponen',noSelectionText:'Klik model atau pilih pemasangan bernama di bawah untuk memahami peranannya.',systemLabel:'Sistem',functionLabel:'Fungsi',constructionLabel:'Struktur',assemblyControls:'Kawalan pemasangan',componentGroups:'Pemasangan utama',keyDetails:'Kumpulan butiran utama',interactionGuide:'Kawalan pantas',
+    assemblyControl:{title:'Kawalan Pemasangan Tepat',progress:'Kemajuan Pemasangan',assembled:'Dipasang',partial:'Separa Terlerai',exploded:'Terlerai Sepenuhnya',manual:'Kawalan Manual',automatic:'Gerakan Automatik',scrubbing:'Kawalan Manual',sliderLabel:'Kemajuan pemasangan',hint:'Seret, ketik atau gunakan kekunci anak panah. Home kembali ke 0%; End bergerak ke 100%.'},
     actions:{focus:'Fokus Komponen',isolate:'Asingkan Komponen',showFull:'Tunjukkan Pemasangan Penuh',clearSelection:'Kosongkan Pilihan',explode:'Leraikan Pemasangan',reassemble:'Pasang Semula',resetAll:'Tetapkan Semua Semula'},
-    hints:['Seret untuk Putar','Tatal atau Cubit untuk Zum','Klik Komponen','Lerai dan Pasang Semula'],
-    states:{assembled:'Pemasangan sedia',exploding:'Sedang meleraikan',exploded:'Paparan terlerai',assembling:'Sedang memasang semula',isolated:'Komponen diasingkan'},
-    messages:{ready:'Pelayar sedia. Pilih komponen atau leraikan pemasangan.',selected:'Komponen dipilih.',selectionCleared:'Pilihan dikosongkan.',focused:'Kamera difokuskan pada komponen dipilih.',isolated:'Komponen dipilih telah diasingkan.',fullAssembly:'Pemasangan penuh dipulihkan.',exploding:'Memulakan pemisahan pemasangan berperingkat.',exploded:'Pemasangan terlerai sedia untuk diperiksa.',assembling:'Mengembalikan setiap komponen kepada transformasi tersimpan.',assembled:'Pemasangan dipulihkan tanpa hanyutan transformasi.',reset:'Pelayar, pilihan, keterlihatan dan pemasangan ditetapkan semula.'},
+    hints:['Seret untuk Putar','Tatal atau Cubit untuk Zum','Klik Komponen','Seret Kemajuan Pemasangan'],
+    states:{assembled:'Pemasangan sedia',partial:'Separa terlerai',scrubbing:'Kawalan manual',exploding:'Sedang meleraikan',exploded:'Paparan terlerai',assembling:'Sedang memasang semula',isolated:'Komponen diasingkan'},
+    messages:{ready:'Pelayar sedia. Pilih komponen atau kawal kemajuan pemasangan.',selected:'Komponen dipilih.',selectionCleared:'Pilihan dikosongkan.',focused:'Kamera difokuskan pada komponen dipilih.',isolated:'Komponen dipilih telah diasingkan.',fullAssembly:'Pemasangan penuh dipulihkan.',scrubbing:'Kawalan pemasangan manual aktif.',partial:'Pemasangan kekal pada kemajuan dipilih.',exploding:'Memulakan pemisahan pemasangan berperingkat.',exploded:'Pemasangan terlerai sedia untuk diperiksa.',assembling:'Mengembalikan setiap komponen melalui laluan pemasangan yang sama.',assembled:'Pemasangan dipulihkan tanpa hanyutan transformasi.',reset:'Pelayar, pilihan, keterlihatan dan pemasangan ditetapkan semula.'},
     componentDetails:{
       MainChassis:{name:'Casis Utama',system:'Kepungan struktur',function:'Menyokong dan melindungi sistem pemeriksaan.',construction:'Bahagian cangkerang serong, panel servis, pemegang, engsel, sambungan dan pengikat terkawal.'},
       InspectionChamber:{name:'Kebuk Pemeriksaan',system:'Kepungan keselamatan',function:'Mentakrifkan ruang terlindung untuk pemeriksaan visual.',construction:'Bingkai logam bebas, kaca keselamatan, perkakasan pintu, pelapik dalaman dan lampu pemeriksaan.'},

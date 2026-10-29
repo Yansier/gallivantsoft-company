@@ -20,6 +20,7 @@ const viewerCopy=JSON.stringify({
   noSelectionTitle:copy.noSelectionTitle,
   noSelectionText:copy.noSelectionText,
   componentDetails:copy.componentDetails,
+  assemblyControl:copy.assemblyControl,
   states:copy.states,
   messages:copy.messages
 }).replace(/</g,'\\u003c');
@@ -86,7 +87,15 @@ const detailComponents=['OpticalLens','InspectionHead','ConveyorRollers','Contro
               <div class="inspection-component-actions"><button type="button" data-action="focus" disabled>{copy.actions.focus}</button><button type="button" data-action="isolate" disabled>{copy.actions.isolate}</button><button type="button" data-action="show-full" disabled>{copy.actions.showFull}</button><button type="button" data-action="clear-selection" disabled>{copy.actions.clearSelection}</button></div>
             </section>
 
-            <section class="inspection-assembly-tools"><h3>{copy.assemblyControls}</h3><div><button type="button" data-action="explode" disabled>{copy.actions.explode}</button><button type="button" data-action="reassemble" disabled>{copy.actions.reassemble}</button><button type="button" data-action="reset-all" disabled>{copy.actions.resetAll}</button></div><p role="status" data-viewer-activity>{copy.messages.ready}</p></section>
+            <section class="inspection-assembly-tools" aria-labelledby="assembly-control-title" data-assembly-tools data-mode="idle">
+              <div class="inspection-assembly-heading"><h3 id="assembly-control-title">{copy.assemblyControl.title}</h3><output data-assembly-percent for="assembly-progress">0%</output></div>
+              <label class="inspection-progress-label" for="assembly-progress">{copy.assemblyControl.progress}</label>
+              <div class="inspection-progress-meta"><span>{copy.assemblyControl.assembled}</span><b data-assembly-mode>{copy.assemblyControl.assembled}</b><span>{copy.assemblyControl.exploded}</span></div>
+              <input id="assembly-progress" class="inspection-progress-range" type="range" min="0" max="100" step="1" value="0" aria-label={copy.assemblyControl.sliderLabel} aria-valuetext={`0% — ${copy.assemblyControl.assembled}`} data-assembly-slider disabled/>
+              <p class="inspection-progress-hint">{copy.assemblyControl.hint}</p>
+              <div class="inspection-assembly-buttons"><button type="button" data-action="explode" disabled>{copy.actions.explode}</button><button type="button" data-action="reassemble" disabled>{copy.actions.reassemble}</button><button type="button" data-action="reset-all" disabled>{copy.actions.resetAll}</button></div>
+              <p role="status" data-viewer-activity>{copy.messages.ready}</p>
+            </section>
 
             <div class="inspection-components"><h3>{copy.componentGroups}</h3><ul>{components.map((component,index)=><li><button type="button" data-select-component={component} data-component-name={component} aria-pressed="false" disabled><i>{String(index+1).padStart(2,'0')}</i><span>{copy.componentDetails[component].name}</span></button></li>)}</ul></div>
             <div class="inspection-detail-components"><h3>{copy.keyDetails}</h3><div>{detailComponents.map((component)=><button type="button" data-select-component={component} aria-pressed="false" disabled>{copy.componentDetails[component].name}</button>)}</div></div>

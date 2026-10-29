@@ -131,7 +131,7 @@ function assertRestored(registry,message){
   const before=harness.registry.majorRecords.map((record)=>record.node.position.clone());
   harness.controller.reassemble();
   const reverseDuration=harness.controller.lastDuration;
-  assert(reverseDuration>=ASSEMBLY_TIMING.minReverse&&reverseDuration<ASSEMBLY_TIMING.reassemble,'reverse duration must scale to current travel');
+  assert(reverseDuration>=ASSEMBLY_TIMING.minTravel&&reverseDuration<ASSEMBLY_TIMING.reassemble,'reverse duration must scale to current travel');
   harness.registry.majorRecords.forEach((record,index)=>assertVector(record.node.position,before[index],`reverse command jump ${record.key}`));
   harness.raf.stepTo(harness.raf.now+1000/60);
   harness.registry.majorRecords.forEach((record,index)=>assertVector(record.node.position,before[index],`reverse first-frame jump ${record.key}`));

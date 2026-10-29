@@ -48,6 +48,14 @@ export class CameraController{
 
   focus(bounds){this.moveTo({bounds,duration:CAMERA_TIMING.focus,margin:1.42});}
   frameExploded(bounds){this.moveTo({bounds,direction:this.defaultDirection,duration:CAMERA_TIMING.exploded,margin:1.22,restoreRange:true});}
+  ensureBounds(bounds){
+    const required=this.distanceFor(bounds,1.2);
+    const current=this.camera.position.distanceTo(this.controls.target);
+    if(current>=required*.94)return false;
+    const direction=this.camera.position.clone().sub(this.controls.target).normalize();
+    this.moveTo({bounds,direction,duration:520,margin:1.2,restoreRange:true});
+    return true;
+  }
   reset(){this.moveTo({bounds:this.defaultBounds,direction:this.defaultDirection,duration:CAMERA_TIMING.reset,margin:1.12,restoreRange:true});}
   view(direction){this.moveTo({bounds:this.defaultBounds,direction,duration:CAMERA_TIMING.view,margin:1.12,restoreRange:true});}
   dispose(){this.scheduler.stop('camera');this.controls.removeEventListener('start',this.onControlStart);}

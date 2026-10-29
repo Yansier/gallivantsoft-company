@@ -18,7 +18,8 @@ assert.deepEqual(Object.keys(EXPLOSION_PLAN).sort(),[...COMPONENT_NAMES].sort(),
 Object.entries(EXPLOSION_PLAN).forEach(([name,plan])=>{
   assert.equal(plan.direction.length,3,`${name} requires a 3D direction`);
   assert(plan.direction.some((value)=>value!==0),`${name} explosion direction cannot be zero`);
-  assert(plan.delay>=0&&plan.delay<1,`${name} delay must be normalized`);
+  assert(plan.start>=0&&plan.start<1,`${name} start progress must be normalized`);
+  assert(plan.end>plan.start&&plan.end<=1,`${name} end progress must follow its start`);
 });
 
 const model=new THREE.Group();model.name='PrecisionInspectionStation';
@@ -52,7 +53,8 @@ assert(registry.raycastMeshes.length>=COMPONENT_NAMES.length,'visibility restora
 for(const lang of ['en','zh','ms']){
   const copy=phase4Translations[lang].station;
   assert(copy.actions.explode&&copy.actions.reassemble&&copy.actions.resetAll,`${lang} assembly controls are incomplete`);
-  assert(copy.states.exploded&&copy.states.isolated,`${lang} interaction states are incomplete`);
+  assert(copy.states.exploded&&copy.states.isolated&&copy.states.partial&&copy.states.scrubbing,`${lang} interaction states are incomplete`);
+  assert(copy.assemblyControl?.title&&copy.assemblyControl?.progress&&copy.assemblyControl?.manual&&copy.assemblyControl?.sliderLabel,`${lang} progress control copy is incomplete`);
   [...COMPONENT_NAMES,...DETAIL_DEFINITIONS.map((item)=>item.key)].forEach((key)=>{
     const detail=copy.componentDetails[key];
     assert(detail?.name&&detail?.system&&detail?.function&&detail?.construction,`${lang} copy missing ${key}`);

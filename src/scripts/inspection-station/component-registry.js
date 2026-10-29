@@ -11,14 +11,14 @@ export const DETAIL_DEFINITIONS=[
 ];
 
 export const EXPLOSION_PLAN={
-  MainChassis:{direction:[-.48,0,-.04],delay:.04,returnDelay:.34},
-  InspectionChamber:{direction:[0,.08,.52],delay:.16,returnDelay:.22},
-  OpticalAssembly:{direction:[0,.62,.08],delay:.30,returnDelay:.08},
-  ConveyorAssembly:{direction:[0,-.34,.57],delay:.24,returnDelay:.14},
-  ControlModule:{direction:[.62,.04,.22],delay:.38,returnDelay:.02},
-  CoolingAssembly:{direction:[0,.03,-.62],delay:.44,returnDelay:0},
-  MechanicalConnections:{direction:[-.28,-.25,.20],delay:0,returnDelay:.42},
-  CableAssembly:{direction:[.28,.20,-.14],delay:.10,returnDelay:.30}
+  MainChassis:{direction:[-.48,0,-.04],start:.04,end:.72},
+  InspectionChamber:{direction:[0,.08,.52],start:.16,end:.82},
+  OpticalAssembly:{direction:[0,.62,.08],start:.30,end:.94},
+  ConveyorAssembly:{direction:[0,-.34,.57],start:.24,end:.90},
+  ControlModule:{direction:[.62,.04,.22],start:.38,end:.98},
+  CoolingAssembly:{direction:[0,.03,-.62],start:.44,end:1},
+  MechanicalConnections:{direction:[-.28,-.25,.20],start:0,end:.56},
+  CableAssembly:{direction:[.28,.20,-.14],start:.10,end:.76}
 };
 
 function meshesUnder(node){
@@ -104,6 +104,12 @@ export class ComponentRegistry{
       const to=parent.localToWorld(record.original.position.clone().add(localOffset));
       bounds.union(record.assembledBounds.clone().translate(to.sub(from)));
     });
+    return bounds;
+  }
+
+  getCurrentBounds(){
+    const bounds=new THREE.Box3();
+    this.majorRecords.forEach((record)=>bounds.union(boundsFromMeshes(record.meshes)));
     return bounds;
   }
 

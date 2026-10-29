@@ -1,0 +1,59 @@
+{
+  "desktop": {
+    "forward": [
+      0,
+      25,
+      50,
+      75,
+      100
+    ],
+    "reverseToZero": true,
+    "keyboard": {
+      "home": true,
+      "end": true,
+      "aria": "0% — Assembled"
+    },
+    "autoInterrupted": {
+      "autoProgress": 35,
+      "heldProgress": 35
+    },
+    "partialSelection": {
+      "progress": 65,
+      "selected": "Optical Inspection Assembly",
+      "isolationRestored": true
+    },
+    "reset": {
+      "progress": 0,
+      "state": "Assembly ready"
+    },
+    "continuousInput": {
+      "count": 80,
+      "uniqueValues": 80,
+      "durationMs": 2017
+    },
+    "horizontalOverflow": false
+  },
+  "mobile": {
+    "390": {
+      "progress": 50,
+      "horizontalOverflow": false,
+      "sliderWidth": 329
+    },
+    "768": {
+      "progress": 50,
+      "horizontalOverflow": false,
+      "sliderWidth": 668
+    }
+  },
+  "locales": {
+    "zh": {
+      "title": "精密装配控制",
+      "aria": "装配拆解进度"
+    },
+    "ms": {
+      "title": "Kawalan Pemasangan Tepat",
+      "aria": "Kemajuan pemasangan"
+    }
+  },
+  "errors": []
+}

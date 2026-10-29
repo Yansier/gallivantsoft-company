@@ -136,10 +136,13 @@ export async function createInspectionViewer({root,canvas,stage,modelUrl,expecte
 
   const state=()=>({
     assembly:assembly?.state||'assembled',
+    assemblyProgress:assembly?.getProgress()||0,
+    assemblyMode:assembly?.mode||'idle',
+    targetProgress:assembly?.targetProgress||0,
     selectedKey:selection?.selected?.key||null,
     selectedType:selection?.selected?.type||null,
     isolated:Boolean(selection?.isolated),
-    displayState:selection?.isolated?'isolated':assembly?.state||'assembled',
+    displayState:assembly?.state||'assembled',
     message:lastMessage
   });
   const emit=(message=lastMessage)=>{lastMessage=message;onInteraction?.(state());};
@@ -166,10 +169,10 @@ export async function createInspectionViewer({root,canvas,stage,modelUrl,expecte
     reset:defaultDirection
   };
 
-  const currentBounds=()=>assembly.state==='exploded'||assembly.state==='exploding'?registry.getExplodedBounds():box;
+  const currentBounds=()=>registry.getCurrentBounds();
   const moveToView=(name)=>{
     const bounds=currentBounds();
-    if(name==='reset')cameraController.reset();
+    if(name==='reset')cameraController.moveTo({bounds,direction:defaultDirection,duration:760,margin:1.12,restoreRange:true});
     else cameraController.moveTo({bounds,direction:directions[name]||defaultDirection,duration:680,margin:name==='three-quarter'?1.18:1.14,restoreRange:true});
   };
 
@@ -212,12 +215,23 @@ export async function createInspectionViewer({root,canvas,stage,modelUrl,expecte
       cameraController.focus(registry.getBounds(selection.selected));emit('isolated');return true;
     },
     showFull(){selection.showFull();emit('fullAssembly');return true;},
+    beginAssemblyScrub(){
+      assembly.beginScrub();
+      cameraController.ensureBounds(registry.getExplodedBounds());
+      return true;
+    },
+    setAssemblyProgress(value){
+      assembly.setProgress(value,{mode:assembly.mode==='scrubbing'?'scrubbing':'manual'});
+      render();
+      return true;
+    },
+    endAssemblyScrub(){assembly.endScrub();return true;},
     explode(){
-      if(assembly.state==='exploded'||assembly.state==='exploding')return false;
+      if(assembly.getProgress()>=1-1e-6&&assembly.state!=='assembling')return false;
       selection.showFull();assembly.explode();cameraController.frameExploded(registry.getExplodedBounds());emit('exploding');return true;
     },
     reassemble(){
-      if(assembly.state==='assembled'||assembly.state==='assembling')return false;
+      if(assembly.getProgress()<=1e-6&&assembly.state!=='exploding')return false;
       selection.showFull();assembly.reassemble();cameraController.reset();emit('assembling');return true;
     },
     resetAll(){
