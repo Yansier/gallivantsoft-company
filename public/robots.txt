@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Add a Sitemap line after setting productionDomain in src/config/site.js and rebuilding.

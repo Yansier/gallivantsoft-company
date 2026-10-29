@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+import { siteConfig } from '../config/site.js';
+const { lang='en', title, description, pathname='/', isRoot=false, bodyClass='' } = Astro.props;
+const domain = siteConfig.productionDomain.replace(/\/$/, '');
+const canonical = domain ? `${domain}${pathname}` : '';
+const ogImage = domain ? `${domain}/og-image.svg` : '';
+const organization = {
+  '@context': 'https://schema.org', '@type': 'Organization', name: siteConfig.companyName,
+  description: 'Software Engineering & Digital Solutions', email: siteConfig.email, telephone: siteConfig.phoneRaw,
+  address: { '@type': 'PostalAddress', addressCountry: 'MY' }, ...(domain ? { url: domain, logo: `${domain}/logo-mark.svg` } : {})
+};
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="theme-color" content="#0B132B"/>
+    <title>{title}</title><meta name="description" content={description}/><meta name="robots" content="index,follow,max-image-preview:large"/>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+    {canonical && <link rel="canonical" href={canonical}/>} 
+    <link rel="alternate" hreflang="en" href={domain ? `${domain}/en/` : '/en/'}/><link rel="alternate" hreflang="zh-Hans" href={domain ? `${domain}/zh/` : '/zh/'}/><link rel="alternate" hreflang="ms" href={domain ? `${domain}/ms/` : '/ms/'}/><link rel="alternate" hreflang="x-default" href={domain ? `${domain}/` : '/'}/>
+    <meta property="og:type" content="website"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/>{canonical && <meta property="og:url" content={canonical}/>} {ogImage && <meta property="og:image" content={ogImage}/>}<meta property="og:site_name" content="GallivantSoft"/>
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'}/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/>
+    <script type="application/ld+json" set:html={JSON.stringify(organization)}></script>
+  </head>
+  <body class={bodyClass} data-lang={lang} data-root-entry={isRoot ? 'true' : undefined}>
+    <slot />
+  </body>
+</html>

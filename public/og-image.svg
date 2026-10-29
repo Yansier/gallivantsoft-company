@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0B132B"/><stop offset="1" stop-color="#132A55"/></linearGradient><linearGradient id="g"><stop stop-color="#4EE1C1"/><stop offset="1" stop-color="#3A86FF"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><circle cx="980" cy="100" r="260" fill="#3A86FF" opacity=".12"/><circle cx="180" cy="610" r="300" fill="#4EE1C1" opacity=".08"/>
+  <path d="M200 195a105 105 0 1 0 7 127h-83v-63h139v150h-50l-6-40A144 144 0 1 1 230 170z" fill="url(#g)"/><path d="m175 220 55-55 11 66-28-22z" fill="#fff"/>
+  <text x="350" y="284" fill="#fff" font-family="Arial,sans-serif" font-size="80" font-weight="700">GallivantSoft</text><text x="355" y="350" fill="#9FB1D1" font-family="Arial,sans-serif" font-size="34">Engineering Digital Momentum.</text>
+</svg>

@@ -1,0 +1,13 @@
+---
+const { type } = Astro.props;
+---
+<svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true">
+  {type === 'web' && <><rect x="5" y="8" width="38" height="30" rx="5"/><path d="M5 16h38M12 12h.1M17 12h.1M22 12h.1M15 25l-4 4 4 4M33 25l4 4-4 4M27 22l-6 14"/></>}
+  {type === 'mobile' && <><rect x="13" y="4" width="22" height="40" rx="6"/><path d="M19 9h10M21 38h6M19 17h10v14H19z"/></>}
+  {type === 'software' && <><path d="M8 14l16-9 16 9v20l-16 9-16-9zM8 14l16 9 16-9M24 23v20"/><path d="M16 10l16 9v10"/></>}
+  {type === 'api' && <><circle cx="12" cy="24" r="5"/><circle cx="36" cy="12" r="5"/><circle cx="36" cy="36" r="5"/><path d="M17 22l14-7M17 27l14 7"/></>}
+  {type === 'cloud' && <><path d="M14 37h22a8 8 0 0 0 1-16 13 13 0 0 0-25-2 9 9 0 0 0 2 18z"/><path d="M24 19v13M19 27l5 5 5-5"/></>}
+  {type === 'support' && <><path d="M8 25a16 16 0 0 1 32 0v9a5 5 0 0 1-5 5h-5"/><rect x="5" y="24" width="8" height="12" rx="4"/><rect x="35" y="24" width="8" height="12" rx="4"/><path d="M22 39h8"/></>}
+</svg>
+
+<style>.service-icon{width:2.25rem;height:2.25rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>

@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import TechVisual from './TechVisual.astro';
+import ServiceIcon from './ServiceIcon.astro';
+import { getContent, translations } from '../i18n/content.js';
+import { serviceIcons, solutionVisuals } from '../data/visuals.js';
+import { siteConfig, contactLinks, whatsappLink } from '../config/site.js';
+import siteScriptUrl from '../scripts/site.js?url';
+
+const messages = {
+  en: 'Hello GallivantSoft, I would like to discuss a software project.',
+  zh: '您好 GallivantSoft，我想咨询一个软件项目。',
+  ms: 'Hai GallivantSoft, saya ingin berbincang tentang satu projek perisian.'
+};
+type Language = keyof typeof translations;
+interface Props { lang?: Language; isRoot?: boolean; }
+const { lang='en', isRoot=false } = Astro.props as Props;
+const t = getContent(lang) as typeof translations.en;
+const pathname = isRoot ? '/' : `/${lang}/`;
+const whatsapp = whatsappLink(messages[lang]);
+---
+<BaseLayout lang={lang} title={t.meta.title} description={t.meta.description} pathname={pathname} isRoot={isRoot}>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <Header t={t} lang={lang} isRoot={isRoot}/>
+  <main id="main">
+    <section class="hero dark-section" id="top">
+      <div class="hero-glow glow-a" aria-hidden="true"></div><div class="hero-glow glow-b" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span></span>{t.hero.eyebrow}</p>
+          <h1>{t.hero.title}</h1>
+          <p class="hero-lead">{t.hero.description}</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="#services">{t.hero.primary}<span>↓</span></a><a class="btn btn-ghost" href={whatsapp} target="_blank" rel="noopener noreferrer">{t.hero.secondary}<span>↗</span></a></div>
+          <div class="hero-meta"><span><i>MY</i>{t.contact.location}</span><span><i>01</i>{t.about.principles[0]}</span></div>
+        </div>
+        <div class="hero-visual reveal"><TechVisual copy={t.hero}/></div>
+      </div>
+      <div class="hero-ticker" aria-hidden="true"><div><span>WEB ENGINEERING</span><i>✦</i><span>MOBILE PRODUCTS</span><i>✦</i><span>CUSTOM SYSTEMS</span><i>✦</i><span>CONNECTED INFRASTRUCTURE</span><i>✦</i><span>WEB ENGINEERING</span></div></div>
+    </section>
+
+    <section class="about section light-section" id="about">
+      <div class="container about-grid">
+        <div class="section-heading sticky-heading reveal"><p class="eyebrow dark"><span></span>{t.about.eyebrow}</p><h2>{t.about.title}</h2></div>
+        <div class="about-content reveal"><div class="about-prose">{t.about.paragraphs.map((p)=><p>{p}</p>)}</div><div class="principle-grid">{t.about.principles.map((item,index)=><div><span>0{index+1}</span><b>{item}</b></div>)}</div></div>
+      </div>
+    </section>
+
+    <section class="services section" id="services">
+      <div class="container">
+        <div class="section-heading centered reveal"><p class="eyebrow dark"><span></span>{t.services.eyebrow}</p><h2>{t.services.title}</h2><p>{t.services.lead}</p></div>
+        <div class="service-grid">
+          {t.services.items.map((service,index)=><article class="service-card reveal">
+            <div class="service-top"><span class="service-icon-wrap"><ServiceIcon type={serviceIcons[index]}/></span><span class="service-number">0{index+1}</span></div>
+            <h3>{service.title}</h3><p>{service.text}</p><ul>{service.tags.map((tag)=><li>{tag}</li>)}</ul>
+            <button type="button" class="text-button" data-service-toggle aria-expanded="false"><span data-more={t.services.learn} data-less={t.services.close}>{t.services.learn}</span><i>＋</i></button>
+            <div class="service-detail" data-service-detail hidden><p>{service.detail}</p></div>
+          </article>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="solutions section dark-section" id="solutions">
+      <div class="container">
+        <div class="section-heading split-heading reveal"><div><p class="eyebrow"><span></span>{t.solutions.eyebrow}</p><h2>{t.solutions.title}</h2></div><p>{t.solutions.lead}</p></div>
+        <div class="solution-grid">
+          {t.solutions.items.map((solution,index)=>{const visual=solutionVisuals[index];return <article class:list={['solution-card','reveal',visual.tone]}>
+            <div class="solution-ui" aria-hidden="true"><div class="ui-toolbar"><i></i><i></i><i></i><b>{visual.metric}</b></div><div class="ui-body"><aside><i></i><i></i><i></i></aside><div class="ui-content"><span></span><span></span><div class="mini-bars">{visual.bars.map((bar)=><i style={`--bar:${bar}%`}></i>)}</div></div></div></div>
+            <div class="solution-copy"><span>0{index+1}</span><h3>{solution.title}</h3><p>{solution.text}</p></div>
+          </article>})}
+        </div>
+      </div>
+    </section>
+
+    <section class="process section" id="process">
+      <div class="container"><div class="section-heading centered reveal"><p class="eyebrow dark"><span></span>{t.process.eyebrow}</p><h2>{t.process.title}</h2></div>
+        <ol class="process-track">{t.process.items.map((step)=><li class="reveal"><span>{step.n}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}</ol>
+      </div>
+    </section>
+
+    <section class="why section light-section">
+      <div class="container why-grid">
+        <div class="why-copy reveal"><p class="eyebrow dark"><span></span>{t.why.eyebrow}</p><h2>{t.why.title}</h2><p class="why-lead">{t.why.lead}</p><div class="why-list">{t.why.items.map((item,index)=><article><span>0{index+1}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>)}</div></div>
+        <div class="architecture reveal" aria-label="Scalable system architecture concept"><div class="arch-ring ring-one"></div><div class="arch-ring ring-two"></div><div class="arch-core"><img src="/logo-mark.svg" alt=""/><b>CORE</b></div><div class="arch-node n1"><i>01</i><span>WEB</span></div><div class="arch-node n2"><i>02</i><span>APP</span></div><div class="arch-node n3"><i>03</i><span>API</span></div><div class="arch-node n4"><i>04</i><span>CLOUD</span></div></div>
+      </div>
+    </section>
+
+    <section class="faq section" id="faq">
+      <div class="container faq-grid"><div class="section-heading reveal"><p class="eyebrow dark"><span></span>{t.faq.eyebrow}</p><h2>{t.faq.title}</h2></div><div class="faq-list reveal">{t.faq.items.map((item,index)=><details><summary><span><i>0{index+1}</i>{item.q}</span><b>＋</b></summary><div><p>{item.a}</p></div></details>)}</div></div>
+    </section>
+
+    <section class="contact dark-section" id="contact">
+      <div class="container contact-panel reveal"><div><p class="eyebrow"><span></span>{t.contact.eyebrow}</p><h2>{t.contact.title}</h2><p>{t.contact.text}</p><small>{t.contact.note}</small></div><div class="contact-actions"><a class="btn btn-mint" href={whatsapp} target="_blank" rel="noopener noreferrer">{t.contact.whatsapp}<span>↗</span></a><a href={contactLinks.email}><span>✉</span><b>{t.contact.email}</b><small>{siteConfig.email}</small></a><a href={contactLinks.phone}><span>↗</span><b>{t.contact.call}</b><small>{siteConfig.phoneDisplay}</small></a></div></div>
+    </section>
+  </main>
+  <Footer t={t} lang={lang} isRoot={isRoot}/>
+  <button class="back-top" type="button" data-back-top aria-label={t.footer.top}>↑</button>
+  <script src={siteScriptUrl} type="module"></script>
+</BaseLayout>

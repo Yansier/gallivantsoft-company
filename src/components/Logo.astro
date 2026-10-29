@@ -1,0 +1,15 @@
+---
+const { light = false, compact = false } = Astro.props;
+---
+<span class:list={['brand-logo', { light, compact }]}>
+  <svg viewBox="0 0 64 64" aria-hidden="true">
+    <defs><linearGradient id="brand-gradient" x1="8" y1="56" x2="55" y2="8" gradientUnits="userSpaceOnUse"><stop stop-color="#4EE1C1"/><stop offset="1" stop-color="#3A86FF"/></linearGradient></defs>
+    <path d="M46.5 19.5a19 19 0 1 0 1.4 23H33V31h25v27h-9l-1.1-7.2A26 26 0 1 1 52 15z" fill="url(#brand-gradient)"/>
+    <path d="m42 24 10-10 2 12-5-4z" fill={light ? '#fff' : '#0B132B'}/>
+  </svg>
+  <span><b>Gallivant</b>Soft</span>
+</span>
+
+<style>
+  .brand-logo{display:inline-flex;align-items:center;gap:.65rem;color:#0b132b;font-size:1.15rem;font-weight:600;letter-spacing:-.035em;white-space:nowrap}.brand-logo svg{width:2.15rem;height:2.15rem;overflow:visible}.brand-logo b{font-weight:850}.brand-logo.light{color:#fff}.brand-logo.compact{font-size:1rem}.brand-logo.compact svg{width:1.85rem;height:1.85rem}
+</style>
