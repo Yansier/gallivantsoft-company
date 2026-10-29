@@ -2,7 +2,7 @@
 
 ## Asset scope
 
-`Precision Inspection Station`（精密工业检测工作站）是 GallivantSoft Interactive Lab 的原创工业设备资产。它作为独立资产交付，当前没有接入网站导航，也没有替换 Digital Operations Twin 的既有模型或工作流。
+`Precision Inspection Station`（精密工业检测工作站）是 GallivantSoft Interactive Lab 的原创工业设备资产。资产现已接入独立的三语交互式装配浏览器，但没有替换 Digital Operations Twin 的既有模型或工作流。
 
 设计尺寸采用米制单位，整体约为 `4.33 m × 2.34 m × 2.96 m`。造型语言以深石墨灰的倒角机柜、银色结构件、哑光黑检修区和少量科技蓝/青绿色状态光为主，避免科幻化和高饱和塑料感。
 
@@ -15,6 +15,7 @@
 - 源场景统计：`assets/models/precision-inspection-station.report.json`
 - GLB 回导统计：`assets/models/precision-inspection-station.validation.json`
 - 真实渲染图：`assets/renders/precision-inspection-station/`
+- 浏览器交互验收图：`docs/screenshots/inspection-station/`
 
 资产不依赖外部模型、外部贴图、字体文件或其他本地资源。所有几何、材质、灯光和渲染视角均由生成脚本创建。
 
@@ -32,7 +33,7 @@ PrecisionInspectionStation
 └── CableAssembly
 ```
 
-主要组件均为根节点下的独立子层级，零件保持独立对象，便于下一阶段选择、隔离和爆炸拆解。原始状态为完整装配状态；本阶段没有加入拆解动画。
+主要组件均为根节点下的独立子层级，零件保持独立对象。浏览器装配浏览器将这八组作为主要选择层级，并额外从稳定节点名组织五个精选细节组：光学镜头、检测头、滚轴组、控制面板和双风扇。原始状态保持完整装配。
 
 ### MainChassis
 
@@ -123,16 +124,30 @@ GLB 三角面数高于 Blender 源场景的 evaluated 统计，是因为 glTF �
 - `rear-view.png`：后部双风扇、真实扇叶、护网、中央检修门和风道百叶。
 - `close-up-detail-view.png`：控制台、透明检测舱、环形光源和滚轴近景。
 
-预览资产时可直接打开 `.blend` 查看产品摄影棚，也可在 Blender、Three.js Editor 或任意支持 glTF 2.0 的查看器中加载 GLB。GLB 不包含摄影棚地面、背景、相机或灯光，便于未来在独立 Three.js 预览页中自行布光。
+预览资产时可直接打开 `.blend` 查看产品摄影棚，也可在本地开发服务中打开 `/en/showcase/inspection-station/`（另有 `/zh/`、`/ms/` 对应路径）。网页先显示 `three-quarter-view.png`，用户主动启动后才下载 GLB。GLB 不包含摄影棚地面、背景、相机或灯光；浏览器使用本地 `RoomEnvironment`、PMREM、产品布光、接触阴影、ACES 色调映射和正确色彩空间完成实时展示。
+
+## Interactive explorer architecture
+
+- `component-registry.js`：验证八个顶层组件，建立网格到主要组件/精选细节组的映射，并保存父节点、局部位置、旋转、缩放和矩阵快照。
+- `selection-controller.js`：用 Raycaster 处理点击与拖动阈值，透明材质降权；高亮通过克隆运行时材质与 `Box3Helper` 实现，不修改 GLB 共享 PBR 材质。HTML 标签每帧从所选包围盒锚点投影到屏幕，并限制在可视边界内。
+- `assembly-controller.js`：按设备结构使用预设方向、距离、延迟和缓动拆分前舱、传送、光学、控制、散热、连接和线缆组件；重组始终以原始快照为终点，并支持动画中途反向。
+- `camera-controller.js`：根据所选对象或完整装配的包围球、视场角和画布宽高比计算相机距离，提供平滑聚焦、产品固定视角和用户操作中断。
+- `animation-scheduler.js`：统一相机与装配动画的 RAF；无动画/无交互时按需渲染，页面隐藏时停止，卸载时释放事件、几何、材质、环境贴图和渲染器。
+
+隔离不会重新挂接网格：控制器仅保存并切换主要组件的可见性，恢复完整装配时还原全部层级。精选细节组隔离时保留其所属主要组件，但只显示该组登记的网格。这样不会破坏 GLB 父子关系或后续重组坐标。
+
+### Browser validation
+
+真实 Chrome 验收覆盖延迟加载、射线选择、标签跟随、聚焦、隔离、完整拆解/重组、动画中途反向、四个产品视角、语言切换、390px/768px 触控布局及 WebGL 禁用降级。GLB 在启动前请求数为 0，启动后仅请求 1 次；八个组件均由运行时层级检查确认，控制台无 error。
 
 ## Known limitations
 
-- 本阶段没有拆解动画、零件选择、隔离或重组交互。
-- 模型尚未接入现有 Digital Operations Twin，也没有加入正式网站导航。
-- 玻璃和程序化拉丝金属在 Three.js 等实时引擎中需要依据目标色调映射、环境贴图和透明排序做最终材质校准。
+- 当前精选交互粒度为八个主要组件和五个有展示价值的细节组；其余网格仍可随所属组件选择，但不会全部成为独立控制项。
+- 模型没有接入现有 Digital Operations Twin；它作为 Showcase 中的独立作品和独立路由保留。
+- 浏览器端无贴图 GLB 无法完全复现 Blender 程序化拉丝微表面与 Eevee 采样；实时材质经过非破坏性校准，源 GLB 未修改。
 - 控制屏内容为建模几何，不是可交互 UI。
 - Eevee 安全玻璃会呈现轻微的采样颗粒；源模型几何和透明层级本身保持完整。
 
-## Next-phase readiness
+## Transform and extension readiness
 
-根节点和八个主要组件采用稳定名称，重要零件保持独立、父子关系清晰，GLB 回导后层级仍然存在。下一阶段可围绕这些组件增加 `Component Selection`、`Exploded View`、`Isolate Component` 和 `Reassemble`，无需在本阶段修改现有网站工作流。
+根节点、八个主要组件与代表性子零件采用稳定名称，重要零件保持独立、父子关系清晰，GLB 回导后层级仍然存在。交互层通过注册表定义展示语义和拆解计划，不改写模型文件；未来如需增加更多重点零件，只需扩展细节组、技术文案与经过视觉验证的拆解路径。

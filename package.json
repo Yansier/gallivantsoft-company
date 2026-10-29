@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "astro dev",
     "check:3d": "node scripts/validate-digital-twin.mjs",
+    "check:inspection": "node scripts/validate-inspection-station-explorer.mjs",
     "build": "astro build && node scripts/generate-seo.mjs",
     "preview": "astro preview",
     "check": "astro check"

@@ -16,9 +16,15 @@ const viewerCopy=JSON.stringify({
   fallbackTitle:copy.fallbackTitle,
   fallbackText:copy.fallbackText,
   structureReady:copy.structureReady,
-  structureMissing:copy.structureMissing
+  structureMissing:copy.structureMissing,
+  noSelectionTitle:copy.noSelectionTitle,
+  noSelectionText:copy.noSelectionText,
+  componentDetails:copy.componentDetails,
+  states:copy.states,
+  messages:copy.messages
 }).replace(/</g,'\\u003c');
-const components=['MainChassis','InspectionChamber','OpticalAssembly','ConveyorAssembly','ControlModule','CoolingAssembly','MechanicalConnections','CableAssembly'];
+const components=['MainChassis','InspectionChamber','OpticalAssembly','ConveyorAssembly','ControlModule','CoolingAssembly','MechanicalConnections','CableAssembly'] as const;
+const detailComponents=['OpticalLens','InspectionHead','ConveyorRollers','ControlPanel','CoolingFans'] as const;
 ---
 <PageChrome lang={lang} t={t} meta={copy.meta} currentPage="showcase" pageKey="showcase/inspection-station" pathname={routeFor(lang,'showcase/inspection-station')} bodyClass="inner-page inspection-page">
   <main id="main">
@@ -62,6 +68,7 @@ const components=['MainChassis','InspectionChamber','OpticalAssembly','ConveyorA
               <button type="button" data-view="three-quarter" aria-pressed="true">{copy.views.threeQuarter}</button>
               <button type="button" data-view="reset">{copy.views.reset}</button>
             </div>
+            <div class="inspection-component-label" data-component-label hidden><i></i><span data-label-code></span><b data-label-name></b></div>
             <div class="inspection-hud"><span>PIS–400</span><small>{copy.sceneHelp}</small></div>
           </div>
 
@@ -69,10 +76,22 @@ const components=['MainChassis','InspectionChamber','OpticalAssembly','ConveyorA
             <span class="inspection-concept-label">{copy.originalLabel}</span>
             <h2>{copy.title}</h2>
             <p class="inspection-info-kicker">{copy.subtitle}</p>
-            <p>{copy.overviewText}</p>
-            <dl class="inspection-facts"><div><dt>{copy.dimensions}</dt><dd>4.33 × 2.34 × 2.96 m</dd></div><div><dt>{copy.components}</dt><dd>8</dd></div><div><dt>{copy.geometry}</dt><dd>115,140 {copy.triangles}</dd></div></dl>
-            <div class="inspection-components"><h3>{copy.componentTitle}</h3><p>{copy.componentIntro}</p><ul>{components.map((component)=><li data-component-name={component}><i></i>{component}</li>)}</ul></div>
+            <div class="inspection-state-bar"><span>{copy.explorerTitle}</span><b data-assembly-state>{copy.states.assembled}</b></div>
+
+            <section class="inspection-selected-panel" aria-live="polite">
+              <span>{copy.selectedComponent}</span>
+              <h3 data-selected-name>{copy.noSelectionTitle}</h3>
+              <p data-selected-intro>{copy.noSelectionText}</p>
+              <dl data-selected-details hidden><div><dt>{copy.systemLabel}</dt><dd data-selected-system></dd></div><div><dt>{copy.functionLabel}</dt><dd data-selected-function></dd></div><div><dt>{copy.constructionLabel}</dt><dd data-selected-construction></dd></div></dl>
+              <div class="inspection-component-actions"><button type="button" data-action="focus" disabled>{copy.actions.focus}</button><button type="button" data-action="isolate" disabled>{copy.actions.isolate}</button><button type="button" data-action="show-full" disabled>{copy.actions.showFull}</button><button type="button" data-action="clear-selection" disabled>{copy.actions.clearSelection}</button></div>
+            </section>
+
+            <section class="inspection-assembly-tools"><h3>{copy.assemblyControls}</h3><div><button type="button" data-action="explode" disabled>{copy.actions.explode}</button><button type="button" data-action="reassemble" disabled>{copy.actions.reassemble}</button><button type="button" data-action="reset-all" disabled>{copy.actions.resetAll}</button></div><p role="status" data-viewer-activity>{copy.messages.ready}</p></section>
+
+            <div class="inspection-components"><h3>{copy.componentGroups}</h3><ul>{components.map((component,index)=><li><button type="button" data-select-component={component} data-component-name={component} aria-pressed="false" disabled><i>{String(index+1).padStart(2,'0')}</i><span>{copy.componentDetails[component].name}</span></button></li>)}</ul></div>
+            <div class="inspection-detail-components"><h3>{copy.keyDetails}</h3><div>{detailComponents.map((component)=><button type="button" data-select-component={component} aria-pressed="false" disabled>{copy.componentDetails[component].name}</button>)}</div></div>
             <p class="inspection-structure-status" data-components-status>{copy.structurePending}</p>
+            <div class="inspection-quick-guide"><h3>{copy.interactionGuide}</h3><ul>{copy.hints.map((hint,index)=><li><i>{index+1}</i>{hint}</li>)}</ul></div>
             <div class="inspection-original-note"><b>{copy.originalNoteTitle}</b><p>{copy.originalNote}</p></div>
           </aside>
         </div>

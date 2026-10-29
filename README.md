@@ -1,6 +1,6 @@
 # GallivantSoft Official Website
 
-GallivantSoft Phase 4 企业官网。项目使用 Astro 生成纯静态站点，包含三语 Interactive Lab、按需加载的 Three.js 数字运营孪生体验、三个界面概念演示，以及本地邮件咨询流程。构建产物可直接部署到 Nginx。
+GallivantSoft Phase 4 企业官网。项目使用 Astro 生成纯静态站点，包含三语 Interactive Lab、按需加载的 Three.js 数字运营孪生、Precision Inspection Station 交互式装配浏览器、三个界面概念演示，以及本地邮件咨询流程。构建产物可直接部署到 Nginx。
 
 ## 环境要求
 
@@ -22,6 +22,7 @@ npm run dev
 
 ```bash
 npm run check
+npm run check:inspection
 npm run build
 ```
 
@@ -70,7 +71,7 @@ Phase 1 首页文案由 [`src/i18n/content.js`](src/i18n/content.js) 管理，Ph
 | About | `/en/about/` | `/zh/about/` | `/ms/about/` |
 | Contact | `/en/contact/` | `/zh/contact/` | `/ms/contact/` |
 
-Showcase 下另为 Digital Operations Twin、Operations Dashboard、Customer Management 与 Booking Workflow 各生成三种语言路由。自定义语言切换器通过替换首个路径段保留当前深层页面。
+Showcase 下另为 Digital Operations Twin、Precision Inspection Station、Operations Dashboard、Customer Management 与 Booking Workflow 各生成三种语言路由。自定义语言切换器通过替换首个路径段保留当前深层页面。
 
 语言切换会保留当前页面类型。根路由保留可在禁用 JavaScript 时阅读的英文内容；有 JavaScript 时会在没有手动偏好的情况下参考浏览器语言。
 
@@ -104,6 +105,14 @@ Contact 表单只进行浏览器端校验，并生成结构化邮件标题与正
 - 3D 包裹、流程阶段、KPI、状态与活动记录由 [`src/scripts/digital-twin/state.js`](src/scripts/digital-twin/state.js) 的单一状态模型同步驱动；
 - 场景使用共享几何体、受限像素比与按需帧渲染；小屏设备自动进入高效模式，页面隐藏时暂停动画，离开页面时释放 GPU 资源；
 - WebGL 不可用时显示可读降级信息，运营控制面板仍可使用；首页和 Showcase 列表仅渲染静态封面，不加载 Three.js。
+
+### Precision Inspection Station Assembly Explorer
+
+- 三语路由：`/{lang}/showcase/inspection-station/`；页面先显示 Blender 实拍渲染封面，只有点击启动按钮后才下载约 3.85 MiB 的现有 GLB 并动态加载 Three.js；
+- 浏览器直接读取 GLB 的八个顶层组件，并将光学镜头、检测头、滚轴组、控制面板与双风扇整理为五个有展示价值的细节组，不把 206 个网格全部暴露为按钮；
+- 支持模型点击选择、HTML/CSS 投影标注、非破坏性材质强调、自动包围盒聚焦、隔离/恢复、设计化爆炸拆解、可中断反向重组、固定产品视角及一键复位；
+- 所有原始局部变换在加载时保存，重复拆解/重组从快照计算目标位置，避免累计漂移；统一动画调度器在页面隐藏或静止时停止无意义渲染；
+- `npm run check:inspection` 验证 GLB 层级、代表性子零件、爆炸计划、细节隔离、八次往返变换无漂移和三语言技术说明。
 
 ## 修改 Logo
 
@@ -170,10 +179,12 @@ dist/              构建产物
 
 ## 当前验收结果
 
-- `pnpm run check`：51 个文件，0 errors / 0 warnings / 0 hints；
-- `pnpm run build`：成功生成 35 个静态页面；
+- `pnpm run check`：63 个文件，0 errors / 0 warnings / 0 hints；
+- `pnpm run check:inspection`：8 个主组件、5 个精选细节组、8 次无漂移往返和 3 种语言均通过；
+- `pnpm run build`：成功生成 38 个静态页面；
 - `productionDomain` 仍为空，因此不会生成包含虚构域名的绝对 sitemap；
 - 已在真实浏览器中检查 `375px`、`390px`、`768px`、`1024px`、`1440px`；代表页面均未出现整页横向溢出；
 - 已实际验证首页 CTA/Showcase 集成、1024px 导航、三语 Demo 路径保留、表单必填验证、邮件内容生成、剪贴板复制和超长内容回退；
 - 已实际操作数字孪生的启动、创建订单、开始、暂停/继续、完整流程、区域选择、重置与 WebGL 降级，并复验三个既有 Demo 路由；修复后的测试页面未出现新的控制台 error；
+- 已在真实 Chrome/SwiftShader 中验证 Precision Inspection Station 的延迟加载、射线选择、投影标签、聚焦、隔离、拆解/重组、中途反向、四个产品视角、三语路径、390px/768px 布局和 WebGL 静态封面降级；浏览器控制台无 error；
 - 默认邮件客户端由浏览器请求打开，但网站无法也不会验证用户是否最终发送或邮件是否送达。

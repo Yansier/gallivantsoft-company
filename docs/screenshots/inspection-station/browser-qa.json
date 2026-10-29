@@ -1,0 +1,36 @@
+{
+  "desktop": {
+    "status": "Precision Inspection Station 3D Viewer | GallivantSoft",
+    "glbBeforeLaunch": 0,
+    "raycastSelection": "Inspection Head",
+    "reverseMidAnimation": true,
+    "viewControls": true,
+    "glbAfterLaunch": 1,
+    "componentsStatus": "All eight GLB component groups verified.",
+    "horizontalOverflow": false,
+    "languageSwitch": "启动 3D 浏览器↗"
+  },
+  "mobile": {
+    "390": {
+      "selected": "Inspection Head",
+      "horizontalOverflow": false,
+      "canvas": {
+        "width": 364,
+        "height": 464
+      }
+    },
+    "768": {
+      "selected": "Inspection Head",
+      "horizontalOverflow": false,
+      "canvas": {
+        "width": 718,
+        "height": 544
+      }
+    }
+  },
+  "fallback": {
+    "visible": true,
+    "coverVisible": true
+  },
+  "errors": []
+}

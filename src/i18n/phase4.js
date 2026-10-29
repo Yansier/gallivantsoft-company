@@ -82,9 +82,78 @@ const stationTranslations = {
   }
 };
 
+const explorerTranslations = {
+  en: {
+    explorerTitle:'Assembly explorer',selectedComponent:'Selected component',noSelectionTitle:'Select a component',noSelectionText:'Click the model or choose a named assembly below to inspect its role.',systemLabel:'System',functionLabel:'Function',constructionLabel:'Structure',assemblyControls:'Assembly controls',componentGroups:'Primary assemblies',keyDetails:'Key detail groups',interactionGuide:'Quick controls',
+    actions:{focus:'Focus Component',isolate:'Isolate Component',showFull:'Show Full Assembly',clearSelection:'Reset Selection',explode:'Explode Assembly',reassemble:'Reassemble',resetAll:'Reset All'},
+    hints:['Drag to Rotate','Scroll or Pinch to Zoom','Click a Component','Explode and Reassemble'],
+    states:{assembled:'Assembly ready',exploding:'Exploding assembly',exploded:'Exploded view',assembling:'Reassembling',isolated:'Component isolated'},
+    messages:{ready:'Viewer ready. Select a component or explode the assembly.',selected:'Component selected.',selectionCleared:'Selection cleared.',focused:'Camera focused on the selected component.',isolated:'Selected component isolated.',fullAssembly:'Full assembly restored.',exploding:'Beginning staged assembly separation.',exploded:'Exploded assembly ready for inspection.',assembling:'Returning every component to its saved transform.',assembled:'Assembly restored without transform drift.',reset:'Viewer, selection, visibility, and assembly reset.'},
+    componentDetails:{
+      MainChassis:{name:'Main Chassis',system:'Structural enclosure',function:'Supports and protects the inspection systems.',construction:'Chamfered shell sections, service panels, handles, hinges, seams, and controlled fasteners.'},
+      InspectionChamber:{name:'Inspection Chamber',system:'Safety enclosure',function:'Defines the protected volume where visual inspection takes place.',construction:'Independent metal frame, transparent safety glazing, door hardware, internal liner, and inspection lighting.'},
+      OpticalAssembly:{name:'Optical Inspection Assembly',system:'Optical inspection',function:'Concept assembly for image capture and controlled illumination.',construction:'Camera body, adjustable carriage, multi-stage lens, gantry brackets, focus ring, and ring light.'},
+      ConveyorAssembly:{name:'Conveyor Assembly',system:'Material handling',function:'Moves a part through the inspection envelope.',construction:'Nineteen rollers, bearings, guide rails, cross-members, drive wheels, and rubber tyres.'},
+      ControlModule:{name:'Control Module',system:'Operator interface',function:'Provides local concept controls and visible machine status.',construction:'Angled housing, recessed screen, status geometry, buttons, rotary encoder, and emergency stop.'},
+      CoolingAssembly:{name:'Cooling Assembly',system:'Thermal management',function:'Represents forced-air cooling for enclosed equipment.',construction:'Twin seven-blade fans, hubs, rings, protective grilles, central duct, and raised louvres.'},
+      MechanicalConnections:{name:'Mechanical Connections',system:'Mounting and service',function:'Connects, supports, levels, and secures the major equipment sections.',construction:'Levelling feet, stems, corner brackets, cable glands, fasteners, and status beacon.'},
+      CableAssembly:{name:'Cable Routing',system:'Power and signal routing',function:'Connects the optical, control, and cooling concept subsystems.',construction:'Three routed curve cables with defined endpoints and independent retaining clips.'},
+      OpticalLens:{name:'Optical Lens Stack',system:'Optical Assembly · Detail A1',function:'Represents the layered image-capture optics.',construction:'Three lens elements and a dedicated focus ring retain clear concentric geometry.'},
+      InspectionHead:{name:'Inspection Head',system:'Optical Assembly · Detail A2',function:'Combines sensor housing, adjustment, and local illumination.',construction:'Camera body and carriage are grouped with the independent ring-light housing and emitter.'},
+      ConveyorRollers:{name:'Conveyor Roller Bank',system:'Conveyor Assembly · Detail B1',function:'Provides the visible transport surface through the chamber.',construction:'Nineteen individually modelled metal rollers form a consistent serviceable bank.'},
+      ControlPanel:{name:'Operator Control Panel',system:'Control Module · Detail C1',function:'Groups the screen and physical operator controls.',construction:'Screen layers, UI geometry, buttons, encoder, and emergency stop remain separate meshes.'},
+      CoolingFans:{name:'Twin Cooling Fans',system:'Cooling Assembly · Detail D1',function:'Shows the forced-air path at the rear of the enclosure.',construction:'Two complete fan groups include blades, hubs, rings, protective grille bars, and recesses.'}
+    }
+  },
+  zh: {
+    explorerTitle:'装配探索器',selectedComponent:'当前组件',noSelectionTitle:'请选择组件',noSelectionText:'点击模型，或从下方命名组件中选择，以查看它在设备中的作用。',systemLabel:'所属系统',functionLabel:'功能说明',constructionLabel:'结构特点',assemblyControls:'装配控制',componentGroups:'主要组件',keyDetails:'精选细节组',interactionGuide:'快速操作',
+    actions:{focus:'聚焦组件',isolate:'隔离组件',showFull:'显示完整装配',clearSelection:'取消选择',explode:'爆炸拆解',reassemble:'重新组装',resetAll:'全部重置'},
+    hints:['拖动旋转','滚轮或双指缩放','点击选择组件','拆解与重新组装'],
+    states:{assembled:'装配就绪',exploding:'正在拆解',exploded:'爆炸视图',assembling:'正在重新组装',isolated:'组件已隔离'},
+    messages:{ready:'浏览器已就绪，可选择组件或启动爆炸拆解。',selected:'组件已选中。',selectionCleared:'已取消组件选择。',focused:'相机已聚焦到选中组件。',isolated:'已隔离选中组件。',fullAssembly:'已恢复完整装配显示。',exploding:'正在按设计顺序分离组件。',exploded:'爆炸装配已就绪，可以继续查看组件。',assembling:'正在把所有组件恢复到保存的原始变换。',assembled:'装配已准确恢复，没有累计位移。',reset:'相机、选择、可见性与装配状态均已重置。'},
+    componentDetails:{
+      MainChassis:{name:'主机架',system:'结构外壳系统',function:'支撑并保护检测设备的各个系统。',construction:'由倒角壳体、检修面板、把手、铰链、接缝和适量紧固件组成。'},
+      InspectionChamber:{name:'检测舱',system:'安全防护系统',function:'定义视觉检测发生的受保护空间。',construction:'独立金属框架、安全玻璃、门部件、内部背板和检查照明。'},
+      OpticalAssembly:{name:'光学检测组件',system:'光学检测系统',function:'用于图像采集与受控照明的概念组件。',construction:'包含相机壳体、调节滑座、多级镜头、龙门支架、对焦环和环形灯。'},
+      ConveyorAssembly:{name:'传送机构',system:'物料输送系统',function:'将待检部件送入并通过检测空间。',construction:'包含 19 根滚轴、轴承、导轨、横梁、驱动轮和橡胶轮缘。'},
+      ControlModule:{name:'控制模块',system:'操作界面系统',function:'提供本地概念控制和设备状态显示。',construction:'斜面壳体、嵌入屏幕、状态几何、按钮、旋钮和急停开关。'},
+      CoolingAssembly:{name:'散热组件',system:'热管理系统',function:'表现封闭设备的强制空气散热结构。',construction:'双七叶风扇、轮毂、环架、护网、中央风道和有厚度的百叶。'},
+      MechanicalConnections:{name:'机械连接件',system:'安装与维护系统',function:'连接、支撑、调平并固定主要设备结构。',construction:'包含调平脚、支杆、角件、线缆接头、紧固件和状态塔灯。'},
+      CableAssembly:{name:'线缆路径',system:'电源与信号连接',function:'连接光学、控制与散热概念子系统。',construction:'三条具有明确端点的曲线线缆，以及独立的线缆固定夹。'},
+      OpticalLens:{name:'光学镜头组',system:'光学组件 · 细节 A1',function:'表现多层图像采集光学结构。',construction:'三片独立镜头与专用对焦环形成清晰同心几何。'},
+      InspectionHead:{name:'检测头',system:'光学组件 · 细节 A2',function:'组合传感器外壳、调节结构与局部照明。',construction:'相机壳体与滑座同独立环形灯壳体、发光结构共同成组。'},
+      ConveyorRollers:{name:'传送滚轴组',system:'传送组件 · 细节 B1',function:'形成贯穿检测舱的可见输送表面。',construction:'19 根独立建模的金属滚轴构成连续且可维护的滚轴组。'},
+      ControlPanel:{name:'操作控制面板',system:'控制模块 · 细节 C1',function:'组合屏幕和实体操作控件。',construction:'屏幕层、界面几何、按键、旋钮和急停开关均保持独立网格。'},
+      CoolingFans:{name:'双散热风扇',system:'散热组件 · 细节 D1',function:'展示设备后部的强制空气流动路径。',construction:'两套完整风扇均包含扇叶、轮毂、环架、护网支杆和安装凹槽。'}
+    }
+  },
+  ms: {
+    explorerTitle:'Penjelajah pemasangan',selectedComponent:'Komponen dipilih',noSelectionTitle:'Pilih komponen',noSelectionText:'Klik model atau pilih pemasangan bernama di bawah untuk memahami peranannya.',systemLabel:'Sistem',functionLabel:'Fungsi',constructionLabel:'Struktur',assemblyControls:'Kawalan pemasangan',componentGroups:'Pemasangan utama',keyDetails:'Kumpulan butiran utama',interactionGuide:'Kawalan pantas',
+    actions:{focus:'Fokus Komponen',isolate:'Asingkan Komponen',showFull:'Tunjukkan Pemasangan Penuh',clearSelection:'Kosongkan Pilihan',explode:'Leraikan Pemasangan',reassemble:'Pasang Semula',resetAll:'Tetapkan Semua Semula'},
+    hints:['Seret untuk Putar','Tatal atau Cubit untuk Zum','Klik Komponen','Lerai dan Pasang Semula'],
+    states:{assembled:'Pemasangan sedia',exploding:'Sedang meleraikan',exploded:'Paparan terlerai',assembling:'Sedang memasang semula',isolated:'Komponen diasingkan'},
+    messages:{ready:'Pelayar sedia. Pilih komponen atau leraikan pemasangan.',selected:'Komponen dipilih.',selectionCleared:'Pilihan dikosongkan.',focused:'Kamera difokuskan pada komponen dipilih.',isolated:'Komponen dipilih telah diasingkan.',fullAssembly:'Pemasangan penuh dipulihkan.',exploding:'Memulakan pemisahan pemasangan berperingkat.',exploded:'Pemasangan terlerai sedia untuk diperiksa.',assembling:'Mengembalikan setiap komponen kepada transformasi tersimpan.',assembled:'Pemasangan dipulihkan tanpa hanyutan transformasi.',reset:'Pelayar, pilihan, keterlihatan dan pemasangan ditetapkan semula.'},
+    componentDetails:{
+      MainChassis:{name:'Casis Utama',system:'Kepungan struktur',function:'Menyokong dan melindungi sistem pemeriksaan.',construction:'Bahagian cangkerang serong, panel servis, pemegang, engsel, sambungan dan pengikat terkawal.'},
+      InspectionChamber:{name:'Kebuk Pemeriksaan',system:'Kepungan keselamatan',function:'Mentakrifkan ruang terlindung untuk pemeriksaan visual.',construction:'Bingkai logam bebas, kaca keselamatan, perkakasan pintu, pelapik dalaman dan lampu pemeriksaan.'},
+      OpticalAssembly:{name:'Pemasangan Pemeriksaan Optik',system:'Pemeriksaan optik',function:'Pemasangan konsep untuk tangkapan imej dan pencahayaan terkawal.',construction:'Badan kamera, gerabak boleh laras, kanta berperingkat, pendakap gantri, gelang fokus dan lampu cincin.'},
+      ConveyorAssembly:{name:'Pemasangan Penghantar',system:'Pengendalian bahan',function:'Menggerakkan bahagian melalui ruang pemeriksaan.',construction:'Sembilan belas penggelek, galas, rel pandu, anggota silang, roda pemacu dan tayar getah.'},
+      ControlModule:{name:'Modul Kawalan',system:'Antara muka pengendali',function:'Memberi kawalan konsep setempat dan status mesin yang kelihatan.',construction:'Perumah bersudut, skrin terbenam, geometri status, butang, pengekod putar dan hentian kecemasan.'},
+      CoolingAssembly:{name:'Pemasangan Penyejukan',system:'Pengurusan haba',function:'Mewakili penyejukan udara paksa untuk peralatan tertutup.',construction:'Kipas berkembar tujuh bilah, hab, gelang, jeriji pelindung, salur tengah dan bilah udara timbul.'},
+      MechanicalConnections:{name:'Sambungan Mekanikal',system:'Pemasangan dan servis',function:'Menyambung, menyokong, meratakan dan mengikat bahagian peralatan utama.',construction:'Kaki perata, batang, pendakap sudut, gland kabel, pengikat dan suar status.'},
+      CableAssembly:{name:'Laluan Kabel',system:'Laluan kuasa dan isyarat',function:'Menyambungkan subsistem optik, kawalan dan penyejukan konsep.',construction:'Tiga kabel lengkung dengan titik akhir jelas dan klip penahan bebas.'},
+      OpticalLens:{name:'Tindanan Kanta Optik',system:'Pemasangan Optik · Butiran A1',function:'Mewakili optik tangkapan imej berlapis.',construction:'Tiga elemen kanta dan gelang fokus khusus mengekalkan geometri sepusat yang jelas.'},
+      InspectionHead:{name:'Kepala Pemeriksaan',system:'Pemasangan Optik · Butiran A2',function:'Menggabungkan perumah sensor, pelarasan dan pencahayaan setempat.',construction:'Badan kamera dan gerabak digabungkan dengan perumah serta pemancar lampu cincin bebas.'},
+      ConveyorRollers:{name:'Kumpulan Penggelek Penghantar',system:'Pemasangan Penghantar · Butiran B1',function:'Membentuk permukaan pengangkutan melalui kebuk.',construction:'Sembilan belas penggelek logam yang dimodelkan berasingan membentuk kumpulan yang konsisten.'},
+      ControlPanel:{name:'Panel Kawalan Pengendali',system:'Modul Kawalan · Butiran C1',function:'Mengumpulkan skrin dan kawalan fizikal pengendali.',construction:'Lapisan skrin, geometri UI, butang, pengekod dan hentian kecemasan kekal sebagai mesh berasingan.'},
+      CoolingFans:{name:'Kipas Penyejukan Berkembar',system:'Pemasangan Penyejukan · Butiran D1',function:'Menunjukkan laluan udara paksa di belakang kepungan.',construction:'Dua kumpulan lengkap merangkumi bilah, hab, gelang, bar jeriji pelindung dan ceruk.'}
+    }
+  }
+};
+
 export const phase4Translations = {
-  en: {...en,lab:{...en.lab,stationFeature:stationFeatures.en},station:stationTranslations.en},
-  zh: {...zh,lab:{...zh.lab,stationFeature:stationFeatures.zh},station:stationTranslations.zh},
-  ms: {...ms,lab:{...ms.lab,stationFeature:stationFeatures.ms},station:stationTranslations.ms}
+  en: {...en,lab:{...en.lab,stationFeature:stationFeatures.en},station:{...stationTranslations.en,...explorerTranslations.en}},
+  zh: {...zh,lab:{...zh.lab,stationFeature:stationFeatures.zh},station:{...stationTranslations.zh,...explorerTranslations.zh}},
+  ms: {...ms,lab:{...ms.lab,stationFeature:stationFeatures.ms},station:{...stationTranslations.ms,...explorerTranslations.ms}}
 };
 export function getPhase4Content(lang) { return phase4Translations[lang] || phase4Translations.en; }
