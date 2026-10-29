@@ -1,3 +1,5 @@
+import { localizedPath } from '../utils/routes.js';
+
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
 
@@ -11,13 +13,20 @@ menuButton?.addEventListener('click',()=>{const open=menuButton.getAttribute('ar
 mobileNav?.querySelectorAll('a').forEach((link)=>link.addEventListener('click',closeMenu));
 document.addEventListener('keydown',(event)=>{if(event.key==='Escape')closeMenu();});
 
-$$('[data-language-select]').forEach((select)=>select.addEventListener('change',()=>{
-  const language=select.value; try{localStorage.setItem('gallivantsoft-language',language);}catch{}
-  const segments=location.pathname.split('/').filter(Boolean); const supported=['en','zh','ms'];
-  if(supported.includes(segments[0]))segments[0]=language;else segments.unshift(language);
-  const target=`/${segments.join('/')}/`;
-  location.assign(`${target}${location.hash}`);
-}));
+$$('[data-language-switcher]').forEach((switcher)=>{
+  const trigger=$('[data-language-trigger]',switcher); const menu=$('[data-language-menu]',switcher); const options=$$('[data-language-option]',switcher);
+  const close=(restoreFocus=false)=>{trigger?.setAttribute('aria-expanded','false');if(menu)menu.hidden=true;if(restoreFocus)trigger?.focus();};
+  const open=(focusCurrent=false)=>{trigger?.setAttribute('aria-expanded','true');if(menu)menu.hidden=false;if(focusCurrent)(options.find((option)=>option.getAttribute('aria-checked')==='true')||options[0])?.focus();};
+  const toggle=()=>trigger?.getAttribute('aria-expanded')==='true'?close():open();
+  trigger?.addEventListener('click',toggle);
+  trigger?.addEventListener('keydown',(event)=>{if(['ArrowDown','Enter',' '].includes(event.key)){event.preventDefault();open(true);}});
+  options.forEach((option,index)=>{
+    option.addEventListener('click',()=>{const language=option.dataset.languageOption;try{localStorage.setItem('gallivantsoft-language',language);}catch{}location.assign(`${localizedPath(location.pathname,language)}${location.search}${location.hash}`);});
+    option.addEventListener('keydown',(event)=>{if(event.key==='Escape'){event.preventDefault();close(true);return;}if(!['ArrowDown','ArrowUp','Home','End'].includes(event.key))return;event.preventDefault();const target=event.key==='Home'?0:event.key==='End'?options.length-1:event.key==='ArrowDown'?(index+1)%options.length:(index-1+options.length)%options.length;options[target]?.focus();});
+  });
+  document.addEventListener('pointerdown',(event)=>{if(!switcher.contains(event.target))close();});
+  document.addEventListener('keydown',(event)=>{if(event.key==='Escape'&&trigger?.getAttribute('aria-expanded')==='true')close(true);});
+});
 
 if(document.body.dataset.rootEntry==='true'){
   let preferred=''; try{preferred=localStorage.getItem('gallivantsoft-language')||'';}catch{}

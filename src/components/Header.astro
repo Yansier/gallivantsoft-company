@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { languageNames } from '../i18n/content.js';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 import { routeFor, rootRouteFor } from '../utils/routes.js';
 const { t, lang, isRoot = false, currentPage = 'home' } = Astro.props;
 const homeHref = isRoot ? rootRouteFor('home') : routeFor(lang, 'home');
@@ -17,7 +17,7 @@ const hrefFor = (page:string) => page === 'home' ? homeHref : routeFor(lang, pag
       {navItems.map(([page,label]) => <a href={hrefFor(page)} class:list={{active:currentPage===page}} aria-current={currentPage===page?'page':undefined}>{label}</a>)}
     </nav>
     <div class="nav-actions">
-      <label class="language-control"><span class="sr-only">{t.nav.language}</span><select data-language-select aria-label={t.nav.language}>{Object.entries(languageNames).map(([code,name])=><option value={code} selected={code===lang}>{name}</option>)}</select></label>
+      <LanguageSwitcher lang={lang} label={t.nav.language} variant="header"/>
       <a class="nav-quote" href={routeFor(lang,'contact')} class:list={{active:currentPage==='contact'}}>{t.nav.quote}<span>↗</span></a>
       <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu"><i></i><i></i></button>
     </div>

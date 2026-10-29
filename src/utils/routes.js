@@ -15,3 +15,11 @@ export function rootRouteFor(page = 'home') {
 export function languageAlternates(page = 'home') {
   return Object.fromEntries(languages.map((lang) => [lang, routeFor(lang, page)]));
 }
+
+export function localizedPath(pathname = '/', lang = 'en') {
+  const language = languages.includes(lang) ? lang : 'en';
+  const segments = pathname.split('/').filter(Boolean);
+  if (languages.includes(segments[0])) segments[0] = language;
+  else segments.unshift(language);
+  return `/${segments.join('/')}/`;
+}
