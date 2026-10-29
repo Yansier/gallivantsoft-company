@@ -42,17 +42,23 @@ const backTop=$('[data-back-top]'); window.addEventListener('scroll',()=>backTop
 const year=$('[data-year]'); if(year)year.textContent=String(new Date().getFullYear());
 
 const projectForm=$('[data-project-form]');
-projectForm?.addEventListener('submit',(event)=>{
-  event.preventDefault();
+if(projectForm){
+  const output=$('[data-enquiry-output]',projectForm); const outputText=$('[data-enquiry-text]',projectForm); const status=$('[data-form-status]',projectForm);
+  const labels=$('[data-message-labels]',projectForm)?.dataset||{};
+  const clearErrors=()=>{$$('[data-error-for]',projectForm).forEach((error)=>error.classList.remove('show')); $$('[aria-invalid=true]',projectForm).forEach((field)=>field.removeAttribute('aria-invalid'));};
+  const prepareEnquiry=()=>{
   const form=new FormData(projectForm); const projectType=String(form.get('projectType')||'').trim(); const description=String(form.get('description')||'').trim();
-  $$('[data-error-for]',projectForm).forEach((error)=>error.classList.remove('show')); $$('[aria-invalid=true]',projectForm).forEach((field)=>field.removeAttribute('aria-invalid'));
+  clearErrors();
   const invalid=[];
   if(!projectType)invalid.push('projectType'); if(description.length<20)invalid.push('description');
   invalid.forEach((name)=>{const field=projectForm.elements.namedItem(name);field?.setAttribute('aria-invalid','true');$(`[data-error-for="${name}"]`,projectForm)?.classList.add('show');});
-  if(invalid.length){projectForm.elements.namedItem(invalid[0])?.focus();return;}
-  const labels=$('[data-message-labels]',projectForm)?.dataset||{};
+  if(invalid.length){projectForm.elements.namedItem(invalid[0])?.focus();return null;}
   const lines=[projectForm.dataset.messageTitle||'GallivantSoft project enquiry','',`${labels.projectType}: ${projectType}`,`${labels.description}: ${description}`];
   [['budget',labels.budget],['timeline',labels.timeline],['name',labels.name]].forEach(([name,label])=>{const value=String(form.get(name)||'').trim();if(value)lines.push(`${label}: ${value}`);});
-  const url=`${projectForm.dataset.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
-  window.open(url,'_blank','noopener,noreferrer');
-});
+  const body=lines.join('\n'); if(outputText)outputText.value=body; if(output)output.hidden=false; return body;
+  };
+  const setStatus=(message)=>{if(status)status.textContent=message||'';};
+  const copyEnquiry=async()=>{const body=prepareEnquiry();if(!body)return;try{if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');await navigator.clipboard.writeText(body);setStatus(labels.copied);}catch{outputText?.focus();outputText?.select();setStatus(labels.copyManual);}};
+  projectForm.addEventListener('submit',(event)=>{event.preventDefault();const body=prepareEnquiry();if(!body)return;const subject=projectForm.dataset.messageTitle||'GallivantSoft - New Project Enquiry';const url=`mailto:${projectForm.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;const limit=Number(projectForm.dataset.mailtoLimit)||1800;if(url.length>limit){outputText?.focus();setStatus(labels.mailtoLong);return;}setStatus(labels.mailOpened);window.location.href=url;});
+  $('[data-copy-enquiry]',projectForm)?.addEventListener('click',copyEnquiry);
+}

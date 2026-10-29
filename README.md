@@ -1,11 +1,13 @@
 # GallivantSoft Official Website
 
-GallivantSoft Phase 2 企业官网。项目使用 Astro 生成纯静态站点，在 Phase 1 首页的基础上扩展了 Services、Solutions、About 与 Contact 独立页面，并为英语、简体中文和 Bahasa Melayu 提供完整内容。构建产物可直接部署到 Nginx。
+GallivantSoft Phase 3 企业官网。项目使用 Astro 生成纯静态站点，在既有企业页面基础上加入三语 Interactive Software Showcase、三个可操作的软件概念演示，并将项目咨询重构为本地邮件流程。构建产物可直接部署到 Nginx。
 
 ## 环境要求
 
 - Node.js `>= 22.23.4`
 - npm `>= 9.6.5`
+
+也可以使用仓库已有的 `pnpm-lock.yaml`：`pnpm install && pnpm run dev`。
 
 ## 本地开发
 
@@ -41,16 +43,15 @@ npm run preview
 
 - 公司名、品牌副标题、国家；
 - 电话显示值与 `tel:` 值；
-- WhatsApp 号码；
 - 邮箱；
 - 生产域名；
 - 默认语言与支持语言。
 
-页面组件不单独写死联系方式。WhatsApp、邮件和电话按钮均从该配置生成可用链接。
+页面组件不单独写死联系方式。网站只保留邮件和电话两种正式联系入口，链接均从该配置生成。
 
 ## 修改多语言文案
 
-Phase 1 首页文案由 [`src/i18n/content.js`](src/i18n/content.js) 管理，Phase 2 内页文案位于 [`src/i18n/phase2.js`](src/i18n/phase2.js)。语言键包括：
+Phase 1 首页文案由 [`src/i18n/content.js`](src/i18n/content.js) 管理，Phase 2 内页文案位于 [`src/i18n/phase2.js`](src/i18n/phase2.js)，Phase 3 展示与 Demo 文案位于 [`src/i18n/phase3.js`](src/i18n/phase3.js)。语言键包括：
 
 - `en`：English
 - `zh`：简体中文
@@ -65,8 +66,11 @@ Phase 1 首页文案由 [`src/i18n/content.js`](src/i18n/content.js) 管理，Ph
 | Home | `/en/` | `/zh/` | `/ms/` |
 | Services | `/en/services/` | `/zh/services/` | `/ms/services/` |
 | Solutions | `/en/solutions/` | `/zh/solutions/` | `/ms/solutions/` |
+| Showcase | `/en/showcase/` | `/zh/showcase/` | `/ms/showcase/` |
 | About | `/en/about/` | `/zh/about/` | `/ms/about/` |
 | Contact | `/en/contact/` | `/zh/contact/` | `/ms/contact/` |
+
+Showcase 下另为 Operations Dashboard、Customer Management 与 Booking Workflow 各生成三种语言路由。语言切换通过替换首个路径段保留当前 Demo 页面。
 
 语言切换会保留当前页面类型。根路由保留可在禁用 JavaScript 时阅读的英文内容；有 JavaScript 时会在没有手动偏好的情况下参考浏览器语言。
 
@@ -79,7 +83,18 @@ Phase 1 首页文案由 [`src/i18n/content.js`](src/i18n/content.js) 管理，Ph
 
 技术参考集中在 [`src/data/technologies.js`](src/data/technologies.js)，用于项目规划展示，不代表未经确认的固定交付承诺。
 
-Contact 表单只进行浏览器端校验，并在通过校验后生成 WhatsApp 预填消息。网站不会把表单数据发送到自建服务器、数据库或本地存储，也不会显示虚假的“提交成功”状态。
+Contact 表单只进行浏览器端校验，并生成结构化邮件标题与正文，再通过 `mailto:` 请求打开用户的默认邮件客户端。页面不会宣称邮件已发送。用户也可以复制完整咨询内容；剪贴板 API 不可用时会显示并选中只读文本区域供手动复制。网站不会把咨询内容提交到自建服务器、数据库或本地存储。
+
+## Phase 3 Showcase
+
+- Showcase 首页明确把所有内容标记为 Interactive Concept Demo，不作为真实客户案例宣传；
+- `NexusOps`：统计周期、图表指标、交易筛选与后台导航均可操作；
+- `ClientOrbit`：支持虚构客户搜索、状态筛选、详情查看、状态修改与重置；
+- `FlowReserve`：支持订单筛选、详情查看、合理状态推进、取消与重置；
+- 所有模拟数据集中在 [`src/data/showcase/`](src/data/showcase/)；状态只保存在当前浏览器内存中；
+- Demo 不连接数据库、真实业务系统、支付、通知或第三方 API。
+
+旧即时通讯入口、配置、链接、事件处理与相关文案已经完全移除。首页、Contact、Privacy 与 Footer 统一使用邮件和电话流程。
 
 ## 修改 Logo
 
@@ -122,7 +137,7 @@ location / {
 src/
 ├─ components/    页面组件、Logo、图标和技术可视化
 ├─ config/        公司及全局配置
-├─ data/          视觉结构数据
+├─ data/          视觉结构数据与 Showcase 模拟数据
 ├─ i18n/          三语文案
 ├─ layouts/       SEO 与全局页面骨架
 ├─ pages/         根路由和多语言静态路由
@@ -135,11 +150,21 @@ dist/              构建产物
 
 ## 当前范围
 
-当前版本是企业展示型静态网站，刻意不包含：
+当前版本是带浏览器端概念演示的企业展示型静态网站，刻意不包含：
 
 - 数据库、用户账户、CMS 或管理后台；
 - 服务端咨询表单；
 - 客户案例数据或未经证实的业绩数字；
 - Google Analytics、Facebook Pixel 或其他第三方追踪。
 
-咨询入口直接使用 WhatsApp、邮件和电话，不会显示虚假的“提交成功”状态。
+咨询入口使用邮件和电话。邮件内容由用户在本地邮件客户端确认并发送，网站不会显示虚假的“提交成功”状态。
+
+## 当前验收结果
+
+- `pnpm run check`：42 个文件，0 errors / 0 warnings / 0 hints；
+- `pnpm run build`：成功生成 32 个静态页面；
+- `productionDomain` 仍为空，因此不会生成包含虚构域名的绝对 sitemap；
+- 已在真实浏览器中检查 `375px`、`390px`、`768px`、`1024px`、`1440px`；代表页面均未出现整页横向溢出；
+- 已实际验证首页 CTA/Showcase 集成、1024px 导航、三语 Demo 路径保留、表单必填验证、邮件内容生成、剪贴板复制和超长内容回退；
+- 已实际操作三个 Demo 的筛选、视图/指标切换、详情选择、状态更新、合理订单流转、取消与重置；测试页面控制台未发现 error 或 warning；
+- 默认邮件客户端由浏览器请求打开，但网站无法也不会验证用户是否最终发送或邮件是否送达。

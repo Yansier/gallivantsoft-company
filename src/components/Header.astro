@@ -6,7 +6,7 @@ const { t, lang, isRoot = false, currentPage = 'home' } = Astro.props;
 const homeHref = isRoot ? rootRouteFor('home') : routeFor(lang, 'home');
 const navItems = [
   ['home', t.nav.home], ['services', t.nav.services], ['solutions', t.nav.solutions],
-  ['about', t.nav.about], ['contact', t.nav.contact]
+  ['showcase', t.nav.showcase], ['about', t.nav.about], ['contact', t.nav.contact]
 ];
 const hrefFor = (page:string) => page === 'home' ? homeHref : routeFor(lang, page);
 ---

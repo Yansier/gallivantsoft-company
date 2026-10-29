@@ -5,7 +5,7 @@ const en = {
     title: 'GallivantSoft | Software Development & IT Solutions Malaysia',
     description: 'Malaysia-based software engineering for web, mobile, custom business systems, integrations, cloud infrastructure, and ongoing technical support.'
   },
-  nav: { home: 'Home', services: 'Services', solutions: 'Solutions', about: 'About', contact: 'Contact', quote: 'Get a Quote', language: 'Language' },
+  nav: { home: 'Home', services: 'Services', solutions: 'Solutions', showcase: 'Showcase', about: 'About', contact: 'Contact', quote: 'Get a Quote', language: 'Language' },
   hero: {
     eyebrow: 'MALAYSIA-BASED SOFTWARE ENGINEERING',
     title: 'We Build Software That Moves Business Forward.',
@@ -74,20 +74,20 @@ const en = {
       { q: 'Can you maintain or upgrade existing software?', a: 'Yes. We can first review the current codebase, architecture, hosting, recurring issues, and business priorities, then recommend an incremental maintenance or modernization plan.' },
       { q: 'How are custom software projects priced?', a: 'Pricing depends on scope, workflows, integrations, interface complexity, technical risk, and delivery requirements. We clarify the requirement before proposing an appropriate project structure and quotation.' },
       { q: 'Do you work with international clients?', a: 'GallivantSoft is based in Malaysia and can collaborate remotely with organizations in other markets, subject to project fit, communication requirements, and agreed working arrangements.' },
-      { q: 'How can I start a project with GallivantSoft?', a: 'Contact us through WhatsApp, email, or phone with a short description of your goals, current situation, intended users, and preferred timeline. We will use that context to guide the first discussion.' }
+      { q: 'How can I start a project with GallivantSoft?', a: 'Contact us by email or phone with a short description of your goals, current situation, intended users, and preferred timeline. You can also prepare a structured email enquiry on the Contact page.' }
     ]
   },
   contact: {
     eyebrow: 'START A CONVERSATION', title: 'Have a Project in Mind?', text: "Let's discuss how the right technology can support your next business move.",
-    whatsapp: "Let's Talk on WhatsApp", email: 'Send an Email', call: 'Call Us', location: 'Based in Malaysia', note: 'No forms that disappear into a queue—choose a direct channel.'
+    primary: 'Prepare an Email Enquiry', email: 'Send an Email', call: 'Call Us', location: 'Based in Malaysia', note: 'Prepare a structured email enquiry or choose a direct contact channel.'
   },
   footer: {
     blurb: 'Software engineering and digital solutions shaped around practical business needs.', services: 'Services', company: 'Company', contact: 'Contact', privacy: 'Privacy Notice', rights: 'All rights reserved.', top: 'Back to top'
   },
   privacy: {
-    title: 'Privacy Notice', updated: 'Phase 1 website notice', intro: 'This website is designed as an informational company website and does not include user accounts, server-side enquiry forms, advertising pixels, or analytics trackers.',
+    title: 'Privacy Notice', updated: 'Phase 3 website notice', intro: 'This informational company website does not include user accounts, server-side enquiry forms, advertising pixels, or analytics trackers.',
     sections: [
-      ['Contact links', 'If you choose WhatsApp, email, or telephone, your communication is handled by the selected external service or your device. GallivantSoft receives only the information you decide to provide through that channel.'],
+      ['Contact and project enquiries', 'Project enquiry content is prepared locally in your browser and is not uploaded to a GallivantSoft server by this website. If you choose email, your local email client opens so you can review and send the message. You may also call GallivantSoft directly.'],
       ['Language preference', 'A language selection may be stored locally in your browser so the website can remember your choice. It is not sent to a GallivantSoft database by this website.'],
       ['Server logs', 'The hosting provider may process ordinary technical request logs such as IP address, requested path, timestamp, and browser information for delivery and security purposes. Actual retention depends on the configured hosting environment.'],
       ['Future changes', 'If analytics, forms, or other data-processing features are introduced later, this notice should be updated before those features are enabled.']
@@ -97,7 +97,7 @@ const en = {
 
 const zh = {
   meta: { title: 'GallivantSoft｜马来西亚软件开发与 IT 解决方案', description: '总部位于马来西亚的软件工程品牌，提供网站、移动应用、定制企业系统、系统集成、云基础设施与长期技术支持。' },
-  nav: { home: '首页', services: '服务', solutions: '解决方案', about: '关于我们', contact: '联系', quote: '获取报价', language: '语言' },
+  nav: { home: '首页', services: '服务', solutions: '解决方案', showcase: '项目展示', about: '关于我们', contact: '联系', quote: '获取报价', language: '语言' },
   hero: { eyebrow: '立足马来西亚的软件工程团队', title: '用可靠软件，推动业务持续前行。', description: '从现代网站与移动应用，到定制企业平台，GallivantSoft 围绕真实业务需求提供可扩展的数字解决方案。', primary: '了解我们的服务', secondary: '讨论您的项目', visualLabel: '解决方案架构概念图', dashboard: '运营概览', api: 'API 已连接', mobile: '移动端就绪', uptime: '系统协同', ticker:['WEB 工程','移动产品','定制系统','互联基础设施'] },
   about: { eyebrow: '关于 GALLIVANTSOFT', title: '围绕您的业务构建技术。', paragraphs: ['GallivantSoft 是立足马来西亚的软件开发与 IT 解决方案品牌，专注于把业务需求转化为可靠的数字产品。', '我们的工作覆盖 Web 应用、移动平台、定制系统、系统集成与基础设施解决方案。', '我们重视可维护性、性能、周到设计与长期价值。'], principles: ['从业务出发的需求探索', '可维护的软件工程', '性能融入设计', '长期技术价值'] },
   services: { eyebrow: '核心能力', title: '覆盖数字产品全生命周期的软件工程服务。', lead: '为企业所依赖的软件提供构建、连接、部署与持续改进能力。', learn: '了解更多', close: '收起详情', items: [
@@ -123,16 +123,16 @@ const zh = {
     {q:'可以维护或升级现有软件吗？',a:'可以。我们会先审查代码、架构、托管环境、重复问题与业务优先级，再提出渐进式维护或现代化计划。'},
     {q:'定制软件项目如何报价？',a:'价格取决于范围、工作流、集成、界面复杂度、技术风险和交付要求。我们会先澄清需求，再提出合适的项目结构和报价。'},
     {q:'是否服务国际客户？',a:'GallivantSoft 位于马来西亚，可与其他市场的组织远程合作，具体取决于项目匹配度、沟通要求和双方约定的协作方式。'},
-    {q:'如何开始一个项目？',a:'通过 WhatsApp、邮件或电话说明您的目标、当前情况、目标用户和期望时间。我们会根据这些背景安排第一次讨论。'}
+    {q:'如何开始一个项目？',a:'通过电子邮件或电话说明您的目标、当前情况、目标用户和期望时间，也可以在联系页面整理结构化邮件咨询。'}
   ]},
-  contact: { eyebrow:'开始沟通', title:'有项目想法吗？', text:'让我们一起讨论，合适的技术如何支持您的下一步业务行动。', whatsapp:'通过 WhatsApp 沟通', email:'发送邮件', call:'拨打电话', location:'位于马来西亚', note:'无需等待无回应的表单，直接选择最适合您的联系方式。' },
+  contact: { eyebrow:'开始沟通', title:'有项目想法吗？', text:'让我们一起讨论，合适的技术如何支持您的下一步业务行动。', primary:'准备邮件咨询', email:'发送邮件', call:'拨打电话', location:'位于马来西亚', note:'整理结构化邮件咨询，或直接选择合适的联系方式。' },
   footer: { blurb:'围绕真实业务需求提供软件工程与数字解决方案。', services:'服务', company:'公司', contact:'联系', privacy:'隐私说明', rights:'保留所有权利。', top:'返回顶部' },
-  privacy: { title:'隐私说明', updated:'第一阶段网站说明', intro:'本网站目前仅用于企业信息展示，不包含用户账户、服务端咨询表单、广告像素或分析追踪器。', sections:[['联系入口','如果您选择 WhatsApp、邮件或电话，通信将由相应外部服务或您的设备处理。GallivantSoft 只会收到您通过该渠道主动提供的信息。'],['语言偏好','网站可能在浏览器本地保存语言选择，以便记住您的偏好；本网站不会把该选择发送到 GallivantSoft 数据库。'],['服务器日志','托管服务商可能为内容传输和安全处理常规技术请求日志，例如 IP 地址、请求路径、时间和浏览器信息；实际保留方式取决于托管环境配置。'],['未来变更','如果未来加入分析、表单或其他数据处理功能，应在启用前更新本说明。']], back:'返回网站' }
+  privacy: { title:'隐私说明', updated:'第三阶段网站说明', intro:'本网站用于企业信息与交互概念展示，不包含用户账户、服务端咨询表单、广告像素或分析追踪器。', sections:[['联系与项目咨询','项目咨询内容只在您的浏览器中整理，本网站不会主动上传到 GallivantSoft 服务器。选择邮件方式时，页面会打开本地邮件客户端，由您检查并发送；您也可以直接拨打电话。'],['语言偏好','网站可能在浏览器本地保存语言选择，以便记住您的偏好；本网站不会把该选择发送到 GallivantSoft 数据库。'],['服务器日志','托管服务商可能为内容传输和安全处理常规技术请求日志，例如 IP 地址、请求路径、时间和浏览器信息；实际保留方式取决于托管环境配置。'],['未来变更','如果未来加入分析、服务端表单或其他数据处理功能，应在启用前更新本说明。']], back:'返回网站' }
 };
 
 const ms = {
   meta:{title:'GallivantSoft | Pembangunan Perisian & Penyelesaian IT Malaysia',description:'Kejuruteraan perisian berasaskan Malaysia untuk web, aplikasi mudah alih, sistem perniagaan tersuai, integrasi, infrastruktur awan dan sokongan teknikal.'},
-  nav:{home:'Utama',services:'Perkhidmatan',solutions:'Penyelesaian',about:'Tentang Kami',contact:'Hubungi',quote:'Minta Sebut Harga',language:'Bahasa'},
+  nav:{home:'Utama',services:'Perkhidmatan',solutions:'Penyelesaian',showcase:'Pameran Projek',about:'Tentang Kami',contact:'Hubungi',quote:'Minta Sebut Harga',language:'Bahasa'},
   hero:{eyebrow:'KEJURUTERAAN PERISIAN BERPANGKALAN DI MALAYSIA',title:'Kami Membina Perisian yang Menggerakkan Perniagaan.',description:'Daripada laman web moden dan aplikasi mudah alih hingga platform perniagaan tersuai, GallivantSoft menyampaikan penyelesaian digital berskala berdasarkan keperluan sebenar.',primary:'Terokai Perkhidmatan',secondary:'Bincangkan Projek Anda',visualLabel:'Konsep seni bina penyelesaian',dashboard:'Gambaran operasi',api:'API disambungkan',mobile:'Mudah alih sedia',uptime:'Sistem diselaraskan',ticker:['KEJURUTERAAN WEB','PRODUK MUDAH ALIH','SISTEM TERSUAI','INFRASTRUKTUR BERSAMBUNG']},
   about:{eyebrow:'TENTANG GALLIVANTSOFT',title:'Teknologi yang Dibina Mengikut Perniagaan Anda.',paragraphs:['GallivantSoft ialah jenama pembangunan perisian dan penyelesaian IT berasaskan Malaysia yang menukar keperluan perniagaan kepada produk digital yang boleh dipercayai.','Kami bekerja merentasi aplikasi web, platform mudah alih, sistem tersuai, integrasi dan penyelesaian infrastruktur.','Pendekatan kami menekankan kebolehselenggaraan, prestasi, reka bentuk teliti dan nilai jangka panjang.'],principles:['Penemuan berasaskan perniagaan','Kejuruteraan boleh disenggara','Prestasi melalui reka bentuk','Nilai teknikal jangka panjang']},
   services:{eyebrow:'KEUPAYAAN TERAS',title:'Kejuruteraan Sepanjang Kitaran Hayat Produk Digital.',lead:'Kepakaran untuk membina, menyambung, melaksana dan menambah baik perisian perniagaan anda.',learn:'Ketahui lebih lanjut',close:'Tutup butiran',items:[
@@ -153,11 +153,11 @@ const ms = {
     {title:'Kejuruteraan Diutamakan',text:'Keputusan berasaskan kebolehpercayaan, kebolehselenggaraan dan realiti operasi.'},{title:'Seni Bina Berskala',text:'Sistem distruktur untuk berkembang tanpa kerumitan berlebihan pada permulaan.'},{title:'Komunikasi Jelas',text:'Pertukaran, kebergantungan, risiko dan kemajuan diterangkan dalam bahasa perniagaan.'},{title:'Pemikiran Jangka Panjang',text:'Kami mempertimbangkan pemilikan, sokongan, prestasi dan perubahan masa depan.'}
   ]},
   faq:{eyebrow:'SOALAN LAZIM',title:'Jawapan Berguna Sebelum Kita Bermula.',items:[
-    {q:'Apakah perkhidmatan GallivantSoft?',a:'Kami menyediakan pembangunan web, aplikasi mudah alih, perisian tersuai, integrasi API dan sistem, sokongan awan serta penyelenggaraan aplikasi.'},{q:'Bolehkah anda membangunkan aplikasi Android dan iOS?',a:'Ya. Kami mencadangkan pendekatan asli atau rentas platform berdasarkan keperluan produk, keupayaan peranti, bajet dan penyelenggaraan.'},{q:'Bolehkah anda menyelenggara atau menaik taraf perisian sedia ada?',a:'Ya. Kami menilai kod, seni bina, hosting, isu berulang dan keutamaan sebelum mencadangkan pelan penyelenggaraan atau pemodenan.'},{q:'Bagaimanakah harga projek perisian tersuai ditentukan?',a:'Harga bergantung pada skop, aliran kerja, integrasi, kerumitan antara muka, risiko teknikal dan keperluan penghantaran.'},{q:'Adakah anda bekerja dengan pelanggan antarabangsa?',a:'GallivantSoft berpusat di Malaysia dan boleh bekerjasama secara jarak jauh tertakluk pada kesesuaian projek dan aturan kerja.'},{q:'Bagaimanakah saya memulakan projek?',a:'Hubungi kami melalui WhatsApp, e-mel atau telefon dengan penerangan ringkas tentang matlamat, pengguna, keadaan semasa dan garis masa.'}
+    {q:'Apakah perkhidmatan GallivantSoft?',a:'Kami menyediakan pembangunan web, aplikasi mudah alih, perisian tersuai, integrasi API dan sistem, sokongan awan serta penyelenggaraan aplikasi.'},{q:'Bolehkah anda membangunkan aplikasi Android dan iOS?',a:'Ya. Kami mencadangkan pendekatan asli atau rentas platform berdasarkan keperluan produk, keupayaan peranti, bajet dan penyelenggaraan.'},{q:'Bolehkah anda menyelenggara atau menaik taraf perisian sedia ada?',a:'Ya. Kami menilai kod, seni bina, hosting, isu berulang dan keutamaan sebelum mencadangkan pelan penyelenggaraan atau pemodenan.'},{q:'Bagaimanakah harga projek perisian tersuai ditentukan?',a:'Harga bergantung pada skop, aliran kerja, integrasi, kerumitan antara muka, risiko teknikal dan keperluan penghantaran.'},{q:'Adakah anda bekerja dengan pelanggan antarabangsa?',a:'GallivantSoft berpusat di Malaysia dan boleh bekerjasama secara jarak jauh tertakluk pada kesesuaian projek dan aturan kerja.'},{q:'Bagaimanakah saya memulakan projek?',a:'Hubungi kami melalui e-mel atau telefon dengan penerangan ringkas tentang matlamat, pengguna, keadaan semasa dan garis masa, atau sediakan pertanyaan e-mel berstruktur di halaman Hubungi.'}
   ]},
-  contact:{eyebrow:'MULAKAN PERBUALAN',title:'Ada Projek dalam Fikiran?',text:'Mari bincangkan bagaimana teknologi yang tepat boleh menyokong langkah perniagaan anda seterusnya.',whatsapp:'Berbincang di WhatsApp',email:'Hantar E-mel',call:'Hubungi Kami',location:'Berpangkalan di Malaysia',note:'Pilih saluran terus yang paling sesuai untuk anda.'},
+  contact:{eyebrow:'MULAKAN PERBUALAN',title:'Ada Projek dalam Fikiran?',text:'Mari bincangkan bagaimana teknologi yang tepat boleh menyokong langkah perniagaan anda seterusnya.',primary:'Sediakan Pertanyaan E-mel',email:'Hantar E-mel',call:'Hubungi Kami',location:'Berpangkalan di Malaysia',note:'Sediakan pertanyaan e-mel berstruktur atau pilih saluran hubungan terus.'},
   footer:{blurb:'Kejuruteraan perisian dan penyelesaian digital berdasarkan keperluan perniagaan praktikal.',services:'Perkhidmatan',company:'Syarikat',contact:'Hubungi',privacy:'Notis Privasi',rights:'Hak cipta terpelihara.',top:'Kembali ke atas'},
-  privacy:{title:'Notis Privasi',updated:'Notis laman web Fasa 1',intro:'Laman ini ialah laman maklumat syarikat dan tidak mempunyai akaun pengguna, borang pelayan, piksel pengiklanan atau penjejak analitik.',sections:[['Pautan hubungan','Jika anda memilih WhatsApp, e-mel atau telefon, komunikasi dikendalikan oleh perkhidmatan tersebut atau peranti anda. GallivantSoft hanya menerima maklumat yang anda pilih untuk berikan.'],['Pilihan bahasa','Pilihan bahasa mungkin disimpan secara setempat dalam pelayar untuk mengingati pilihan anda dan tidak dihantar ke pangkalan data GallivantSoft.'],['Log pelayan','Penyedia hosting mungkin memproses log teknikal biasa seperti alamat IP, laluan, masa dan maklumat pelayar untuk penghantaran dan keselamatan.'],['Perubahan masa depan','Jika analitik, borang atau ciri pemprosesan data ditambah, notis ini perlu dikemas kini sebelum ciri tersebut diaktifkan.']],back:'Kembali ke laman web'}
+  privacy:{title:'Notis Privasi',updated:'Notis laman web Fasa 3',intro:'Laman maklumat dan pameran konsep ini tidak mempunyai akaun pengguna, borang pertanyaan sisi pelayan, piksel pengiklanan atau penjejak analitik.',sections:[['Hubungan dan pertanyaan projek','Kandungan pertanyaan disediakan secara setempat dalam pelayar dan tidak dimuat naik ke pelayan GallivantSoft oleh laman ini. Jika anda memilih e-mel, klien e-mel peranti dibuka untuk anda menyemak dan menghantar mesej. Anda juga boleh menelefon GallivantSoft secara terus.'],['Pilihan bahasa','Pilihan bahasa mungkin disimpan secara setempat dalam pelayar untuk mengingati pilihan anda dan tidak dihantar ke pangkalan data GallivantSoft.'],['Log pelayan','Penyedia hosting mungkin memproses log teknikal biasa seperti alamat IP, laluan, masa dan maklumat pelayar untuk penghantaran dan keselamatan.'],['Perubahan masa depan','Jika analitik, borang sisi pelayan atau ciri pemprosesan data ditambah, notis ini perlu dikemas kini sebelum ciri tersebut diaktifkan.']],back:'Kembali ke laman web'}
 };
 
 export const translations = { en, zh, ms };

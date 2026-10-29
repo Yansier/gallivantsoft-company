@@ -1,0 +1,25 @@
+---
+import PageChrome from './PageChrome.astro';
+import PageHero from './PageHero.astro';
+import ProductPreview from './ProductPreview.astro';
+import ContactCTA from './ContactCTA.astro';
+import { getContent, translations } from '../i18n/content.js';
+import { getPhase2Content } from '../i18n/phase2.js';
+import { getPhase3Content, phase3Translations } from '../i18n/phase3.js';
+import { routeFor } from '../utils/routes.js';
+type Language=keyof typeof translations;
+const {lang='en'}=Astro.props as {lang?:Language};
+const t=getContent(lang); const p2=getPhase2Content(lang); const p3=getPhase3Content(lang) as typeof phase3Translations.en; const copy=p3.showcase;
+const types=['operations','customers','booking'];
+---
+<PageChrome lang={lang} t={t} meta={copy.meta} currentPage="showcase" pathname={routeFor(lang,'showcase')} bodyClass="inner-page showcase-page">
+  <main id="main">
+    <PageHero eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} homeLabel={p2.common.home} homeHref={routeFor(lang,'home')} pageLabel={t.nav.showcase} variant="showcase"/>
+    <section class="section showcase-intro light-section"><div class="container showcase-intro-grid reveal"><div><p class="eyebrow dark"><span></span>{copy.featuredEyebrow}</p><h2>{copy.featuredTitle}</h2></div><p>{copy.featuredText}</p></div></section>
+    <section class="showcase-cards-section"><div class="container showcase-card-stack">
+      {copy.cards.map((card,index)=><article class="showcase-card reveal"><div class="showcase-card-preview"><ProductPreview type={types[index]}/></div><div class="showcase-card-copy"><span>{copy.conceptLabel}</span><p class="showcase-category">{card.category}</p><h2>{card.name}</h2><p>{card.description}</p><ul>{card.tags.map((tag)=><li>{tag}</li>)}</ul><a class="btn btn-primary" href={routeFor(lang,`showcase/${card.slug}`)}>{copy.explore}<span>↗</span></a></div></article>)}
+    </div></section>
+    <section class="section engineering-approach dark-section"><div class="container"><div class="section-heading split-heading reveal"><div><p class="eyebrow"><span></span>{copy.engineeringEyebrow}</p><h2>{copy.engineeringTitle}</h2></div></div><div class="engineering-grid">{copy.engineering.map((item,index)=><article class="reveal"><span>0{index+1}</span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}</div></div></section>
+    <ContactCTA lang={lang} copy={p2.common}/>
+  </main>
+</PageChrome>

@@ -1,5 +1,5 @@
 export const languages = ['en', 'zh', 'ms'];
-export const pageKeys = ['home', 'services', 'solutions', 'about', 'contact', 'privacy'];
+export const pageKeys = ['home', 'services', 'solutions', 'showcase', 'about', 'contact', 'privacy'];
 
 export function routeFor(lang = 'en', page = 'home') {
   const language = languages.includes(lang) ? lang : 'en';

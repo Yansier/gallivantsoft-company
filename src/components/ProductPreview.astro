@@ -1,0 +1,9 @@
+---
+const { type='operations', compact=false }=Astro.props;
+---
+<div class:list={['product-preview',`preview-${type}`,compact&&'compact']} aria-hidden="true">
+  <div class="preview-bar"><i></i><i></i><i></i><span>{type==='operations'?'NEXUSOPS':type==='customers'?'CLIENTORBIT':'FLOWRESERVE'}</span></div>
+  {type==='operations' && <div class="preview-ops"><aside><b></b><i></i><i></i><i></i></aside><main><div class="preview-kpis"><span></span><span></span><span></span></div><div class="preview-chart">{[46,72,58,88,67,94,81].map((value)=><i style={`--v:${value}%`}></i>)}</div><div class="preview-lines"><span></span><span></span><span></span></div></main></div>}
+  {type==='customers' && <div class="preview-crm"><aside><div class="preview-search"></div>{[1,2,3,4].map((item)=><span class:list={{selected:item===2}}><i></i><b></b></span>)}</aside><main><div class="preview-avatar">CO</div><h4></h4><p></p><div class="preview-tags"><i></i><i></i></div><div class="preview-activity"><span></span><span></span><span></span></div></main></div>}
+  {type==='booking' && <div class="preview-booking"><div class="preview-board-head"><b></b><span></span><span></span></div><div class="preview-orders">{['pending','confirmed','completed'].map((status,index)=><article><i>{index+1}</i><div><b></b><span></span></div><em class={status}></em></article>)}</div><div class="preview-flow"><span>01</span><i></i><span>02</span><i></i><span>03</span></div></div>}
+</div>

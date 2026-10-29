@@ -1,0 +1,16 @@
+---
+import ProductPreview from './ProductPreview.astro';
+import { getPhase3Content, phase3Translations } from '../i18n/phase3.js';
+import { routeFor } from '../utils/routes.js';
+const {lang='en'}=Astro.props;
+const copy=getPhase3Content(lang) as typeof phase3Translations.en;
+const types=['operations','customers','booking'];
+---
+<section class="home-showcase section light-section">
+  <div class="container">
+    <div class="home-showcase-head reveal"><div><p class="eyebrow dark"><span></span>{copy.homePreview.eyebrow}</p><h2>{copy.homePreview.title}</h2></div><div><p>{copy.homePreview.text}</p><a class="btn btn-primary" href={routeFor(lang,'showcase')}>{copy.homePreview.button}<span>↗</span></a></div></div>
+    <div class="home-showcase-grid">
+      {copy.showcase.cards.map((card,index)=><a class="home-showcase-card reveal" href={routeFor(lang,`showcase/${card.slug}`)}><ProductPreview type={types[index]} compact/><span>{copy.showcase.conceptLabel}</span><h3>{card.name}</h3><p>{card.category}</p></a>)}
+    </div>
+  </div>
+</section>
