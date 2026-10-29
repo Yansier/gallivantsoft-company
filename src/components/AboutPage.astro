@@ -1,0 +1,38 @@
+---
+import PageChrome from './PageChrome.astro';
+import PageHero from './PageHero.astro';
+import ContactCTA from './ContactCTA.astro';
+import TechnologyGrid from './TechnologyGrid.astro';
+import { getContent, translations } from '../i18n/content.js';
+import { getPhase2Content, phase2Translations } from '../i18n/phase2.js';
+import { routeFor } from '../utils/routes.js';
+type Language=keyof typeof translations;
+const {lang='en'}=Astro.props as {lang?:Language};
+const t=getContent(lang) as typeof translations.en;
+const p=getPhase2Content(lang) as typeof phase2Translations.en;
+const copy=p.aboutPage;
+---
+<PageChrome lang={lang} t={t} meta={copy.meta} currentPage="about" pathname={routeFor(lang,'about')}>
+  <main id="main">
+    <PageHero eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} homeLabel={p.common.home} homeHref={routeFor(lang,'home')} pageLabel={t.nav.about} variant="about"/>
+    <section class="section about-intro light-section">
+      <div class="container about-intro-grid"><div class="section-heading reveal"><p class="eyebrow dark"><span></span>{copy.introEyebrow}</p><h2>{copy.introTitle}</h2></div><div class="about-intro-copy reveal">{copy.introText.map((paragraph)=><p>{paragraph}</p>)}</div></div>
+    </section>
+    <section class="section mission-section dark-section">
+      <div class="container mission-grid"><div class="mission-visual reveal" aria-hidden="true"><div class="mission-orbit"><img src="/logo-mark.svg" alt=""/><i></i><i></i><i></i>{copy.missionLabels.map((label)=><span>{label}</span>)}</div></div><div class="mission-copy reveal"><p class="eyebrow"><span></span>{copy.missionEyebrow}</p><h2>{copy.missionTitle}</h2><p>{copy.missionText}</p></div></div>
+    </section>
+    <section class="section philosophy-section">
+      <div class="container"><div class="section-heading reveal"><p class="eyebrow dark"><span></span>{copy.philosophyEyebrow}</p><h2>{copy.philosophyTitle}</h2></div><div class="philosophy-grid">{copy.philosophy.map(([title,text],index)=><article class="reveal"><span>0{index+1}</span><h3>{title}</h3><p>{text}</p></article>)}</div></div>
+    </section>
+    <section class="section technology-section light-section">
+      <div class="container"><div class="section-heading split-heading reveal"><div><p class="eyebrow dark"><span></span>{copy.technologyEyebrow}</p><h2>{copy.technologyTitle}</h2></div><p>{copy.technologyNote}</p></div><TechnologyGrid labels={copy.technologyLabels}/></div>
+    </section>
+    <section class="section approach-section">
+      <div class="container"><div class="section-heading centered reveal"><p class="eyebrow dark"><span></span>{copy.approachEyebrow}</p><h2>{copy.approachTitle}</h2></div><ol class="process-track">{t.process.items.map((step)=><li class="reveal"><span>{step.n}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}</ol></div>
+    </section>
+    <section class="section collaboration-section dark-section">
+      <div class="container collaboration-grid"><div class="section-heading reveal"><p class="eyebrow"><span></span>{copy.collaborationEyebrow}</p><h2>{copy.collaborationTitle}</h2></div><div class="collaboration-list">{copy.collaboration.map(([title,text],index)=><article class="reveal"><span>0{index+1}</span><div><h3>{title}</h3><p>{text}</p></div></article>)}</div></div>
+    </section>
+    <ContactCTA lang={lang} copy={p.common}/>
+  </main>
+</PageChrome>

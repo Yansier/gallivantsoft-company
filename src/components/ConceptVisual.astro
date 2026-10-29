@@ -1,0 +1,15 @@
+---
+const { label='FLOW', index=0, compact=false } = Astro.props;
+const values = [[72,48,84],[44,78,62],[88,54,73],[58,91,69],[81,63,93],[49,75,86]][index % 6];
+---
+<div class:list={['concept-ui',compact&&'compact']} aria-hidden="true">
+  <div class="concept-toolbar"><i></i><i></i><i></i><b>{label}</b></div>
+  <div class="concept-layout">
+    <aside><span></span><span></span><span></span><span></span></aside>
+    <div class="concept-workspace">
+      <div class="concept-kpis"><span><i></i><b></b></span><span><i></i><b></b></span><span><i></i><b></b></span></div>
+      <div class="concept-chart">{values.map((value)=><i style={`--value:${value}%`}></i>)}</div>
+      <div class="concept-rows"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</div>

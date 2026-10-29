@@ -1,0 +1,10 @@
+---
+import { technologyGroups } from '../data/technologies.js';
+const { labels } = Astro.props;
+---
+<div class="technology-grid">
+  {technologyGroups.map((group)=><article class="technology-card reveal">
+    <div><span>{group.mark}</span><h3>{labels[group.key]}</h3></div>
+    <ul>{group.items.map((item)=><li>{item}</li>)}</ul>
+  </article>)}
+</div>

@@ -1,0 +1,12 @@
+---
+import ServicesPage from '../../components/ServicesPage.astro';
+import SolutionsPage from '../../components/SolutionsPage.astro';
+import AboutPage from '../../components/AboutPage.astro';
+import ContactPage from '../../components/ContactPage.astro';
+import { supportedLanguages } from '../../i18n/content.js';
+export function getStaticPaths(){const pages=['services','solutions','about','contact'];return supportedLanguages.flatMap((lang)=>pages.map((page)=>({params:{lang,page},props:{lang,page}})));}
+const {lang,page}=Astro.props as {lang:'en'|'zh'|'ms';page:'services'|'solutions'|'about'|'contact'};
+const components={services:ServicesPage,solutions:SolutionsPage,about:AboutPage,contact:ContactPage};
+const PageComponent=components[page];
+---
+<PageComponent lang={lang}/>

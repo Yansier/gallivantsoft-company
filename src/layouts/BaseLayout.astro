@@ -1,10 +1,15 @@
 ---
 import '../styles/global.css';
+import '../styles/phase2.css';
 import { siteConfig } from '../config/site.js';
-const { lang='en', title, description, pathname='/', isRoot=false, bodyClass='' } = Astro.props;
+import { languageAlternates, rootRouteFor } from '../utils/routes.js';
+const { lang='en', title, description, pathname='/', pageKey='home', isRoot=false, bodyClass='' } = Astro.props;
 const domain = siteConfig.productionDomain.replace(/\/$/, '');
 const canonical = domain ? `${domain}${pathname}` : '';
 const ogImage = domain ? `${domain}/og-image.svg` : '';
+const alternates = languageAlternates(pageKey);
+const alternateHref = (path:string) => domain ? `${domain}${path}` : path;
+const defaultPath = pageKey === 'home' || pageKey === 'privacy' ? rootRouteFor(pageKey) : alternates.en;
 const organization = {
   '@context': 'https://schema.org', '@type': 'Organization', name: siteConfig.companyName,
   description: 'Software Engineering & Digital Solutions', email: siteConfig.email, telephone: siteConfig.phoneRaw,
@@ -18,7 +23,7 @@ const organization = {
     <title>{title}</title><meta name="description" content={description}/><meta name="robots" content="index,follow,max-image-preview:large"/>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
     {canonical && <link rel="canonical" href={canonical}/>} 
-    <link rel="alternate" hreflang="en" href={domain ? `${domain}/en/` : '/en/'}/><link rel="alternate" hreflang="zh-Hans" href={domain ? `${domain}/zh/` : '/zh/'}/><link rel="alternate" hreflang="ms" href={domain ? `${domain}/ms/` : '/ms/'}/><link rel="alternate" hreflang="x-default" href={domain ? `${domain}/` : '/'}/>
+    <link rel="alternate" hreflang="en" href={alternateHref(alternates.en)}/><link rel="alternate" hreflang="zh-Hans" href={alternateHref(alternates.zh)}/><link rel="alternate" hreflang="ms" href={alternateHref(alternates.ms)}/><link rel="alternate" hreflang="x-default" href={alternateHref(defaultPath)}/>
     <meta property="og:type" content="website"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/>{canonical && <meta property="og:url" content={canonical}/>} {ogImage && <meta property="og:image" content={ogImage}/>}<meta property="og:site_name" content="GallivantSoft"/>
     <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'}/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/>
     <script type="application/ld+json" set:html={JSON.stringify(organization)}></script>

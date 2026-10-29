@@ -1,0 +1,41 @@
+---
+import PageChrome from './PageChrome.astro';
+import PageHero from './PageHero.astro';
+import { getContent, translations } from '../i18n/content.js';
+import { getPhase2Content, phase2Translations } from '../i18n/phase2.js';
+import { siteConfig, contactLinks, whatsappLink } from '../config/site.js';
+import { routeFor } from '../utils/routes.js';
+type Language=keyof typeof translations;
+const {lang='en'}=Astro.props as {lang?:Language};
+const t=getContent(lang) as typeof translations.en;
+const p=getPhase2Content(lang) as typeof phase2Translations.en;
+const copy=p.contactPage;
+---
+<PageChrome lang={lang} t={t} meta={copy.meta} currentPage="contact" pathname={routeFor(lang,'contact')} bodyClass="inner-page contact-page">
+  <main id="main">
+    <PageHero eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} homeLabel={p.common.home} homeHref={routeFor(lang,'home')} pageLabel={t.nav.contact} variant="contact"/>
+    <section class="section contact-workspace light-section">
+      <div class="container contact-workspace-grid">
+        <aside class="contact-channels reveal"><p class="eyebrow dark"><span></span>{copy.channelsEyebrow}</p><h2>{copy.channelsTitle}</h2><p>{copy.channelsText}</p>
+          <div class="channel-list">
+            <a href={whatsappLink(copy.messageTitle)} target="_blank" rel="noopener noreferrer"><span>WA</span><div><b>{copy.whatsapp}</b><small>{copy.openWhatsApp}</small></div><i>↗</i></a>
+            <a href={contactLinks.email}><span>✉</span><div><b>{copy.email}</b><small>{siteConfig.email}</small></div><i>↗</i></a>
+            <a href={contactLinks.phone}><span>☎</span><div><b>{copy.phone}</b><small>{siteConfig.phoneDisplay}</small></div><i>↗</i></a>
+            <div><span>MY</span><div><b>{copy.location}</b><small>{siteConfig.country}</small></div></div>
+          </div>
+        </aside>
+        <div class="enquiry-card reveal"><div class="enquiry-head"><p class="eyebrow dark"><span></span>{copy.formEyebrow}</p><h2>{copy.formTitle}</h2><p>{copy.formText}</p></div>
+          <form data-project-form data-whatsapp={contactLinks.whatsapp} data-message-title={copy.messageTitle} novalidate>
+            <label><span>{copy.fields.projectType} *</span><select name="projectType" required aria-describedby="projectType-error">{copy.projectTypes.map((option,index)=><option value={index===0?'':option}>{option}</option>)}</select><small class="field-error" id="projectType-error" data-error-for="projectType">{copy.errors.projectType}</small></label>
+            <label class="full"><span>{copy.fields.description} *</span><textarea name="description" rows="6" minlength="20" required placeholder={copy.placeholders.description} aria-describedby="description-error"></textarea><small class="field-error" id="description-error" data-error-for="description">{copy.errors.description}</small></label>
+            <label><span>{copy.fields.budget}</span><input name="budget" type="text" placeholder={copy.placeholders.budget}/></label>
+            <label><span>{copy.fields.timeline}</span><input name="timeline" type="text" placeholder={copy.placeholders.timeline}/></label>
+            <label class="full"><span>{copy.fields.name}</span><input name="name" type="text" placeholder={copy.placeholders.name}/></label>
+            <div class="form-actions full"><button class="btn btn-primary" type="submit">{copy.submit}<span>↗</span></button><p>{copy.privacy}</p></div>
+            <div hidden data-message-labels data-project-type={copy.labels.projectType} data-description={copy.labels.description} data-budget={copy.labels.budget} data-timeline={copy.labels.timeline} data-name={copy.labels.name}></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</PageChrome>

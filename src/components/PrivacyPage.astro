@@ -1,13 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Logo from './Logo.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
 import { getContent, translations } from '../i18n/content.js';
+import { getPhase2Content, phase2Translations } from '../i18n/phase2.js';
+import { routeFor } from '../utils/routes.js';
+import siteScriptUrl from '../scripts/site.js?url';
 type Language = keyof typeof translations;
 interface Props { lang?: Language; isRoot?: boolean; }
 const { lang='en', isRoot=false }=Astro.props as Props;
-const t=getContent(lang) as typeof translations.en; const back=isRoot?'/':`/${lang}/`; const pathname=isRoot?'/privacy/':`/${lang}/privacy/`;
+const t=getContent(lang) as typeof translations.en; const p=getPhase2Content(lang) as typeof phase2Translations.en; const back=isRoot?'/':routeFor(lang,'home'); const pathname=isRoot?'/privacy/':routeFor(lang,'privacy');
 ---
-<BaseLayout lang={lang} title={`${t.privacy.title} | GallivantSoft`} description={t.privacy.intro} pathname={pathname} bodyClass="privacy-page">
-  <header class="privacy-header"><a href={back}><Logo light/></a><a href={back}>← {t.privacy.back}</a></header>
-  <main class="privacy-main"><article><p class="eyebrow"><span></span>GALLIVANTSOFT</p><h1>{t.privacy.title}</h1><small>{t.privacy.updated}</small><p class="privacy-intro">{t.privacy.intro}</p>{t.privacy.sections.map(([title,text],index)=><section><span>0{index+1}</span><div><h2>{title}</h2><p>{text}</p></div></section>)}<a class="btn btn-primary" href={back}>← {t.privacy.back}</a></article></main>
+<BaseLayout lang={lang} title={`${t.privacy.title} | GallivantSoft`} description={t.privacy.intro} pathname={pathname} pageKey="privacy" isRoot={isRoot} bodyClass="privacy-page">
+  <a class="skip-link" href="#main">{p.common.skip}</a>
+  <Header t={t} lang={lang} isRoot={isRoot} currentPage="privacy"/>
+  <main class="privacy-main" id="main"><article><p class="eyebrow"><span></span>GALLIVANTSOFT</p><h1>{t.privacy.title}</h1><small>{t.privacy.updated}</small><p class="privacy-intro">{t.privacy.intro}</p>{t.privacy.sections.map(([title,text],index)=><section><span>0{index+1}</span><div><h2>{title}</h2><p>{text}</p></div></section>)}<a class="btn btn-primary" href={back}>← {t.privacy.back}</a></article></main>
+  <Footer t={t} lang={lang} isRoot={isRoot}/>
+  <button class="back-top" type="button" data-back-top aria-label={t.footer.top}>↑</button>
+  <script src={siteScriptUrl} type="module"></script>
 </BaseLayout>

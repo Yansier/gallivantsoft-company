@@ -1,0 +1,37 @@
+---
+import PageChrome from './PageChrome.astro';
+import PageHero from './PageHero.astro';
+import ContactCTA from './ContactCTA.astro';
+import ConceptVisual from './ConceptVisual.astro';
+import { getContent, translations } from '../i18n/content.js';
+import { getPhase2Content, phase2Translations } from '../i18n/phase2.js';
+import { routeFor } from '../utils/routes.js';
+type Language = keyof typeof translations;
+const { lang='en' }=Astro.props as {lang?:Language};
+const t=getContent(lang) as typeof translations.en;
+const p=getPhase2Content(lang) as typeof phase2Translations.en;
+const copy=p.solutionsPage;
+---
+<PageChrome lang={lang} t={t} meta={copy.meta} currentPage="solutions" pathname={routeFor(lang,'solutions')}>
+  <main id="main">
+    <PageHero eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} homeLabel={p.common.home} homeHref={routeFor(lang,'home')} pageLabel={t.nav.solutions} variant="solutions"/>
+    <section class="section solution-map light-section">
+      <div class="container solution-map-grid">
+        <div class="section-heading reveal"><p class="eyebrow dark"><span></span>{copy.mapEyebrow}</p><h2>{copy.mapTitle}</h2><p>{copy.mapText}</p></div>
+        <div class="map-diagram reveal" aria-hidden="true"><span>{copy.mapInput}</span><i></i><b>G/S</b><i></i><span>{copy.mapOutcome}</span></div>
+      </div>
+    </section>
+    <section class="section solutions-showcase dark-section">
+      <div class="container solutions-stack">
+        {copy.items.map((item,index)=><article class="solution-showcase reveal">
+          <div class="solution-showcase-visual"><ConceptVisual label={item.metric} index={index}/><small>{p.common.concept}</small></div>
+          <div class="solution-showcase-copy"><span>0{index+1}</span><h2>{item.title}</h2>
+            <dl><div><dt>{copy.labels.problem}</dt><dd>{item.problem}</dd></div><div><dt>{copy.labels.solution}</dt><dd>{item.solution}</dd></div></dl>
+            <div class="benefit-list"><h3>{copy.labels.benefits}</h3>{item.benefits.map((benefit)=><p><i>✓</i>{benefit}</p>)}</div>
+          </div>
+        </article>)}
+      </div>
+    </section>
+    <ContactCTA lang={lang} copy={p.common}/>
+  </main>
+</PageChrome>

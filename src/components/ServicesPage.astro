@@ -1,0 +1,49 @@
+---
+import PageChrome from './PageChrome.astro';
+import PageHero from './PageHero.astro';
+import ContactCTA from './ContactCTA.astro';
+import ConceptVisual from './ConceptVisual.astro';
+import ServiceIcon from './ServiceIcon.astro';
+import { getContent, translations } from '../i18n/content.js';
+import { getPhase2Content, phase2Translations } from '../i18n/phase2.js';
+import { serviceIcons } from '../data/visuals.js';
+import { routeFor } from '../utils/routes.js';
+type Language = keyof typeof translations;
+const { lang='en' } = Astro.props as {lang?:Language};
+const t=getContent(lang) as typeof translations.en;
+const p=getPhase2Content(lang) as typeof phase2Translations.en;
+const copy=p.servicesPage;
+---
+<PageChrome lang={lang} t={t} meta={copy.meta} currentPage="services" pathname={routeFor(lang,'services')}>
+  <main id="main">
+    <PageHero eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} homeLabel={p.common.home} homeHref={routeFor(lang,'home')} pageLabel={t.nav.services} variant="services"/>
+    <section class="section service-overview light-section">
+      <div class="container overview-grid">
+        <div class="section-heading reveal"><p class="eyebrow dark"><span></span>01 / 06</p><h2>{copy.overviewTitle}</h2><p>{copy.overviewText}</p></div>
+        <nav class="service-jump reveal" aria-label={t.nav.services}>{copy.items.map((item,index)=><a href={`#service-${index+1}`}><span>0{index+1}</span>{item.title}</a>)}</nav>
+      </div>
+    </section>
+    <section class="service-detail-list">
+      {copy.items.map((service,index)=><article id={`service-${index+1}`} class:list={['service-feature',index%2&&'reverse',index%3===1&&'tint']}>
+        <div class="container service-feature-grid">
+          <div class="service-feature-visual reveal">
+            <div class="feature-visual-head"><span><ServiceIcon type={serviceIcons[index]}/></span><b>0{index+1}</b></div>
+            <ConceptVisual label={service.title.split(' ')[0]} index={index}/>
+            <small>{p.common.concept}</small>
+          </div>
+          <div class="service-feature-copy reveal">
+            <p class="eyebrow dark"><span></span>0{index+1} / 06</p><h2>{service.title}</h2><p class="feature-intro">{service.intro}</p>
+            <div class="feature-columns">
+              <div><h3>{copy.labels.scenarios}</h3><ul>{service.scenarios.map((item)=><li>{item}</li>)}</ul></div>
+              <div><h3>{copy.labels.features}</h3><ul>{service.features.map((item)=><li>{item}</li>)}</ul></div>
+            </div>
+            <div class="feature-approach"><h3>{copy.labels.approach}</h3><p>{service.approach}</p></div>
+            <div class="feature-process"><h3>{copy.labels.process}</h3><ol>{service.process.map((step,stepIndex)=><li><span>0{stepIndex+1}</span>{step}</li>)}</ol></div>
+            <a class="text-link" href={routeFor(lang,'contact')}>{p.common.consult}<span>↗</span></a>
+          </div>
+        </div>
+      </article>)}
+    </section>
+    <ContactCTA lang={lang} copy={p.common}/>
+  </main>
+</PageChrome>

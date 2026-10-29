@@ -1,0 +1,10 @@
+---
+import { routeFor } from '../utils/routes.js';
+const { lang, copy } = Astro.props;
+---
+<section class="inner-cta dark-section">
+  <div class="container inner-cta-panel reveal">
+    <div><p class="eyebrow"><span></span>{copy.ctaEyebrow}</p><h2>{copy.ctaTitle}</h2><p>{copy.ctaText}</p></div>
+    <a class="btn btn-mint" href={routeFor(lang,'contact')}>{copy.ctaButton}<span>↗</span></a>
+  </div>
+</section>

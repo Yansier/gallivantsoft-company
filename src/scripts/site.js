@@ -13,8 +13,10 @@ document.addEventListener('keydown',(event)=>{if(event.key==='Escape')closeMenu(
 
 $$('[data-language-select]').forEach((select)=>select.addEventListener('change',()=>{
   const language=select.value; try{localStorage.setItem('gallivantsoft-language',language);}catch{}
-  const privacy=location.pathname.includes('/privacy'); const suffix=privacy?'privacy/':''; const hash=privacy?'':location.hash;
-  location.assign(`/${language}/${suffix}${hash}`);
+  const segments=location.pathname.split('/').filter(Boolean); const supported=['en','zh','ms'];
+  if(supported.includes(segments[0]))segments[0]=language;else segments.unshift(language);
+  const target=`/${segments.join('/')}/`;
+  location.assign(`${target}${location.hash}`);
 }));
 
 if(document.body.dataset.rootEntry==='true'){
@@ -38,3 +40,19 @@ if(!reduceMotion && 'IntersectionObserver' in window){const observer=new Interse
 
 const backTop=$('[data-back-top]'); window.addEventListener('scroll',()=>backTop?.classList.toggle('show',window.scrollY>700),{passive:true}); backTop?.addEventListener('click',()=>scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}));
 const year=$('[data-year]'); if(year)year.textContent=String(new Date().getFullYear());
+
+const projectForm=$('[data-project-form]');
+projectForm?.addEventListener('submit',(event)=>{
+  event.preventDefault();
+  const form=new FormData(projectForm); const projectType=String(form.get('projectType')||'').trim(); const description=String(form.get('description')||'').trim();
+  $$('[data-error-for]',projectForm).forEach((error)=>error.classList.remove('show')); $$('[aria-invalid=true]',projectForm).forEach((field)=>field.removeAttribute('aria-invalid'));
+  const invalid=[];
+  if(!projectType)invalid.push('projectType'); if(description.length<20)invalid.push('description');
+  invalid.forEach((name)=>{const field=projectForm.elements.namedItem(name);field?.setAttribute('aria-invalid','true');$(`[data-error-for="${name}"]`,projectForm)?.classList.add('show');});
+  if(invalid.length){projectForm.elements.namedItem(invalid[0])?.focus();return;}
+  const labels=$('[data-message-labels]',projectForm)?.dataset||{};
+  const lines=[projectForm.dataset.messageTitle||'GallivantSoft project enquiry','',`${labels.projectType}: ${projectType}`,`${labels.description}: ${description}`];
+  [['budget',labels.budget],['timeline',labels.timeline],['name',labels.name]].forEach(([name,label])=>{const value=String(form.get(name)||'').trim();if(value)lines.push(`${label}: ${value}`);});
+  const url=`${projectForm.dataset.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
+  window.open(url,'_blank','noopener,noreferrer');
+});

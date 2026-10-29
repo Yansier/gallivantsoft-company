@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import siteScriptUrl from '../scripts/site.js?url';
+import { getPhase2Content } from '../i18n/phase2.js';
+const { lang, t, meta, currentPage, pathname, pageKey=currentPage, isRoot=false, bodyClass='inner-page' } = Astro.props;
+const shared=getPhase2Content(lang).common;
+---
+<BaseLayout lang={lang} title={meta.title} description={meta.description} pathname={pathname} pageKey={pageKey} isRoot={isRoot} bodyClass={bodyClass}>
+  <a class="skip-link" href="#main">{shared.skip}</a>
+  <Header t={t} lang={lang} isRoot={isRoot} currentPage={currentPage}/>
+  <slot />
+  <Footer t={t} lang={lang} isRoot={isRoot}/>
+  <button class="back-top" type="button" data-back-top aria-label={t.footer.top}>↑</button>
+  <script src={siteScriptUrl} type="module"></script>
+</BaseLayout>

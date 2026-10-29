@@ -1,22 +1,28 @@
 ---
 import Logo from './Logo.astro';
 import { languageNames } from '../i18n/content.js';
-const { t, lang, isRoot = false } = Astro.props;
-const prefix = isRoot ? '' : `/${lang}`;
+import { routeFor, rootRouteFor } from '../utils/routes.js';
+const { t, lang, isRoot = false, currentPage = 'home' } = Astro.props;
+const homeHref = isRoot ? rootRouteFor('home') : routeFor(lang, 'home');
+const navItems = [
+  ['home', t.nav.home], ['services', t.nav.services], ['solutions', t.nav.solutions],
+  ['about', t.nav.about], ['contact', t.nav.contact]
+];
+const hrefFor = (page:string) => page === 'home' ? homeHref : routeFor(lang, page);
 ---
 <header class="site-header" data-header>
   <div class="nav-shell">
-    <a class="brand-link" href={`${prefix || '/'}#top`} aria-label="GallivantSoft home"><Logo light /></a>
+    <a class="brand-link" href={homeHref} aria-label="GallivantSoft home"><Logo light /></a>
     <nav class="desktop-nav" aria-label="Primary navigation">
-      <a href={`${prefix || '/'}#top`}>{t.nav.home}</a><a href={`${prefix || '/'}#services`}>{t.nav.services}</a><a href={`${prefix || '/'}#solutions`}>{t.nav.solutions}</a><a href={`${prefix || '/'}#about`}>{t.nav.about}</a><a href={`${prefix || '/'}#contact`}>{t.nav.contact}</a>
+      {navItems.map(([page,label]) => <a href={hrefFor(page)} class:list={{active:currentPage===page}} aria-current={currentPage===page?'page':undefined}>{label}</a>)}
     </nav>
     <div class="nav-actions">
       <label class="language-control"><span class="sr-only">{t.nav.language}</span><select data-language-select aria-label={t.nav.language}>{Object.entries(languageNames).map(([code,name])=><option value={code} selected={code===lang}>{name}</option>)}</select></label>
-      <a class="nav-quote" href={`${prefix || '/'}#contact`}>{t.nav.quote}<span>↗</span></a>
+      <a class="nav-quote" href={routeFor(lang,'contact')} class:list={{active:currentPage==='contact'}}>{t.nav.quote}<span>↗</span></a>
       <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu"><i></i><i></i></button>
     </div>
   </div>
   <nav class="mobile-nav" id="mobile-nav" data-mobile-nav aria-label="Mobile navigation">
-    <a href={`${prefix || '/'}#top`}>{t.nav.home}</a><a href={`${prefix || '/'}#services`}>{t.nav.services}</a><a href={`${prefix || '/'}#solutions`}>{t.nav.solutions}</a><a href={`${prefix || '/'}#about`}>{t.nav.about}</a><a href={`${prefix || '/'}#contact`}>{t.nav.contact}</a>
+    {navItems.map(([page,label]) => <a href={hrefFor(page)} class:list={{active:currentPage===page}} aria-current={currentPage===page?'page':undefined}>{label}</a>)}
   </nav>
 </header>

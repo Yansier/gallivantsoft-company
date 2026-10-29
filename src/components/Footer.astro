@@ -2,15 +2,15 @@
 import Logo from './Logo.astro';
 import { languageNames } from '../i18n/content.js';
 import { siteConfig, contactLinks } from '../config/site.js';
+import { routeFor, rootRouteFor } from '../utils/routes.js';
 const { t, lang, isRoot = false } = Astro.props;
-const prefix = isRoot ? '' : `/${lang}`;
-const privacyHref = isRoot ? '/privacy/' : `/${lang}/privacy/`;
+const homeHref = isRoot ? rootRouteFor('home') : routeFor(lang,'home');
 ---
 <footer class="site-footer">
   <div class="footer-grid">
-    <div class="footer-brand"><a href={`${prefix || '/'}#top`}><Logo light /></a><p>{t.footer.blurb}</p><span>{siteConfig.country}</span></div>
-    <div><h3>{t.footer.services}</h3><a href={`${prefix || '/'}#services`}>{t.services.items[0].title}</a><a href={`${prefix || '/'}#services`}>{t.services.items[1].title}</a><a href={`${prefix || '/'}#services`}>{t.services.items[2].title}</a><a href={`${prefix || '/'}#services`}>{t.services.items[3].title}</a></div>
-    <div><h3>{t.footer.company}</h3><a href={`${prefix || '/'}#about`}>{t.nav.about}</a><a href={`${prefix || '/'}#process`}>{t.process.eyebrow}</a><a href={`${prefix || '/'}#faq`}>FAQ</a><a href={privacyHref}>{t.footer.privacy}</a></div>
+    <div class="footer-brand"><a href={homeHref}><Logo light /></a><p>{t.footer.blurb}</p><span>{siteConfig.country}</span></div>
+    <div><h3>{t.footer.services}</h3><a href={routeFor(lang,'services')}>{t.services.items[0].title}</a><a href={routeFor(lang,'services')}>{t.services.items[1].title}</a><a href={routeFor(lang,'services')}>{t.services.items[2].title}</a><a href={routeFor(lang,'services')}>{t.services.items[3].title}</a></div>
+    <div><h3>{t.footer.company}</h3><a href={routeFor(lang,'about')}>{t.nav.about}</a><a href={routeFor(lang,'solutions')}>{t.nav.solutions}</a><a href={routeFor(lang,'contact')}>{t.nav.contact}</a><a href={isRoot?rootRouteFor('privacy'):routeFor(lang,'privacy')}>{t.footer.privacy}</a></div>
     <div><h3>{t.footer.contact}</h3><a href={contactLinks.email}>{siteConfig.email}</a><a href={contactLinks.phone}>{siteConfig.phoneDisplay}</a><label class="footer-language"><span>{t.nav.language}</span><select data-language-select>{Object.entries(languageNames).map(([code,name])=><option value={code} selected={code===lang}>{name}</option>)}</select></label></div>
   </div>
   <div class="footer-bottom"><span>© <span data-year>{new Date().getFullYear()}</span> {siteConfig.companyName}. {t.footer.rights}</span><a href="#top">{t.footer.top} ↑</a></div>

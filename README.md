@@ -1,6 +1,6 @@
 # GallivantSoft Official Website
 
-GallivantSoft Phase 1 官方网站。项目使用 Astro 生成纯静态站点，包含英语、简体中文和 Bahasa Melayu 三套完整内容，构建产物可直接部署到 Nginx。
+GallivantSoft Phase 2 企业官网。项目使用 Astro 生成纯静态站点，在 Phase 1 首页的基础上扩展了 Services、Solutions、About 与 Contact 独立页面，并为英语、简体中文和 Bahasa Melayu 提供完整内容。构建产物可直接部署到 Nginx。
 
 ## 环境要求
 
@@ -50,13 +50,36 @@ npm run preview
 
 ## 修改多语言文案
 
-修改 [`src/i18n/content.js`](src/i18n/content.js)。文件中包含：
+Phase 1 首页文案由 [`src/i18n/content.js`](src/i18n/content.js) 管理，Phase 2 内页文案位于 [`src/i18n/phase2.js`](src/i18n/phase2.js)。语言键包括：
 
 - `en`：English
 - `zh`：简体中文
 - `ms`：Bahasa Melayu
 
-新增字段时应为三种语言同时增加，然后运行 `npm run check`。对应静态路由为 `/en/`、`/zh/` 和 `/ms/`。根路由保留可在禁用 JavaScript 时阅读的英文内容；有 JavaScript 时会在没有手动偏好的情况下参考浏览器语言。
+新增字段时应为三种语言同时增加，然后运行 `npm run check`。
+
+每种语言都会预生成以下真实静态路由：
+
+| 页面 | English | 简体中文 | Bahasa Melayu |
+| --- | --- | --- | --- |
+| Home | `/en/` | `/zh/` | `/ms/` |
+| Services | `/en/services/` | `/zh/services/` | `/ms/services/` |
+| Solutions | `/en/solutions/` | `/zh/solutions/` | `/ms/solutions/` |
+| About | `/en/about/` | `/zh/about/` | `/ms/about/` |
+| Contact | `/en/contact/` | `/zh/contact/` | `/ms/contact/` |
+
+语言切换会保留当前页面类型。根路由保留可在禁用 JavaScript 时阅读的英文内容；有 JavaScript 时会在没有手动偏好的情况下参考浏览器语言。
+
+## Phase 2 页面内容
+
+- Services：六类服务均包含适用场景、功能范围、实施方法和交付流程；
+- Solutions：六类解决方案分别说明业务问题、技术响应和预期收益；
+- About：使命、工程理念、协作方式和可配置技术参考；
+- Contact：项目类型、需求描述、预算、时间计划与姓名字段。
+
+技术参考集中在 [`src/data/technologies.js`](src/data/technologies.js)，用于项目规划展示，不代表未经确认的固定交付承诺。
+
+Contact 表单只进行浏览器端校验，并在通过校验后生成 WhatsApp 预填消息。网站不会把表单数据发送到自建服务器、数据库或本地存储，也不会显示虚假的“提交成功”状态。
 
 ## 修改 Logo
 
@@ -72,10 +95,10 @@ npm run preview
 确认真实域名后，在 `src/config/site.js` 中修改：
 
 ```js
-productionDomain: 'https://www.example.com'
+productionDomain: 'https://你的正式域名'
 ```
 
-请使用完整 `https://` 地址，不要保留末尾斜杠。重新运行 `npm run build` 后，canonical、hreflang、Open Graph 绝对地址和 sitemap 才会指向该正式域名。域名未确定时留空，项目不会伪造域名或生成错误的绝对 sitemap。
+请使用完整 `https://` 地址，不要保留末尾斜杠。重新运行 `npm run build` 后，canonical、hreflang、Open Graph 绝对地址和 sitemap 才会指向该正式域名。构建脚本会递归发现 `dist/` 中的全部页面，因此新增静态页面会自动进入 sitemap。域名未确定时留空，项目不会伪造域名或生成错误的绝对 sitemap。
 
 ## 部署到宝塔 Nginx
 
@@ -110,7 +133,7 @@ scripts/           构建后 SEO 生成脚本
 dist/              构建产物
 ```
 
-## Phase 1 范围
+## 当前范围
 
 当前版本是企业展示型静态网站，刻意不包含：
 

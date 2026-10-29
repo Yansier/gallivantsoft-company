@@ -1,0 +1,23 @@
+---
+const { eyebrow, title, lead, homeLabel, homeHref='/', pageLabel, variant='systems' } = Astro.props;
+---
+<section class:list={['page-hero','dark-section',`page-hero-${variant}`]} id="top">
+  <div class="page-hero-glow" aria-hidden="true"></div>
+  <div class="container page-hero-grid">
+    <div class="page-hero-copy reveal">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href={homeHref}>{homeLabel}</a><span>/</span><b>{pageLabel}</b></nav>
+      <p class="eyebrow"><span></span>{eyebrow}</p>
+      <h1>{title}</h1>
+      <p>{lead}</p>
+    </div>
+    <div class="page-hero-visual reveal" aria-hidden="true">
+      <div class="hero-system-map">
+        <div class="system-core"><img src="/logo-mark.svg" alt=""/><span>G/S CORE</span></div>
+        <i class="system-line l1"></i><i class="system-line l2"></i><i class="system-line l3"></i>
+        <div class="system-node sn1"><b>01</b><span>DISCOVER</span></div>
+        <div class="system-node sn2"><b>02</b><span>DESIGN</span></div>
+        <div class="system-node sn3"><b>03</b><span>DELIVER</span></div>
+      </div>
+    </div>
+  </div>
+</section>

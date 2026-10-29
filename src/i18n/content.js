@@ -11,7 +11,8 @@ const en = {
     title: 'We Build Software That Moves Business Forward.',
     description: 'From modern websites and mobile applications to custom business platforms, GallivantSoft delivers scalable digital solutions designed around real business needs.',
     primary: 'Explore Our Services', secondary: 'Discuss Your Project',
-    visualLabel: 'Solution architecture concept', dashboard: 'Operations overview', api: 'API connected', mobile: 'Mobile ready', uptime: 'Systems aligned'
+    visualLabel: 'Solution architecture concept', dashboard: 'Operations overview', api: 'API connected', mobile: 'Mobile ready', uptime: 'Systems aligned',
+    ticker: ['WEB ENGINEERING','MOBILE PRODUCTS','CUSTOM SYSTEMS','CONNECTED INFRASTRUCTURE']
   },
   about: {
     eyebrow: 'ABOUT GALLIVANTSOFT', title: 'Technology Built Around Your Business.',
@@ -97,7 +98,7 @@ const en = {
 const zh = {
   meta: { title: 'GallivantSoft｜马来西亚软件开发与 IT 解决方案', description: '总部位于马来西亚的软件工程品牌，提供网站、移动应用、定制企业系统、系统集成、云基础设施与长期技术支持。' },
   nav: { home: '首页', services: '服务', solutions: '解决方案', about: '关于我们', contact: '联系', quote: '获取报价', language: '语言' },
-  hero: { eyebrow: '立足马来西亚的软件工程团队', title: '用可靠软件，推动业务持续前行。', description: '从现代网站与移动应用，到定制企业平台，GallivantSoft 围绕真实业务需求提供可扩展的数字解决方案。', primary: '了解我们的服务', secondary: '讨论您的项目', visualLabel: '解决方案架构概念图', dashboard: '运营概览', api: 'API 已连接', mobile: '移动端就绪', uptime: '系统协同' },
+  hero: { eyebrow: '立足马来西亚的软件工程团队', title: '用可靠软件，推动业务持续前行。', description: '从现代网站与移动应用，到定制企业平台，GallivantSoft 围绕真实业务需求提供可扩展的数字解决方案。', primary: '了解我们的服务', secondary: '讨论您的项目', visualLabel: '解决方案架构概念图', dashboard: '运营概览', api: 'API 已连接', mobile: '移动端就绪', uptime: '系统协同', ticker:['WEB 工程','移动产品','定制系统','互联基础设施'] },
   about: { eyebrow: '关于 GALLIVANTSOFT', title: '围绕您的业务构建技术。', paragraphs: ['GallivantSoft 是立足马来西亚的软件开发与 IT 解决方案品牌，专注于把业务需求转化为可靠的数字产品。', '我们的工作覆盖 Web 应用、移动平台、定制系统、系统集成与基础设施解决方案。', '我们重视可维护性、性能、周到设计与长期价值。'], principles: ['从业务出发的需求探索', '可维护的软件工程', '性能融入设计', '长期技术价值'] },
   services: { eyebrow: '核心能力', title: '覆盖数字产品全生命周期的软件工程服务。', lead: '为企业所依赖的软件提供构建、连接、部署与持续改进能力。', learn: '了解更多', close: '收起详情', items: [
     { title: '网站与 Web 开发', text: '企业官网、响应式 Web 应用、业务门户与电商平台。', tags: ['企业网站','Web 应用','业务门户','电商'], detail: '我们将清晰的信息架构、无障碍界面、性能工程与可维护实现结合起来，适用于对外网站和内部业务体验。' },
@@ -132,7 +133,7 @@ const zh = {
 const ms = {
   meta:{title:'GallivantSoft | Pembangunan Perisian & Penyelesaian IT Malaysia',description:'Kejuruteraan perisian berasaskan Malaysia untuk web, aplikasi mudah alih, sistem perniagaan tersuai, integrasi, infrastruktur awan dan sokongan teknikal.'},
   nav:{home:'Utama',services:'Perkhidmatan',solutions:'Penyelesaian',about:'Tentang Kami',contact:'Hubungi',quote:'Minta Sebut Harga',language:'Bahasa'},
-  hero:{eyebrow:'KEJURUTERAAN PERISIAN BERPANGKALAN DI MALAYSIA',title:'Kami Membina Perisian yang Menggerakkan Perniagaan.',description:'Daripada laman web moden dan aplikasi mudah alih hingga platform perniagaan tersuai, GallivantSoft menyampaikan penyelesaian digital berskala berdasarkan keperluan sebenar.',primary:'Terokai Perkhidmatan',secondary:'Bincangkan Projek Anda',visualLabel:'Konsep seni bina penyelesaian',dashboard:'Gambaran operasi',api:'API disambungkan',mobile:'Mudah alih sedia',uptime:'Sistem diselaraskan'},
+  hero:{eyebrow:'KEJURUTERAAN PERISIAN BERPANGKALAN DI MALAYSIA',title:'Kami Membina Perisian yang Menggerakkan Perniagaan.',description:'Daripada laman web moden dan aplikasi mudah alih hingga platform perniagaan tersuai, GallivantSoft menyampaikan penyelesaian digital berskala berdasarkan keperluan sebenar.',primary:'Terokai Perkhidmatan',secondary:'Bincangkan Projek Anda',visualLabel:'Konsep seni bina penyelesaian',dashboard:'Gambaran operasi',api:'API disambungkan',mobile:'Mudah alih sedia',uptime:'Sistem diselaraskan',ticker:['KEJURUTERAAN WEB','PRODUK MUDAH ALIH','SISTEM TERSUAI','INFRASTRUKTUR BERSAMBUNG']},
   about:{eyebrow:'TENTANG GALLIVANTSOFT',title:'Teknologi yang Dibina Mengikut Perniagaan Anda.',paragraphs:['GallivantSoft ialah jenama pembangunan perisian dan penyelesaian IT berasaskan Malaysia yang menukar keperluan perniagaan kepada produk digital yang boleh dipercayai.','Kami bekerja merentasi aplikasi web, platform mudah alih, sistem tersuai, integrasi dan penyelesaian infrastruktur.','Pendekatan kami menekankan kebolehselenggaraan, prestasi, reka bentuk teliti dan nilai jangka panjang.'],principles:['Penemuan berasaskan perniagaan','Kejuruteraan boleh disenggara','Prestasi melalui reka bentuk','Nilai teknikal jangka panjang']},
   services:{eyebrow:'KEUPAYAAN TERAS',title:'Kejuruteraan Sepanjang Kitaran Hayat Produk Digital.',lead:'Kepakaran untuk membina, menyambung, melaksana dan menambah baik perisian perniagaan anda.',learn:'Ketahui lebih lanjut',close:'Tutup butiran',items:[
     {title:'Pembangunan Web',text:'Laman web korporat, aplikasi web responsif, portal perniagaan dan platform e-dagang.',tags:['Web Korporat','Aplikasi Web','Portal','E-dagang'],detail:'Kami menggabungkan seni bina maklumat jelas, antara muka mudah dicapai, kejuruteraan prestasi dan pelaksanaan yang mudah disenggara.'},
