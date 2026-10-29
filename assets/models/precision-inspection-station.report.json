@@ -1,0 +1,50 @@
+{
+  "asset": "Precision Inspection Station",
+  "blender_version": "5.2.3 LTS",
+  "render_engine": "BLENDER_EEVEE",
+  "units": "metres",
+  "dimensions_m": [
+    4.36,
+    2.45,
+    3.0
+  ],
+  "mesh_objects": 200,
+  "triangles_evaluated": 74556,
+  "vertices_evaluated": 37656,
+  "materials": [
+    "BrushedMetal",
+    "CableRubber",
+    "ControlScreen",
+    "DarkStructuralMetal",
+    "EmergencyRed",
+    "IndustrialRubber",
+    "InspectionWhite",
+    "OpticalLens",
+    "PaintedMetal_Graphite",
+    "PaintedMetal_MidGraphite",
+    "SafetyGlass",
+    "StatusCyan",
+    "StatusGreen",
+    "StudioFloor",
+    "TechnologyBlue"
+  ],
+  "components": [
+    "CableAssembly",
+    "ControlModule",
+    "ConveyorAssembly",
+    "CoolingAssembly",
+    "InspectionChamber",
+    "MainChassis",
+    "MechanicalConnections",
+    "OpticalAssembly"
+  ],
+  "glb_bytes": 4039520,
+  "blend_bytes": 283969,
+  "renders": [
+    "D:\\donePage\\BOSS_MAO_downpage\\260925muchfiles\\data36-company\\gallivantsoft\\assets\\renders\\precision-inspection-station\\front-view.png",
+    "D:\\donePage\\BOSS_MAO_downpage\\260925muchfiles\\data36-company\\gallivantsoft\\assets\\renders\\precision-inspection-station\\side-view.png",
+    "D:\\donePage\\BOSS_MAO_downpage\\260925muchfiles\\data36-company\\gallivantsoft\\assets\\renders\\precision-inspection-station\\three-quarter-view.png",
+    "D:\\donePage\\BOSS_MAO_downpage\\260925muchfiles\\data36-company\\gallivantsoft\\assets\\renders\\precision-inspection-station\\rear-view.png",
+    "D:\\donePage\\BOSS_MAO_downpage\\260925muchfiles\\data36-company\\gallivantsoft\\assets\\renders\\precision-inspection-station\\close-up-detail-view.png"
+  ]
+}

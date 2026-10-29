@@ -1,0 +1,40 @@
+{
+  "glb": "D:\\donePage\\BOSS_MAO_downpage\\260925muchfiles\\data36-company\\gallivantsoft\\assets\\models\\precision-inspection-station.glb",
+  "bytes": 4039520,
+  "root": "PrecisionInspectionStation",
+  "components": [
+    "CableAssembly",
+    "ControlModule",
+    "ConveyorAssembly",
+    "CoolingAssembly",
+    "InspectionChamber",
+    "MainChassis",
+    "MechanicalConnections",
+    "OpticalAssembly"
+  ],
+  "mesh_objects": 206,
+  "triangles": 115140,
+  "materials": [
+    "BrushedMetal",
+    "CableRubber",
+    "ControlScreen",
+    "DarkStructuralMetal",
+    "EmergencyRed",
+    "IndustrialRubber",
+    "InspectionWhite",
+    "OpticalLens",
+    "PaintedMetal_Graphite",
+    "PaintedMetal_MidGraphite",
+    "SafetyGlass",
+    "StatusCyan",
+    "StatusGreen",
+    "TechnologyBlue"
+  ],
+  "dimensions_m": [
+    4.331,
+    2.335,
+    2.963
+  ],
+  "cameras": 0,
+  "lights": 0
+}
