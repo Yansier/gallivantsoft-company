@@ -21,6 +21,7 @@ const viewerCopy=JSON.stringify({
   noSelectionText:copy.noSelectionText,
   componentDetails:copy.componentDetails,
   assemblyControl:copy.assemblyControl,
+  operation:copy.operation,
   states:copy.states,
   messages:copy.messages
 }).replace(/</g,'\\u003c');
@@ -77,9 +78,14 @@ const detailComponents=['OpticalLens','InspectionHead','ConveyorRollers','Contro
             <span class="inspection-concept-label">{copy.originalLabel}</span>
             <h2>{copy.title}</h2>
             <p class="inspection-info-kicker">{copy.subtitle}</p>
-            <div class="inspection-state-bar"><span>{copy.explorerTitle}</span><b data-assembly-state>{copy.states.assembled}</b></div>
+            <div class="inspection-state-bar"><span data-experience-title>{copy.explorerTitle}</span><b data-assembly-state>{copy.states.assembled}</b></div>
 
-            <section class="inspection-selected-panel" aria-live="polite">
+            <div class="inspection-mode-switch" role="group" aria-label={copy.operation.modeLabel}>
+              <button type="button" data-experience-mode="assembly" aria-pressed="true">{copy.operation.assemblyMode}</button>
+              <button type="button" data-experience-mode="operating" aria-pressed="false">{copy.operation.operatingMode}</button>
+            </div>
+
+            <section class="inspection-selected-panel" aria-live="polite" data-assembly-panel>
               <span>{copy.selectedComponent}</span>
               <h3 data-selected-name>{copy.noSelectionTitle}</h3>
               <p data-selected-intro>{copy.noSelectionText}</p>
@@ -87,7 +93,7 @@ const detailComponents=['OpticalLens','InspectionHead','ConveyorRollers','Contro
               <div class="inspection-component-actions"><button type="button" data-action="focus" disabled>{copy.actions.focus}</button><button type="button" data-action="isolate" disabled>{copy.actions.isolate}</button><button type="button" data-action="show-full" disabled>{copy.actions.showFull}</button><button type="button" data-action="clear-selection" disabled>{copy.actions.clearSelection}</button></div>
             </section>
 
-            <section class="inspection-assembly-tools" aria-labelledby="assembly-control-title" data-assembly-tools data-mode="idle">
+            <section class="inspection-assembly-tools" aria-labelledby="assembly-control-title" data-assembly-tools data-assembly-panel data-mode="idle">
               <div class="inspection-assembly-heading"><h3 id="assembly-control-title">{copy.assemblyControl.title}</h3><output data-assembly-percent for="assembly-progress">0%</output></div>
               <label class="inspection-progress-label" for="assembly-progress">{copy.assemblyControl.progress}</label>
               <div class="inspection-progress-meta"><span>{copy.assemblyControl.assembled}</span><b data-assembly-mode>{copy.assemblyControl.assembled}</b><span>{copy.assemblyControl.exploded}</span></div>
@@ -97,10 +103,32 @@ const detailComponents=['OpticalLens','InspectionHead','ConveyorRollers','Contro
               <p role="status" data-viewer-activity>{copy.messages.ready}</p>
             </section>
 
-            <div class="inspection-components"><h3>{copy.componentGroups}</h3><ul>{components.map((component,index)=><li><button type="button" data-select-component={component} data-component-name={component} aria-pressed="false" disabled><i>{String(index+1).padStart(2,'0')}</i><span>{copy.componentDetails[component].name}</span></button></li>)}</ul></div>
-            <div class="inspection-detail-components"><h3>{copy.keyDetails}</h3><div>{detailComponents.map((component)=><button type="button" data-select-component={component} aria-pressed="false" disabled>{copy.componentDetails[component].name}</button>)}</div></div>
-            <p class="inspection-structure-status" data-components-status>{copy.structurePending}</p>
-            <div class="inspection-quick-guide"><h3>{copy.interactionGuide}</h3><ul>{copy.hints.map((hint,index)=><li><i>{index+1}</i>{hint}</li>)}</ul></div>
+            <section class="inspection-operation-panel" data-operating-panel hidden aria-live="polite">
+              <div class="inspection-operation-heading"><div><span>{copy.operation.panelEyebrow}</span><h3>{copy.operation.panelTitle}</h3></div><i data-operation-light></i></div>
+              <dl class="inspection-operation-data">
+                <div><dt>{copy.operation.machineStatus}</dt><dd data-operation-status>{copy.operation.states.OFF}</dd></div>
+                <div><dt>{copy.operation.inspectionStage}</dt><dd data-operation-stage>{copy.operation.stages.OFF}</dd></div>
+                <div><dt>{copy.operation.progress}</dt><dd data-operation-progress>0%</dd></div>
+                <div><dt>{copy.operation.workpiece}</dt><dd data-operation-workpiece>—</dd></div>
+                <div><dt>{copy.operation.lastResult}</dt><dd data-operation-result>—</dd></div>
+              </dl>
+              <div class="inspection-operation-meter"><i data-operation-meter></i></div>
+              <p class="inspection-operation-disclaimer">{copy.operation.simulationNote}</p>
+              <div class="inspection-operation-actions">
+                <button type="button" data-operation-action="power-on">{copy.operation.actions.powerOn}</button>
+                <button type="button" data-operation-action="start">{copy.operation.actions.start}</button>
+                <button type="button" data-operation-action="pause">{copy.operation.actions.pause}</button>
+                <button type="button" data-operation-action="resume" hidden>{copy.operation.actions.resume}</button>
+                <button type="button" data-operation-action="reset">{copy.operation.actions.reset}</button>
+                <button type="button" data-operation-action="power-off">{copy.operation.actions.powerOff}</button>
+              </div>
+              <div class="inspection-operation-activity"><span>{copy.operation.systemActivity}</span><p data-operation-activity>{copy.operation.messages.off}</p></div>
+            </section>
+
+            <div class="inspection-components" data-assembly-panel><h3>{copy.componentGroups}</h3><ul>{components.map((component,index)=><li><button type="button" data-select-component={component} data-component-name={component} aria-pressed="false" disabled><i>{String(index+1).padStart(2,'0')}</i><span>{copy.componentDetails[component].name}</span></button></li>)}</ul></div>
+            <div class="inspection-detail-components" data-assembly-panel><h3>{copy.keyDetails}</h3><div>{detailComponents.map((component)=><button type="button" data-select-component={component} aria-pressed="false" disabled>{copy.componentDetails[component].name}</button>)}</div></div>
+            <p class="inspection-structure-status" data-components-status data-assembly-panel>{copy.structurePending}</p>
+            <div class="inspection-quick-guide" data-assembly-panel><h3>{copy.interactionGuide}</h3><ul>{copy.hints.map((hint,index)=><li><i>{index+1}</i>{hint}</li>)}</ul></div>
             <div class="inspection-original-note"><b>{copy.originalNoteTitle}</b><p>{copy.originalNote}</p></div>
           </aside>
         </div>

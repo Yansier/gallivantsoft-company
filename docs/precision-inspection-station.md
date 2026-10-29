@@ -169,12 +169,48 @@ GLB 三角面数高于 Blender 源场景的 evaluated 统计，是因为 glTF �
 
 Phase 4.1C.2 的真实浏览器滑杆验收在一次鼠标拖动中记录了 `80` 次输入和 `80` 个不同进度（约 `2.0 s`），并完成 100%→0% 反向拖动、Home/End、自动动画在约 35% 时手动接管、65% 光学组件选择/聚焦/隔离/恢复、Reset All 和三语言检查。390px 与 768px 触控点击均到达约 50%，两者及 1440px 均无横向溢出。记录和 0/25/50/75/100% 截图位于 `docs/screenshots/inspection-station/progress/`。
 
+## Operating Mode architecture
+
+Phase 4.1D 在不修改 `.blend` 或 `.glb` 的前提下增加独立运行模拟。页面默认保留 Assembly Mode；切换 Operating Mode 时，如果全局装配进度不为 0，会先调用现有 `AssemblyController.reassemble()`，等待控制器实际到达 0% 后才启用设备。运行期间装配滑杆、组件选择、爆炸拆解和重组均被禁用；退出时停止统一调度任务、复位内部机械姿态、移除工件与扫描效果并恢复静态屏幕。
+
+### Mechanical audit and rig
+
+实际加载 GLB 后得到以下 Three.js 世界坐标结论：
+
+- 19 根滚轴中心沿 X 轴从 `-1.78 m` 排列到 `1.82 m`，滚轴几何的长轴是对象本地 Y，映射到世界 Z；运行时从保存的原始四元数叠加本地 Y 轴旋转，不改变中心位置。
+- 风扇中心为 `(-1.35, 1.55, -1.035)` 与 `(1.35, 1.55, -1.035)`。每组仅将七片叶片用保持世界变换的方式挂到运行时 Pivot，绕世界 Z 轴旋转；轮毂、外圈、双层护网、支杆和外壳保持固定。
+- 滚轴支撑面顶高约 `1.005 m`；光学环最低点约 `1.437 m`；检测舱左右玻璃内边界约为 X `±0.7125 m`，前后边界为 Z `-0.6125 / 0.6625 m`。
+- 现有左右安全玻璃没有贯通开口，因此模拟不伪造穿越外壳的完整进出料。轻量倒角金属工件使用经过验证的舱内局部行程：X `-0.46 → 0 → 0.46 m`、中心 Y `1.061 m`、Z `0`，完整包围盒约 `0.42 × 0.11 × 0.34 m`。底部在滚轴顶面上方保留约 `1 mm` 的验证余量，顶部与光学环保留约 `0.32 m`。
+
+`mechanical-rig.js` 保存所有原始旋转和父子关系，管理滚轴、双风扇叶片、工件、扫描环和动态控制屏。运行复位直接从快照恢复，不在上一帧 Transform 上累加。自动检查使用工件完整 `Box3` 在 101 个路径位置采样，并检查左右/前后安全玻璃、内部背板、光学环和相机壳体；滚轴作为合法支撑面单独验证，不被误报为障碍物。
+
+### Operation state machine
+
+`operation-controller.js` 是运行状态的唯一来源：
+
+```text
+OFF → READY → FEEDING → POSITIONING → SCANNING
+    → EVALUATING → OUTPUTTING → COMPLETE
+```
+
+运行阶段时长分别为 `1800 / 720 / 2200 / 900 / 1650 ms`，总运动时间约 `7.27 s`。暂停会保存当前底层阶段、阶段耗时、总体进度和实际机械位置；恢复后沿原阶段继续。Reset 在通电状态回到 READY，在断电状态保持 OFF；Power Off 从任意通电状态停止任务并确定性复位。所有机械动作、工件位移、扫描进度与屏幕刷新均复用现有 `AnimationScheduler`，不创建第二个 RAF 或 `setTimeout` 状态链。
+
+动态屏幕使用运行时 `CanvasTexture`。它根据 `Control_ScreenGlass` 的真实世界位置和朝向建立覆盖面；Operating Mode 期间非破坏性隐藏 `Control_DisplayTitle`、`Control_DisplayStatus`、`Control_UIHeaderLine`、`Control_UIProgress` 与 `Control_UIStatusDot`，退出时恢复原可见性。HTML 面板与 3D 屏幕接收同一个状态快照，因此状态、阶段、进度和模拟结果不会分叉。结果始终标注为概念模拟，不声明真实视觉算法、准确率或产能。
+
+### Operating Mode validation
+
+`scripts/validate-inspection-station-operation.mjs` 直接加载实际 GLB，验证 19 根滚轴本地轴、双七叶风扇 Pivot、固定护网不旋转、机械复位无漂移、101 个路径采样、三语言文案，以及完整状态序列、非法转换、首帧零增量、暂停/恢复、Reset、Power Off、30 FPS 与多轮运行。它已加入 `pnpm run check:inspection`。
+
+本地 Chrome 已实际加载新增界面、GLB、运行时动态屏幕和工件，取得 OFF、READY 与 FEEDING 真实帧，位于 `docs/screenshots/inspection-station/operation/`。本轮自动化浏览器没有继续派发 RAF，桌面控制又因无法安全确认本地 URL 被系统停止，因此 SCANNING、COMPLETE、390px 与 768px 的完整动态浏览器复验尚未完成；不能把自动化控制器测试或静态终点当作该部分的视觉验收。
+
 ## Known limitations
 
 - 当前精选交互粒度为八个主要组件和五个有展示价值的细节组；其余网格仍可随所属组件选择，但不会全部成为独立控制项。
 - 模型没有接入现有 Digital Operations Twin；它作为 Showcase 中的独立作品和独立路由保留。
 - 浏览器端无贴图 GLB 无法完全复现 Blender 程序化拉丝微表面与 Eevee 采样；实时材质经过非破坏性校准，源 GLB 未修改。
-- 控制屏内容为建模几何，不是可交互 UI。
+- 控制屏在 Assembly Mode 中仍是原始建模几何；Operating Mode 使用运行时 CanvasTexture 展示同步状态，但不接收屏幕内点击操作。
+- 受检测舱左右安全玻璃结构限制，工件采用舱内局部检测行程，不宣称从机器外部贯通进出料。
+- Phase 4.1D 的完整动态桌面/移动浏览器复验仍待在可持续派发 RAF 且允许安全控制本地 URL 的环境中补做。
 - Eevee 安全玻璃会呈现轻微的采样颗粒；源模型几何和透明层级本身保持完整。
 
 ## Transform and extension readiness

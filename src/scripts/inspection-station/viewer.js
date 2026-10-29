@@ -6,6 +6,8 @@ import {AnimationScheduler} from './animation-scheduler.js';
 import {AssemblyController} from './assembly-controller.js';
 import {CameraController} from './camera-controller.js';
 import {ComponentRegistry} from './component-registry.js';
+import {MechanicalRig} from './mechanical-rig.js';
+import {OperationController} from './operation-controller.js';
 import {SelectionController} from './selection-controller.js';
 
 const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
@@ -131,10 +133,12 @@ export async function createInspectionViewer({root,canvas,stage,modelUrl,expecte
   const label=root.querySelector('[data-component-label]');
   const labelCode=label?.querySelector('[data-label-code]');
   const labelName=label?.querySelector('[data-label-name]');
-  let assembly=null;
+  let assembly=null;let operation=null;let rig=null;
   let lastMessage='ready';
+  let experienceMode='assembly';let pendingMode=null;let operationState=null;
 
   const state=()=>({
+    experienceMode,pendingMode,
     assembly:assembly?.state||'assembled',
     assemblyProgress:assembly?.getProgress()||0,
     assemblyMode:assembly?.mode||'idle',
@@ -142,10 +146,15 @@ export async function createInspectionViewer({root,canvas,stage,modelUrl,expecte
     selectedKey:selection?.selected?.key||null,
     selectedType:selection?.selected?.type||null,
     isolated:Boolean(selection?.isolated),
-    displayState:assembly?.state||'assembled',
+    displayState:experienceMode==='operating'?(operationState?.state||'OFF'):(assembly?.state||'assembled'),
+    operation:operationState,
     message:lastMessage
   });
   const emit=(message=lastMessage)=>{lastMessage=message;onInteraction?.(state());};
+
+  const activateOperating=()=>{
+    pendingMode=null;experienceMode='operating';selection.showFull();selection.clear();operation.enter();cameraController.moveTo({bounds:box,direction:defaultDirection,duration:720,margin:1.1,restoreRange:true});emit('operatingReady');
+  };
 
   selection=new SelectionController({
     registry,scene,camera,canvas,stage,render,label,
@@ -158,8 +167,14 @@ export async function createInspectionViewer({root,canvas,stage,modelUrl,expecte
 
   assembly=new AssemblyController({
     registry,scheduler,reducedMotion,
-    onStateChange:(next)=>emit(next)
+    onStateChange:(next,progress,mode)=>{
+      emit(next);
+      if(pendingMode==='operating'&&progress<=1e-6&&mode!=='auto')activateOperating();
+    }
   });
+
+  rig=new MechanicalRig({model,scene,render,screenCopy:copy.operation});
+  operation=new OperationController({rig,scheduler,reducedMotion,onStateChange:(next)=>{operationState=next;emit(`operation:${next.message}`);}});
 
   const directions={
     front:new THREE.Vector3(0,.12,1).normalize(),
@@ -199,7 +214,7 @@ export async function createInspectionViewer({root,canvas,stage,modelUrl,expecte
     structure:{missing:registry.missing,found:expectedComponents.filter((name)=>!registry.missing.includes(name)),details:registry.detailRecords.map((record)=>record.key)},
     getState:state,
     selectComponent(key){
-      if(assembly.isAnimating())return false;
+      if(experienceMode!=='assembly'||assembly.isAnimating())return false;
       if(selection.isolated)selection.showFull();
       const record=registry.get(key);if(!record)return false;
       selection.select(record);emit('selected');return true;
@@ -216,33 +231,60 @@ export async function createInspectionViewer({root,canvas,stage,modelUrl,expecte
     },
     showFull(){selection.showFull();emit('fullAssembly');return true;},
     beginAssemblyScrub(){
+      if(experienceMode!=='assembly')return false;
       assembly.beginScrub();
       cameraController.ensureBounds(registry.getExplodedBounds());
       return true;
     },
     setAssemblyProgress(value){
+      if(experienceMode!=='assembly')return false;
       assembly.setProgress(value,{mode:assembly.mode==='scrubbing'?'scrubbing':'manual'});
       render();
       return true;
     },
     endAssemblyScrub(){assembly.endScrub();return true;},
     explode(){
+      if(experienceMode!=='assembly')return false;
       if(assembly.getProgress()>=1-1e-6&&assembly.state!=='assembling')return false;
       selection.showFull();assembly.explode();cameraController.frameExploded(registry.getExplodedBounds());emit('exploding');return true;
     },
     reassemble(){
+      if(experienceMode!=='assembly')return false;
       if(assembly.getProgress()<=1e-6&&assembly.state!=='exploding')return false;
       selection.showFull();assembly.reassemble();cameraController.reset();emit('assembling');return true;
     },
     resetAll(){
+      if(experienceMode!=='assembly')return false;
       selection.showFull();selection.clear();assembly.reset({animated:true});cameraController.reset();emit('reset');return true;
     },
+    setExperienceMode(mode){
+      if(mode==='operating'){
+        if(experienceMode==='operating'||pendingMode==='operating')return false;
+        selection.showFull();selection.clear();
+        if(assembly.getProgress()>1e-6||assembly.isAnimating()){
+          pendingMode='operating';assembly.reassemble();emit('preparingOperating');return true;
+        }
+        activateOperating();return true;
+      }
+      if(mode==='assembly'){
+        pendingMode=null;
+        if(experienceMode==='assembly')return false;
+        operation.exit();operationState=null;experienceMode='assembly';cameraController.reset();emit('assemblyReady');return true;
+      }
+      return false;
+    },
+    powerOn(){return experienceMode==='operating'&&operation.powerOn();},
+    startInspection(){return experienceMode==='operating'&&operation.start();},
+    pauseOperation(){return experienceMode==='operating'&&operation.pause();},
+    resumeOperation(){return experienceMode==='operating'&&operation.resume();},
+    resetOperation(){return experienceMode==='operating'&&operation.reset();},
+    powerOff(){return experienceMode==='operating'&&operation.powerOff();},
     moveToView,
     dispose(){
       if(disposed)return;disposed=true;
       resizeObserver.disconnect();document.removeEventListener('visibilitychange',visibilityHandler);
       viewHandlers.forEach((handler,button)=>button.removeEventListener('click',handler));
-      selection.dispose();assembly.dispose();cameraController.dispose();scheduler.dispose();controls.dispose();
+      selection.dispose();operation.dispose();rig.dispose();assembly.dispose();cameraController.dispose();scheduler.dispose();controls.dispose();
       registry.restoreVisibility();registry.restoreTransforms();
       disposeObject(model);ground.geometry.dispose();groundMaterial.dispose();grid.geometry.dispose();grid.material.dispose();environment.dispose();renderer.dispose();renderer.forceContextLoss();
     }

@@ -115,6 +115,15 @@ Contact 表单只进行浏览器端校验，并生成结构化邮件标题与正
 - 所有原始局部变换在加载时保存，任意进度均从快照直接计算，避免累计漂移；统一动画调度器在页面隐藏或静止时停止无意义渲染；
 - `npm run check:inspection` 验证 GLB 层级、代表性子零件、三语言说明、首帧和动画时序，并覆盖 0/10/25/50/75/90/100%、自动/手动路径一致、中途接管、隔离状态及八轮进度往返。
 
+### Precision Inspection Station Operating Mode
+
+- Assembly / Operating 双模式互斥；部分拆解切换运行模式时会先等待现有装配控制器实际回到 0%，运行结束后恢复内部机械原始姿态；
+- `mechanical-rig.js` 根据实际 GLB 世界变换管理 19 根滚轴、双七叶风扇运行时 Pivot、倒角检测工件、光学扫描效果和动态 CanvasTexture 控制屏，不修改源 `.blend` / `.glb`；
+- `operation-controller.js` 单一状态机驱动 OFF、READY、FEEDING、POSITIONING、SCANNING、EVALUATING、OUTPUTTING、COMPLETE 与 PAUSED，支持启动、暂停/继续、重置和关机；
+- 工件使用检测舱内 X `-0.46～0.46 m` 的局部安全行程；自动检查在 101 个位置使用完整包围盒验证玻璃、背板和光学组件间隙，并把滚轴明确作为合法支撑面；
+- HTML 面板和设备 3D 屏幕共享同一状态快照；所有结果明确标注为概念模拟，不宣称真实视觉识别、准确率或产能；
+- `pnpm run check:inspection` 还验证 19 根滚轴轴向、风扇 Pivot、固定护网、完整状态循环、非法转换、暂停/恢复、30 FPS 多轮运行、机械复位和三语言运行文案。
+
 ## 修改 Logo
 
 - 导航与 Footer 使用 [`src/components/Logo.astro`](src/components/Logo.astro)。
@@ -180,8 +189,8 @@ dist/              构建产物
 
 ## 当前验收结果
 
-- `pnpm run check`：65 个文件，0 errors / 0 warnings / 0 hints；
-- `pnpm run check:inspection`：8 个主组件、5 个精选细节组、首帧零增量、60/30 FPS、7 个指定进度、分阶段窗口、自动/手动一致、中途接管、隔离恢复、8 次无漂移往返和 3 种语言均通过；
+- `pnpm run check`：检查通过，0 errors / 0 warnings / 0 hints；
+- `pnpm run check:inspection`：除既有装配检查外，还覆盖运行状态机、19 根滚轴、双七叶风扇 Pivot、固定护网、101 个工件路径采样、暂停/继续、30 FPS 多轮运行和 3 种语言；
 - `pnpm run build`：成功生成 38 个静态页面；
 - `productionDomain` 仍为空，因此不会生成包含虚构域名的绝对 sitemap；
 - 已在真实浏览器中检查 `375px`、`390px`、`768px`、`1024px`、`1440px`；代表页面均未出现整页横向溢出；

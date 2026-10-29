@@ -154,9 +154,36 @@ const explorerTranslations = {
   }
 };
 
+const operationTranslations={
+  en:{
+    modeLabel:'Interactive experience mode',assemblyMode:'Assembly Mode',operatingMode:'Operating Mode',panelEyebrow:'MACHINE OPERATION',panelTitle:'Inspection cycle control',machineStatus:'Machine Status',inspectionStage:'Inspection Stage',progress:'Inspection Progress',workpiece:'Current Workpiece',lastResult:'Last Result',systemActivity:'System Activity',simulationNote:'Concept simulation only. Results do not represent real machine inspection or commercial performance.',stageLabel:'STAGE',resultLabel:'SIMULATED RESULT',simulationLabel:'GALLIVANTSOFT CONCEPT SIMULATION',
+    actions:{powerOn:'Power On',start:'Start Inspection',pause:'Pause',resume:'Resume',reset:'Reset',powerOff:'Power Off'},
+    states:{OFF:'Power Off',READY:'System Ready',FEEDING:'Feeding',POSITIONING:'Positioning',SCANNING:'Scanning',EVALUATING:'Evaluating',OUTPUTTING:'Outputting',COMPLETE:'Inspection Complete',PAUSED:'Paused'},
+    stages:{OFF:'Power Off',READY:'Awaiting workpiece',FEEDING:'Workpiece infeed',POSITIONING:'Precision positioning',SCANNING:'Optical scan',EVALUATING:'Simulated evaluation',OUTPUTTING:'Workpiece outfeed',COMPLETE:'Cycle complete',PAUSED:'Cycle paused'},
+    results:{PASS:'PASS'},
+    messages:{off:'Machine is safely powered off.',ready:'Systems ready for a simulated inspection cycle.',feeding:'Rollers are feeding the workpiece into the verified chamber range.',positioning:'Workpiece is decelerating at the optical inspection point.',scanning:'Optical ring and scan plane are active.',evaluating:'Evaluating simulated scan data; no real vision inference is performed.',outputting:'Inspection complete. Workpiece is leaving the local chamber range.',complete:'Simulated inspection complete — result: PASS.',paused:'Cycle paused with stage and progress preserved.',resumed:'Cycle resumed from the preserved position.'}
+  },
+  zh:{
+    modeLabel:'交互体验模式',assemblyMode:'装配模式',operatingMode:'运行模式',panelEyebrow:'设备运行',panelTitle:'检测循环控制',machineStatus:'设备状态',inspectionStage:'检测阶段',progress:'检测进度',workpiece:'当前工件',lastResult:'上次结果',systemActivity:'系统活动',simulationNote:'仅为概念模拟。结果不代表真实机器检测、准确率或商业性能。',stageLabel:'阶段',resultLabel:'模拟结果',simulationLabel:'GALLIVANTSOFT 概念模拟',
+    actions:{powerOn:'启动设备',start:'开始检测',pause:'暂停',resume:'继续',reset:'重置',powerOff:'关闭设备'},
+    states:{OFF:'设备关闭',READY:'系统就绪',FEEDING:'正在进料',POSITIONING:'正在定位',SCANNING:'正在扫描',EVALUATING:'正在评估',OUTPUTTING:'正在出料',COMPLETE:'检测完成',PAUSED:'已暂停'},
+    stages:{OFF:'设备关闭',READY:'等待工件',FEEDING:'工件进入',POSITIONING:'精密定位',SCANNING:'光学扫描',EVALUATING:'模拟评估',OUTPUTTING:'工件离开',COMPLETE:'循环完成',PAUSED:'循环暂停'},
+    results:{PASS:'通过'},
+    messages:{off:'设备已安全关闭。',ready:'系统就绪，可以开始模拟检测循环。',feeding:'滚轴正在将工件送入已验证的舱内行程。',positioning:'工件正在光学检测点减速定位。',scanning:'环形检测灯与扫描平面已启用。',evaluating:'正在评估模拟扫描数据；未执行真实视觉推理。',outputting:'检测完成，工件正在离开局部舱内行程。',complete:'模拟检测完成——结果：通过。',paused:'循环已暂停，当前阶段和进度均已保留。',resumed:'循环已从保留位置继续。'}
+  },
+  ms:{
+    modeLabel:'Mod pengalaman interaktif',assemblyMode:'Mod Pemasangan',operatingMode:'Mod Operasi',panelEyebrow:'OPERASI MESIN',panelTitle:'Kawalan kitaran pemeriksaan',machineStatus:'Status Mesin',inspectionStage:'Peringkat Pemeriksaan',progress:'Kemajuan Pemeriksaan',workpiece:'Bahan Kerja Semasa',lastResult:'Keputusan Terakhir',systemActivity:'Aktiviti Sistem',simulationNote:'Simulasi konsep sahaja. Keputusan tidak mewakili pemeriksaan mesin sebenar atau prestasi komersial.',stageLabel:'PERINGKAT',resultLabel:'KEPUTUSAN SIMULASI',simulationLabel:'SIMULASI KONSEP GALLIVANTSOFT',
+    actions:{powerOn:'Hidupkan',start:'Mulakan Pemeriksaan',pause:'Jeda',resume:'Sambung',reset:'Tetapkan Semula',powerOff:'Matikan'},
+    states:{OFF:'Kuasa Dimatikan',READY:'Sistem Sedia',FEEDING:'Sedang Memasukkan',POSITIONING:'Sedang Meletakkan',SCANNING:'Sedang Mengimbas',EVALUATING:'Sedang Menilai',OUTPUTTING:'Sedang Mengeluarkan',COMPLETE:'Pemeriksaan Selesai',PAUSED:'Dijeda'},
+    stages:{OFF:'Kuasa dimatikan',READY:'Menunggu bahan kerja',FEEDING:'Suapan bahan kerja',POSITIONING:'Peletakan tepat',SCANNING:'Imbasan optik',EVALUATING:'Penilaian simulasi',OUTPUTTING:'Keluaran bahan kerja',COMPLETE:'Kitaran selesai',PAUSED:'Kitaran dijeda'},
+    results:{PASS:'LULUS'},
+    messages:{off:'Mesin dimatikan dengan selamat.',ready:'Sistem sedia untuk kitaran pemeriksaan simulasi.',feeding:'Penggelek memasukkan bahan kerja ke julat kebuk yang disahkan.',positioning:'Bahan kerja memperlahankan gerakan di titik pemeriksaan optik.',scanning:'Gelang optik dan satah imbasan aktif.',evaluating:'Menilai data imbasan simulasi; tiada inferens penglihatan sebenar dilakukan.',outputting:'Pemeriksaan selesai. Bahan kerja meninggalkan julat kebuk setempat.',complete:'Pemeriksaan simulasi selesai — keputusan: LULUS.',paused:'Kitaran dijeda dengan peringkat dan kemajuan dikekalkan.',resumed:'Kitaran disambung dari kedudukan yang dikekalkan.'}
+  }
+};
+
 export const phase4Translations = {
-  en: {...en,lab:{...en.lab,stationFeature:stationFeatures.en},station:{...stationTranslations.en,...explorerTranslations.en}},
-  zh: {...zh,lab:{...zh.lab,stationFeature:stationFeatures.zh},station:{...stationTranslations.zh,...explorerTranslations.zh}},
-  ms: {...ms,lab:{...ms.lab,stationFeature:stationFeatures.ms},station:{...stationTranslations.ms,...explorerTranslations.ms}}
+  en: {...en,lab:{...en.lab,stationFeature:stationFeatures.en},station:{...stationTranslations.en,...explorerTranslations.en,operation:operationTranslations.en}},
+  zh: {...zh,lab:{...zh.lab,stationFeature:stationFeatures.zh},station:{...stationTranslations.zh,...explorerTranslations.zh,operation:operationTranslations.zh}},
+  ms: {...ms,lab:{...ms.lab,stationFeature:stationFeatures.ms},station:{...stationTranslations.ms,...explorerTranslations.ms,operation:operationTranslations.ms}}
 };
 export function getPhase4Content(lang) { return phase4Translations[lang] || phase4Translations.en; }

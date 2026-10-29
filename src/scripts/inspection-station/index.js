@@ -12,6 +12,7 @@ if(root&&root.dataset.viewerBound!=='true'){
   const structureStatus=root.querySelector('[data-components-status]');
   const activity=root.querySelector('[data-viewer-activity]');
   const stateLabel=root.querySelector('[data-assembly-state]');
+  const stateContext=root.querySelector('[data-experience-title]');
   const selectedName=root.querySelector('[data-selected-name]');
   const selectedIntro=root.querySelector('[data-selected-intro]');
   const selectedDetails=root.querySelector('[data-selected-details]');
@@ -22,6 +23,18 @@ if(root&&root.dataset.viewerBound!=='true'){
   const assemblyPercent=root.querySelector('[data-assembly-percent]');
   const assemblyMode=root.querySelector('[data-assembly-mode]');
   const assemblyTools=root.querySelector('[data-assembly-tools]');
+  const assemblyPanels=[...root.querySelectorAll('[data-assembly-panel]')];
+  const operatingPanel=root.querySelector('[data-operating-panel]');
+  const modeButtons=[...root.querySelectorAll('[data-experience-mode]')];
+  const operationStatus=root.querySelector('[data-operation-status]');
+  const operationStage=root.querySelector('[data-operation-stage]');
+  const operationProgress=root.querySelector('[data-operation-progress]');
+  const operationWorkpiece=root.querySelector('[data-operation-workpiece]');
+  const operationResult=root.querySelector('[data-operation-result]');
+  const operationActivity=root.querySelector('[data-operation-activity]');
+  const operationMeter=root.querySelector('[data-operation-meter]');
+  const operationLight=root.querySelector('[data-operation-light]');
+  const operationButtons=Object.fromEntries([...root.querySelectorAll('[data-operation-action]')].map((button)=>[button.dataset.operationAction,button]));
   const copyNode=document.querySelector('[data-viewer-copy]');
   const copy=copyNode?JSON.parse(copyNode.textContent||'{}'):{};
   const expectedComponents=[...root.querySelectorAll('[data-component-name]')].map((node)=>node.dataset.componentName);
@@ -56,8 +69,13 @@ if(root&&root.dataset.viewerBound!=='true'){
   const renderState=(state)=>{
     if(!state)return;
     const detail=state.selectedKey?copy.componentDetails?.[state.selectedKey]:null;
-    if(stateLabel)stateLabel.textContent=copy.states?.[state.displayState]||state.displayState;
+    const operating=state.experienceMode==='operating';const preparing=state.pendingMode==='operating';
+    if(stateLabel)stateLabel.textContent=operating?(copy.operation?.states?.[state.displayState]||state.displayState):(copy.states?.[state.displayState]||state.displayState);
+    if(stateContext)stateContext.textContent=operating?(copy.operation?.operatingMode||'Operating Mode'):(copy.explorerTitle||'Assembly Explorer');
     if(activity)activity.textContent=copy.messages?.[state.message]||copy.messages?.ready||'';
+    modeButtons.forEach((button)=>{const selected=(operating||preparing)?button.dataset.experienceMode==='operating':button.dataset.experienceMode==='assembly';button.setAttribute('aria-pressed',String(selected));button.disabled=preparing;});
+    assemblyPanels.forEach((panel)=>{panel.hidden=operating;});
+    if(operatingPanel)operatingPanel.hidden=!operating;
     if(selectedName)selectedName.textContent=detail?.name||copy.noSelectionTitle||'Select a component';
     if(selectedIntro)selectedIntro.textContent=detail?detail.function:copy.noSelectionText||'';
     if(selectedDetails)selectedDetails.hidden=!detail;
@@ -82,13 +100,34 @@ if(root&&root.dataset.viewerBound!=='true'){
     const animating=state.assemblyMode==='auto';
     const manipulating=animating||state.assemblyMode==='scrubbing';
     const hasSelection=Boolean(state.selectedKey);
-    actionButtons.focus.disabled=!hasSelection||manipulating;
+    actionButtons.focus.disabled=operating||!hasSelection||manipulating;
     actionButtons.isolate.disabled=!hasSelection||manipulating||state.isolated;
     actionButtons['show-full'].disabled=!state.isolated;
     actionButtons['clear-selection'].disabled=!hasSelection;
     actionButtons.explode.disabled=progressValue>=100||state.assembly==='exploding';
     actionButtons.reassemble.disabled=progressValue<=0||state.assembly==='assembling';
-    actionButtons['reset-all'].disabled=false;
+    actionButtons['reset-all'].disabled=operating;
+    assemblySlider.disabled=operating||preparing;
+
+    if(operating){
+      const operation=state.operation||{state:'OFF',stage:'OFF',progress:0};const operationCopy=copy.operation||{};
+      if(operationStatus)operationStatus.textContent=operationCopy.states?.[operation.state]||operation.state;
+      if(operationStage)operationStage.textContent=operationCopy.stages?.[operation.stage]||operation.stage;
+      const operationPercent=Math.round((operation.progress||0)*100);
+      if(operationProgress)operationProgress.textContent=`${operationPercent}%`;
+      if(operationMeter)operationMeter.style.width=`${operationPercent}%`;
+      if(operationWorkpiece)operationWorkpiece.textContent=operation.workpiece||'—';
+      if(operationResult)operationResult.textContent=operation.result?(operationCopy.results?.[operation.result]||operation.result):'—';
+      if(operationActivity)operationActivity.textContent=operationCopy.messages?.[operation.message]||operationCopy.messages?.off||'';
+      if(operationLight){operationLight.dataset.state=operation.state;operationLight.setAttribute('aria-label',operationCopy.states?.[operation.state]||operation.state);}
+      const running=['FEEDING','POSITIONING','SCANNING','EVALUATING','OUTPUTTING'].includes(operation.state);
+      operationButtons['power-on'].disabled=operation.state!=='OFF';
+      operationButtons.start.disabled=!['READY','COMPLETE'].includes(operation.state);
+      operationButtons.pause.disabled=!running;operationButtons.pause.hidden=operation.state==='PAUSED';
+      operationButtons.resume.disabled=operation.state!=='PAUSED';operationButtons.resume.hidden=operation.state!=='PAUSED';
+      operationButtons.reset.disabled=operation.state==='OFF';
+      operationButtons['power-off'].disabled=operation.state==='OFF';
+    }
   };
 
   selectionButtons.forEach((button)=>button.addEventListener('click',()=>viewer?.selectComponent(button.dataset.selectComponent)));
@@ -99,6 +138,13 @@ if(root&&root.dataset.viewerBound!=='true'){
   actionButtons.explode?.addEventListener('click',()=>viewer?.explode());
   actionButtons.reassemble?.addEventListener('click',()=>viewer?.reassemble());
   actionButtons['reset-all']?.addEventListener('click',()=>viewer?.resetAll());
+  modeButtons.forEach((button)=>button.addEventListener('click',()=>viewer?.setExperienceMode(button.dataset.experienceMode)));
+  operationButtons['power-on']?.addEventListener('click',()=>viewer?.powerOn());
+  operationButtons.start?.addEventListener('click',()=>viewer?.startInspection());
+  operationButtons.pause?.addEventListener('click',()=>viewer?.pauseOperation());
+  operationButtons.resume?.addEventListener('click',()=>viewer?.resumeOperation());
+  operationButtons.reset?.addEventListener('click',()=>viewer?.resetOperation());
+  operationButtons['power-off']?.addEventListener('click',()=>viewer?.powerOff());
 
   let sliderActive=false;
   const beginSliderControl=()=>{
