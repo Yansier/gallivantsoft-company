@@ -1,12 +1,15 @@
 ---
-import DigitalTwinPreview from './DigitalTwinPreview.astro';
+import InspectionStationPreview from './InspectionStationPreview.astro';
 import { getPhase4Content, phase4Translations } from '../i18n/phase4.js';
 import { routeFor } from '../utils/routes.js';
 const {lang='en'}=Astro.props;const copy=getPhase4Content(lang) as typeof phase4Translations.en;
 ---
 <section class="home-showcase home-lab section dark-section">
-  <div class="container home-lab-grid">
-    <div class="home-lab-copy reveal"><p class="eyebrow"><span></span>{copy.home.eyebrow}</p><h2>{copy.home.title}</h2><p>{copy.home.text}</p><a class="btn btn-mint" href={routeFor(lang,'showcase')}>{copy.home.button}<span>↗</span></a></div>
-    <a class="home-lab-preview reveal" href={routeFor(lang,'showcase/digital-twin')}><DigitalTwinPreview compact/><span>{copy.home.label}</span><b>{copy.lab.twinTitle}</b><i>↗</i></a>
+  <div class="container home-lab-shell">
+    <div class="home-lab-copy reveal"><p class="eyebrow"><span></span>{copy.home.eyebrow}</p><h2>{copy.home.title}</h2><p>{copy.home.text}</p><div class="home-lab-actions"><a class="btn btn-mint" href={routeFor(lang,'showcase/inspection-station')}>{copy.home.button}<span>↗</span></a><a class="lab-text-link" href={routeFor(lang,'showcase')}>{copy.home.labLink}<span>→</span></a></div></div>
+    <a class="home-lab-preview reveal" href={routeFor(lang,'showcase/inspection-station')} aria-label={`${copy.home.button}: ${copy.home.stationTitle}`}>
+      <div class="home-lab-art"><InspectionStationPreview alt={copy.home.imageAlt} sizes="(max-width: 1050px) 100vw, 58vw"/></div>
+      <div class="home-lab-caption"><span>{copy.home.label}</span><b>{copy.home.stationTitle}</b><small>{copy.home.stationSubtitle}</small></div><i>↗</i>
+    </a>
   </div>
 </section>

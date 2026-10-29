@@ -99,7 +99,9 @@ Contact 表单只进行浏览器端校验，并生成结构化邮件标题与正
 
 ## Phase 4 Interactive Lab
 
-- Showcase 已重构为 `GallivantSoft Interactive Lab`，旗舰入口为 `Digital Operations Twin`；三个 Phase 3 Demo 继续保留原路由，并作为界面概念档案展示；
+- Showcase 已重构为 `GallivantSoft Interactive Lab`，`Precision Inspection Station` 是第一旗舰作品，`Digital Operations Twin` 作为次级实验保留；三个 Phase 3 Demo 继续保留原路由，并作为概念档案展示；
+- Lab 页面按“实验室介绍 → 旗舰体验 → 工程能力 → 其他实验 → 概念档案 → 联系”组织；首页 Showcase 预览也直接进入 Precision Inspection Station，但不会提前启动 3D；
+- 首页与 Lab 首屏使用现有 Blender 三分之四渲染图，提供 480 / 720 / 960px WebP 响应式版本；原始 PNG 完整保留作为回退；
 - Three.js 作为本地依赖安装，不使用 CDN；只有用户点击 “Launch 3D Experience” 后才动态加载场景代码；
 - 数字孪生包含可旋转/缩放的微型物流中心、Storage / Processing / Dispatch 区域、订单创建、开始、下一步、暂停/继续和重置控制；
 - 3D 包裹、流程阶段、KPI、状态与活动记录由 [`src/scripts/digital-twin/state.js`](src/scripts/digital-twin/state.js) 的单一状态模型同步驱动；
@@ -199,4 +201,5 @@ dist/              构建产物
 - 已实际操作数字孪生的启动、创建订单、开始、暂停/继续、完整流程、区域选择、重置与 WebGL 降级，并复验三个既有 Demo 路由；修复后的测试页面未出现新的控制台 error；
 - 已在真实 Chrome 中验证 Precision Inspection Station 的连续滑杆拖动（一次拖动 80 个不同进度）、反向拖回、Home/End、自动动画中途接管、65% 光学组件聚焦/隔离/恢复、Reset All、三语文案，以及 390px/768px 触控和 1440px 桌面布局；浏览器控制台无 error；
 - 已在生产构建预览的真实 Chrome 中验证 Operating Mode 全部八个阶段、HTML/3D 屏幕同步、暂停/恢复、Reset、Power Off、连续三轮检测、退出运行模式后的机械复位，以及回到 Assembly Mode 后的 Explode/Reassemble；390px 与 768px 均无横向溢出且触控旋转有效，验收截图与记录位于 `docs/screenshots/inspection-station/operation-qa/`；
+- 已在生产构建预览的真实 Chrome 中验证新版首页 Showcase 与 Interactive Lab 的 375 / 390 / 768 / 1024 / 1440px 布局、EN / ZH / MS 语言切换、旗舰/数字孪生/概念档案入口、页面滚动和响应式 WebP 选择；全部断点横向溢出为 0，首页与 Lab 均没有请求 GLB 或 Three.js 浏览器包，控制台错误为 0。截图与报告位于 `docs/screenshots/interactive-lab/phase-4.1e/`；
 - 默认邮件客户端由浏览器请求打开，但网站无法也不会验证用户是否最终发送或邮件是否送达。

@@ -1,0 +1,151 @@
+{
+  "generatedAt": "2026-10-29T23:43:29.535Z",
+  "base": "http://127.0.0.1:4321",
+  "viewports": [
+    {
+      "width": 375,
+      "lab": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "h1": "Explore the Engineering.",
+        "stationHref": "/en/showcase/inspection-station/",
+        "twinHref": "/en/showcase/digital-twin/",
+        "archiveHrefs": [
+          "/en/showcase/operations-dashboard/",
+          "/en/showcase/customer-management/",
+          "/en/showcase/booking-workflow/"
+        ],
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-480.Dyz4K0LT.webp"
+      },
+      "home": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "ctaHref": "/en/showcase/inspection-station/",
+        "labHref": "/en/showcase/",
+        "previewHref": "/en/showcase/inspection-station/",
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-480.Dyz4K0LT.webp"
+      }
+    },
+    {
+      "width": 390,
+      "lab": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "h1": "Explore the Engineering.",
+        "stationHref": "/en/showcase/inspection-station/",
+        "twinHref": "/en/showcase/digital-twin/",
+        "archiveHrefs": [
+          "/en/showcase/operations-dashboard/",
+          "/en/showcase/customer-management/",
+          "/en/showcase/booking-workflow/"
+        ],
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-480.Dyz4K0LT.webp"
+      },
+      "home": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "ctaHref": "/en/showcase/inspection-station/",
+        "labHref": "/en/showcase/",
+        "previewHref": "/en/showcase/inspection-station/",
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-480.Dyz4K0LT.webp"
+      }
+    },
+    {
+      "width": 768,
+      "lab": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "h1": "Explore the Engineering.",
+        "stationHref": "/en/showcase/inspection-station/",
+        "twinHref": "/en/showcase/digital-twin/",
+        "archiveHrefs": [
+          "/en/showcase/operations-dashboard/",
+          "/en/showcase/customer-management/",
+          "/en/showcase/booking-workflow/"
+        ],
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-960.DE1DrRs5.webp"
+      },
+      "home": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "ctaHref": "/en/showcase/inspection-station/",
+        "labHref": "/en/showcase/",
+        "previewHref": "/en/showcase/inspection-station/",
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-960.DE1DrRs5.webp"
+      }
+    },
+    {
+      "width": 1024,
+      "lab": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "h1": "Explore the Engineering.",
+        "stationHref": "/en/showcase/inspection-station/",
+        "twinHref": "/en/showcase/digital-twin/",
+        "archiveHrefs": [
+          "/en/showcase/operations-dashboard/",
+          "/en/showcase/customer-management/",
+          "/en/showcase/booking-workflow/"
+        ],
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-960.DE1DrRs5.webp"
+      },
+      "home": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "ctaHref": "/en/showcase/inspection-station/",
+        "labHref": "/en/showcase/",
+        "previewHref": "/en/showcase/inspection-station/",
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-960.DE1DrRs5.webp"
+      }
+    },
+    {
+      "width": 1440,
+      "lab": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "h1": "Explore the Engineering.",
+        "stationHref": "/en/showcase/inspection-station/",
+        "twinHref": "/en/showcase/digital-twin/",
+        "archiveHrefs": [
+          "/en/showcase/operations-dashboard/",
+          "/en/showcase/customer-management/",
+          "/en/showcase/booking-workflow/"
+        ],
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-960.DE1DrRs5.webp"
+      },
+      "home": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "ctaHref": "/en/showcase/inspection-station/",
+        "labHref": "/en/showcase/",
+        "previewHref": "/en/showcase/inspection-station/",
+        "imageCurrentSrc": "http://127.0.0.1:4321/_astro/three-quarter-view-960.DE1DrRs5.webp"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "h1": "Explore the Engineering.",
+      "stationHref": "/en/showcase/inspection-station/",
+      "twinHref": "/en/showcase/digital-twin/"
+    },
+    {
+      "lang": "zh",
+      "h1": "探索工程实现。",
+      "stationHref": "/zh/showcase/inspection-station/",
+      "twinHref": "/zh/showcase/digital-twin/"
+    },
+    {
+      "lang": "ms",
+      "h1": "Terokai Kejuruteraannya.",
+      "stationHref": "/ms/showcase/inspection-station/",
+      "twinHref": "/ms/showcase/digital-twin/"
+    }
+  ],
+  "requests": {
+    "glb": [],
+    "three": []
+  },
+  "consoleErrors": []
+}

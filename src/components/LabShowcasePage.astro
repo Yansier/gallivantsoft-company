@@ -14,11 +14,42 @@ const t=getContent(lang);const p2=getPhase2Content(lang);const p3=getPhase3Conte
 ---
 <PageChrome lang={lang} t={t} meta={copy.meta} currentPage="showcase" pathname={routeFor(lang,'showcase')} bodyClass="inner-page showcase-page lab-page">
   <main id="main">
-    <section class="lab-hero dark-section" id="top"><div class="container lab-hero-inner reveal"><p class="eyebrow"><span></span>{copy.eyebrow}</p><h1>{copy.title}</h1><p>{copy.lead}</p></div></section>
-    <section class="lab-flagship dark-section"><div class="container"><article class="lab-flagship-card reveal"><div class="lab-flagship-visual"><DigitalTwinPreview/><div class="lab-orbit-label"><i></i>{copy.noDownload}</div></div><div class="lab-flagship-copy"><span>{copy.flagship}</span><h2>{copy.twinTitle}</h2><p>{copy.twinText}</p><ul>{copy.capabilities.map((item)=><li>{item}</li>)}</ul><a class="btn btn-mint" href={routeFor(lang,'showcase/digital-twin')}>{copy.launch}<span>↗</span></a></div></article></div></section>
-    <section class="lab-model-feature dark-section"><div class="container"><article class="lab-model-card reveal"><div class="lab-model-visual"><InspectionStationPreview alt={copy.stationFeature.title}/></div><div class="lab-model-copy"><span>{copy.stationFeature.label}</span><h2>{copy.stationFeature.title}</h2><p>{copy.stationFeature.text}</p><small>{copy.stationFeature.meta}</small><a class="btn btn-ghost" href={routeFor(lang,'showcase/inspection-station')}>{copy.stationFeature.explore}<span>↗</span></a></div></article></div></section>
-    <section class="section lab-archive light-section"><div class="container"><div class="lab-archive-head reveal"><div><p class="eyebrow dark"><span></span>{copy.archiveEyebrow}</p><h2>{copy.archiveTitle}</h2></div><p>{copy.archiveText}</p></div><div class="lab-archive-grid">{p3.showcase.cards.map((card,index)=><a class="lab-archive-card reveal" href={routeFor(lang,`showcase/${card.slug}`)}><span>0{index+1}</span><p>{card.category}</p><h3>{card.name}</h3><small>{copy.explore} ↗</small></a>)}</div></div></section>
-    <section class="section lab-engineering dark-section"><div class="container"><div class="section-heading split-heading reveal"><div><p class="eyebrow"><span></span>{copy.engineeringEyebrow}</p><h2>{copy.engineeringTitle}</h2></div></div><div class="engineering-grid">{copy.engineering.map((item,index)=><article class="reveal"><span>0{index+1}</span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}</div></div></section>
+    <section class="lab-premium-hero dark-section" id="top">
+      <div class="lab-hero-grid container">
+        <div class="lab-hero-copy reveal">
+          <p class="eyebrow"><span></span>{copy.eyebrow}</p>
+          <small class="lab-section-index">{copy.introLabel}</small>
+          <h1>{copy.title}</h1>
+          <p>{copy.lead}</p>
+          <div class="lab-hero-actions"><a class="btn btn-mint" href={routeFor(lang,'showcase/inspection-station')}>{copy.launch}<span>↗</span></a><a class="lab-text-link" href="#engineering">{copy.capabilitiesTitle}<span>↓</span></a></div>
+        </div>
+        <a class="lab-hero-product reveal" href={routeFor(lang,'showcase/inspection-station')} aria-label={`${copy.launch}: ${copy.stationTitle}`}>
+          <InspectionStationPreview alt={copy.stationTitle} loading="eager" priority sizes="(max-width: 1050px) 100vw, 58vw"/>
+          <div class="lab-product-caption"><span>{copy.flagship}</span><strong>{copy.stationTitle}</strong><small>{copy.stationSubtitle}</small></div>
+          <div class="lab-product-status"><i></i>{copy.noDownload}</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="lab-featured dark-section" aria-labelledby="featured-title">
+      <div class="container">
+        <div class="lab-featured-heading reveal"><div><small class="lab-section-index">{copy.flagship}</small><h2 id="featured-title">{copy.stationTitle}</h2></div><div><strong>{copy.stationSubtitle}</strong><p>{copy.stationText}</p><a class="lab-text-link" href={routeFor(lang,'showcase/inspection-station')}>{copy.launch}<span>↗</span></a></div></div>
+        <div class="lab-feature-manifest">{copy.featurePoints.map((item,index)=><article class="reveal"><span>0{index+1}</span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="section lab-capabilities light-section" id="engineering" aria-labelledby="capabilities-title">
+      <div class="container">
+        <div class="lab-capabilities-heading reveal"><small class="lab-section-index dark">{copy.capabilitiesEyebrow}</small><h2 id="capabilities-title">{copy.capabilitiesTitle}</h2><p>{copy.capabilitiesText}</p></div>
+        <div class="lab-capabilities-list">{copy.capabilities.map((item,index)=><article class="reveal"><span>0{index+1}</span><div><h3>{item[0]}</h3><p>{item[1]}</p></div></article>)}</div>
+      </div>
+    </section>
+
+    <section class="section lab-secondary dark-section" aria-labelledby="twin-title">
+      <div class="container"><article class="lab-secondary-experiment reveal"><div class="lab-secondary-visual"><DigitalTwinPreview compact/></div><div class="lab-secondary-copy"><small class="lab-section-index">{copy.twinEyebrow}</small><h2 id="twin-title">{copy.twinTitle}</h2><p>{copy.twinText}</p><span>{copy.twinMeta}</span><a class="btn btn-ghost" href={routeFor(lang,'showcase/digital-twin')}>{copy.twinLaunch}<b>↗</b></a></div></article></div>
+    </section>
+
+    <section class="section lab-archive light-section"><div class="container"><div class="lab-archive-head reveal"><div><small class="lab-section-index dark">{copy.archiveEyebrow}</small><h2>{copy.archiveTitle}</h2></div><p>{copy.archiveText}</p></div><div class="lab-archive-grid">{p3.showcase.cards.map((card,index)=><a class="lab-archive-card reveal" href={routeFor(lang,`showcase/${card.slug}`)}><span>0{index+1}</span><p>{card.category}</p><h3>{card.name}</h3><small>{copy.explore} ↗</small></a>)}</div></div></section>
     <ContactCTA lang={lang} copy={p2.common}/>
   </main>
 </PageChrome>
