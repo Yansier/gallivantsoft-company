@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
-import {MechanicalRig,OPERATION_GEOMETRY} from '../src/scripts/inspection-station/mechanical-rig.js';
+import {MechanicalRig,OPERATION_GEOMETRY,SCREEN_REFRESH_FPS} from '../src/scripts/inspection-station/mechanical-rig.js';
 import {OperationController,OPERATION_SEQUENCE,OPERATION_STATES,OPERATION_TIMING} from '../src/scripts/inspection-station/operation-controller.js';
 import {phase4Translations} from '../src/i18n/phase4.js';
 
@@ -26,7 +26,7 @@ class FakeRig{
   setWorkpiece(x,visible){this.x=x;this.visible=visible;}
   setScan(_progress,active){this.scan=active;}
   advance(delta){this.motion+=delta;}
-  updateScreen(data){this.screen.push({...data});}
+  updateScreen(data,force=false){this.screen.push({data:{...data},force});}
 }
 
 function completeCycle(controller,scheduler,fps=60){
@@ -40,7 +40,7 @@ function completeCycle(controller,scheduler,fps=60){
   const scheduler=new ManualScheduler();const rig=new FakeRig();const events=[];
   const controller=new OperationController({rig,scheduler,onStateChange:(event)=>events.push(event)});
   controller.enter();assert.equal(controller.state,'OFF');assert.equal(controller.start(),false,'cannot start while powered off');assert.equal(controller.pause(),false,'cannot pause while idle');
-  assert(controller.powerOn());assert.equal(controller.state,'READY');assert.equal(controller.powerOn(),false,'duplicate power-on must be rejected');
+  assert(controller.powerOn());assert.equal(controller.state,'READY');assert.equal(rig.screen.at(-1).force,true,'power-on screen refresh must be immediate');assert.equal(controller.powerOn(),false,'duplicate power-on must be rejected');
   assert(controller.start());assert.equal(controller.state,'FEEDING');const initialX=rig.x;scheduler.step(0);assert.equal(rig.x,initialX,'zero-delta first frame moved the workpiece');
   scheduler.step(OPERATION_TIMING.FEEDING*.4);assert(controller.stageProgress>.39&&controller.stageProgress<.41,'feeding midpoint timing is incorrect');assert(rig.x>initialX&&rig.x<-.12,'feeding midpoint must occupy a real intermediate position');
   assert(controller.pause());const paused={x:rig.x,progress:controller.overallProgress,motion:rig.motion};scheduler.step(5000);assert.deepEqual({x:rig.x,progress:controller.overallProgress,motion:rig.motion},paused,'paused cycle continued to advance');
@@ -78,6 +78,19 @@ assert(roller.quaternion.angleTo(rollerQuaternion)>.1,'roller failed to rotate')
 const bladeMoved=blade.getWorldPosition(new THREE.Vector3());assert(bladeMoved.distanceTo(bladeStart)>.05,'fan blade failed to orbit its shared hub');assert(Math.abs(bladeMoved.distanceTo(fanCenter)-fanRadius)<1e-5,'fan blade radius changed');
 if(grille)assert(grille.getWorldQuaternion(new THREE.Quaternion()).angleTo(grilleQuaternion)<1e-7,'fixed fan grille rotated');
 rig.resetMotion();model.updateMatrixWorld(true);assert(blade.getWorldPosition(new THREE.Vector3()).distanceTo(bladeStart)<1e-5,'fan reset did not restore its initial position');assert(roller.quaternion.angleTo(rollerQuaternion)<1e-7,'roller reset drifted');
+
+// Mechanical transforms continue at frame rate while the 768×480 CanvasTexture is
+// redrawn and uploaded at approximately 12 FPS. State transitions can force an
+// immediate upload without waiting for the next throttle interval.
+const screenStart=rig.screenDrawCount;
+for(let frame=0;frame<60;frame++){
+  rig.advance(1000/60);
+  rig.updateScreen({state:'SCANNING',stage:'SCANNING',progress:frame/59,result:null});
+}
+const throttledDraws=rig.screenDrawCount-screenStart;
+assert(throttledDraws>=SCREEN_REFRESH_FPS-1&&throttledDraws<=SCREEN_REFRESH_FPS+1,`screen uploaded ${throttledDraws} times in one second`);
+const beforeForced=rig.screenDrawCount;rig.updateScreen({state:'COMPLETE',stage:'COMPLETE',progress:1,result:'PASS'},true);
+assert.equal(rig.screenDrawCount,beforeForced+1,'forced state screen refresh was not immediate');
 
 // Full workpiece Box3 sampling against fixed chamber and optical obstacles. Rollers
 // are intentionally excluded as legal supports; the part clears their top by 1 mm.

@@ -197,11 +197,17 @@ OFF → READY → FEEDING → POSITIONING → SCANNING
 
 动态屏幕使用运行时 `CanvasTexture`。它根据 `Control_ScreenGlass` 的真实世界位置和朝向建立覆盖面；Operating Mode 期间非破坏性隐藏 `Control_DisplayTitle`、`Control_DisplayStatus`、`Control_UIHeaderLine`、`Control_UIProgress` 与 `Control_UIStatusDot`，退出时恢复原可见性。HTML 面板与 3D 屏幕接收同一个状态快照，因此状态、阶段、进度和模拟结果不会分叉。结果始终标注为概念模拟，不声明真实视觉算法、准确率或产能。
 
+Phase 4.1D.1 保留 `768 × 480` 画布分辨率，但将连续进度下的整张画布重绘和纹理上传限制为约 `12 FPS`；滚轴、风扇、工件和扫描效果仍按正常 RAF 更新。状态切换、检测完成、暂停、恢复、重置和关机强制立即刷新，避免 HTML 与 3D 屏幕产生可感知的状态延迟。最终浏览器测量在 `650 ms` 内发生 `9` 次屏幕上传，符合该刷新目标。
+
 ### Operating Mode validation
 
-`scripts/validate-inspection-station-operation.mjs` 直接加载实际 GLB，验证 19 根滚轴本地轴、双七叶风扇 Pivot、固定护网不旋转、机械复位无漂移、101 个路径采样、三语言文案，以及完整状态序列、非法转换、首帧零增量、暂停/恢复、Reset、Power Off、30 FPS 与多轮运行。它已加入 `pnpm run check:inspection`。
+`scripts/validate-inspection-station-operation.mjs` 直接加载实际 GLB，验证 19 根滚轴本地轴、双七叶风扇 Pivot、固定护网不旋转、机械复位无漂移、101 个路径采样、三语言文案，以及完整状态序列、非法转换、首帧零增量、暂停/恢复、Reset、Power Off、30 FPS 与多轮运行。Phase 4.1D.1 还增加了 `CanvasTexture` 连续刷新频率与强制刷新测试；它们已加入 `pnpm run check:inspection`。
 
-本地 Chrome 已实际加载新增界面、GLB、运行时动态屏幕和工件，取得 OFF、READY 与 FEEDING 真实帧，位于 `docs/screenshots/inspection-station/operation/`。本轮自动化浏览器没有继续派发 RAF，桌面控制又因无法安全确认本地 URL 被系统停止，因此 SCANNING、COMPLETE、390px 与 768px 的完整动态浏览器复验尚未完成；不能把自动化控制器测试或静态终点当作该部分的视觉验收。
+`scripts/qa-inspection-station-operation.mjs` 在生产构建预览中驱动真实 Chrome。此前 RAF 异常并非生产状态机问题，而是 QA 启动参数强制 `--use-angle=swiftshader`：同一机器上默认硬件渲染约为 `63–67 RAF/s`，强制 SwiftShader 仅约 `3 RAF/s`。本轮移除该错误测试参数，保留生产代码的页面隐藏暂停逻辑，并使用 Intel Iris Xe / ANGLE D3D11 完成验收；`500 ms` 采样收到 `30` 帧。
+
+自动化浏览器验证已覆盖 OFF、READY、FEEDING、POSITIONING、SCANNING、EVALUATING、OUTPUTTING、COMPLETE，HTML 面板与 3D 屏幕状态一致，暂停冻结进度及全部机械姿态，恢复从原阶段继续，并连续完成三轮检测。Reset、Power Off、退出 Operating Mode 后的滚轴/风扇复位、工件清理、屏幕恢复，以及回到 Assembly Mode 后 Explode → Reassemble 均通过；控制台与页面错误均为零。自动化还验证了模型按需且仅加载一次、390px/768px 无横向溢出及真实触控拖动会改变 OrbitControls 相机。
+
+静态代码与控制器验证负责可控时间、页面可见性分支、路径包围盒和多轮无漂移；真实浏览器自动化负责动态状态与输入；最终截图再由人工目视检查模型材质、扫描/完成反馈和移动布局。OFF、READY、FEEDING、SCANNING、COMPLETE、768px、390px 的真实生产预览截图及机器可读记录位于 `docs/screenshots/inspection-station/operation-qa/`。
 
 ## Known limitations
 
@@ -210,7 +216,6 @@ OFF → READY → FEEDING → POSITIONING → SCANNING
 - 浏览器端无贴图 GLB 无法完全复现 Blender 程序化拉丝微表面与 Eevee 采样；实时材质经过非破坏性校准，源 GLB 未修改。
 - 控制屏在 Assembly Mode 中仍是原始建模几何；Operating Mode 使用运行时 CanvasTexture 展示同步状态，但不接收屏幕内点击操作。
 - 受检测舱左右安全玻璃结构限制，工件采用舱内局部检测行程，不宣称从机器外部贯通进出料。
-- Phase 4.1D 的完整动态桌面/移动浏览器复验仍待在可持续派发 RAF 且允许安全控制本地 URL 的环境中补做。
 - Eevee 安全玻璃会呈现轻微的采样颗粒；源模型几何和透明层级本身保持完整。
 
 ## Transform and extension readiness

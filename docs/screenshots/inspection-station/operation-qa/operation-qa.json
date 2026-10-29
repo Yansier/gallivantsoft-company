@@ -1,0 +1,1852 @@
+{
+  "generatedAt": "2026-10-29T23:19:18.282Z",
+  "base": "http://127.0.0.1:4321",
+  "browser": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "hidden": false,
+    "renderer": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x00009A49) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rafFramesPer500ms": 30
+  },
+  "performance": {
+    "screenUploadsIn650ms": 9,
+    "targetScreenFps": 12
+  },
+  "desktop": {
+    "stages": [
+      {
+        "stage": "OFF",
+        "dom": {
+          "status": "Power Off",
+          "stage": "Power Off",
+          "progress": "0%",
+          "result": "—"
+        },
+        "operation": {
+          "state": "OFF",
+          "stage": "OFF",
+          "stageProgress": 0,
+          "progress": 0,
+          "result": null,
+          "workpiece": null,
+          "message": "off",
+          "pausedState": null
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 0
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 0
+          },
+          "workpiece": {
+            "visible": false,
+            "position": [
+              -0.46,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              0,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 1,
+            "lastData": {
+              "state": "OFF",
+              "stage": "OFF",
+              "stageProgress": 0,
+              "progress": 0,
+              "result": null,
+              "workpiece": null,
+              "message": "off",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      {
+        "stage": "READY",
+        "dom": {
+          "status": "System Ready",
+          "stage": "Awaiting workpiece",
+          "progress": "0%",
+          "result": "—"
+        },
+        "operation": {
+          "state": "READY",
+          "stage": "READY",
+          "stageProgress": 0,
+          "progress": 0,
+          "result": null,
+          "workpiece": null,
+          "message": "ready",
+          "pausedState": null
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 0
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 0
+          },
+          "workpiece": {
+            "visible": false,
+            "position": [
+              -0.46,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 2,
+            "lastData": {
+              "state": "READY",
+              "stage": "READY",
+              "stageProgress": 0,
+              "progress": 0,
+              "result": null,
+              "workpiece": null,
+              "message": "ready",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      {
+        "stage": "FEEDING",
+        "dom": {
+          "status": "Feeding",
+          "stage": "Workpiece infeed",
+          "progress": "7%",
+          "result": "—"
+        },
+        "operation": {
+          "state": "FEEDING",
+          "stage": "FEEDING",
+          "stageProgress": 0.277705555555556,
+          "progress": 0.069426388888889,
+          "result": null,
+          "workpiece": "PIS-W001",
+          "message": "feeding",
+          "pausedState": null
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 2.8992460000000047
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 1.599584000000003
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              -0.39590061148972994,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 8,
+            "lastData": {
+              "state": "FEEDING",
+              "stage": "FEEDING",
+              "stageProgress": 0.2407055555555558,
+              "progress": 0.06017638888888895,
+              "result": null,
+              "workpiece": "PIS-W001",
+              "message": "feeding",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      {
+        "stage": "POSITIONING",
+        "dom": {
+          "status": "Positioning",
+          "stage": "Precision positioning",
+          "progress": "27%",
+          "result": "—"
+        },
+        "operation": {
+          "state": "POSITIONING",
+          "stage": "POSITIONING",
+          "stageProgress": 0.18527777777777854,
+          "progress": 0.26852777777777787,
+          "result": null,
+          "workpiece": "PIS-W001",
+          "message": "positioning",
+          "pausedState": null
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 10.827170691503094
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 6.230944000000001
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              -0.10916841750514394,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 26,
+            "lastData": {
+              "state": "POSITIONING",
+              "stage": "POSITIONING",
+              "stageProgress": 0.1158333333333341,
+              "progress": 0.2615833333333334,
+              "result": null,
+              "workpiece": "PIS-W001",
+              "message": "positioning",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      {
+        "stage": "SCANNING",
+        "dom": {
+          "status": "Scanning",
+          "stage": "Optical scan",
+          "progress": "40%",
+          "result": "—"
+        },
+        "operation": {
+          "state": "SCANNING",
+          "stage": "SCANNING",
+          "stageProgress": 0.11240909090909058,
+          "progress": 0.3915913636363635,
+          "result": null,
+          "workpiece": "PIS-W001",
+          "message": "scanning",
+          "pausedState": null
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 11.346255741114593
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 9.164233999999997
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              0,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": true,
+            "position": [
+              -0.13953272727272736,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0.3929245480731551
+          },
+          "screen": {
+            "drawCount": 36,
+            "lastData": {
+              "state": "SCANNING",
+              "stage": "SCANNING",
+              "stageProgress": 0.08972727272727256,
+              "progress": 0.3831990909090908,
+              "result": null,
+              "workpiece": "PIS-W001",
+              "message": "scanning",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      {
+        "stage": "EVALUATING",
+        "dom": {
+          "status": "Evaluating",
+          "stage": "Simulated evaluation",
+          "progress": "74%",
+          "result": "—"
+        },
+        "operation": {
+          "state": "EVALUATING",
+          "stage": "EVALUATING",
+          "stageProgress": 0.1111111111111111,
+          "progress": 0.7333333333333333,
+          "result": null,
+          "workpiece": "PIS-W001",
+          "message": "evaluating",
+          "pausedState": null
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 11.346255741114593
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 17.490303999999995
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              0,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 63,
+            "lastData": {
+              "state": "EVALUATING",
+              "stage": "EVALUATING",
+              "stageProgress": 0.1111111111111111,
+              "progress": 0.7333333333333333,
+              "result": null,
+              "workpiece": "PIS-W001",
+              "message": "evaluating",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      {
+        "stage": "OUTPUTTING",
+        "dom": {
+          "status": "Outputting",
+          "stage": "Workpiece outfeed",
+          "progress": "86%",
+          "result": "—"
+        },
+        "operation": {
+          "state": "OUTPUTTING",
+          "stage": "OUTPUTTING",
+          "stageProgress": 0.14139393939394004,
+          "progress": 0.8626230303030303,
+          "result": null,
+          "workpiece": "PIS-W001",
+          "message": "outputting",
+          "pausedState": null
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 12.6993957411146
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 20.886022904203074
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              0.02498865977593254,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 76,
+            "lastData": {
+              "state": "OUTPUTTING",
+              "stage": "OUTPUTTING",
+              "stageProgress": 0.12121212121212122,
+              "progress": 0.8593939393939394,
+              "result": null,
+              "workpiece": "PIS-W001",
+              "message": "outputting",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      {
+        "stage": "COMPLETE",
+        "dom": {
+          "status": "Inspection Complete",
+          "stage": "Cycle complete",
+          "progress": "100%",
+          "result": "PASS"
+        },
+        "operation": {
+          "state": "COMPLETE",
+          "stage": "COMPLETE",
+          "stageProgress": 1,
+          "progress": 1,
+          "result": "PASS",
+          "workpiece": "PIS-W001",
+          "message": "complete",
+          "pausedState": null
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 21.03283574111459
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 22.727290230309283
+          },
+          "workpiece": {
+            "visible": false,
+            "position": [
+              0.46,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 95,
+            "lastData": {
+              "state": "COMPLETE",
+              "stage": "COMPLETE",
+              "stageProgress": 1,
+              "progress": 1,
+              "result": "PASS",
+              "workpiece": "PIS-W001",
+              "message": "complete",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      }
+    ],
+    "cycles": [
+      {
+        "cycle": 1,
+        "complete": true
+      },
+      {
+        "cycle": 2,
+        "complete": true
+      },
+      {
+        "cycle": 3,
+        "complete": true
+      }
+    ],
+    "visibility": {
+      "method": "Chrome document.hidden visibilitychange branch; scheduler visibility source is independently tested with a controllable source",
+      "beforeHidden": {
+        "state": {
+          "experienceMode": "operating",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "FEEDING",
+          "operation": {
+            "state": "FEEDING",
+            "stage": "FEEDING",
+            "stageProgress": 0.14803888888888853,
+            "progress": 0.03700972222222213,
+            "result": null,
+            "workpiece": "PIS-W002",
+            "message": "feeding",
+            "pausedState": null
+          },
+          "message": "operation:feeding"
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 1.545525999999996
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 0.8527039999999982
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              -0.43985233385805494,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 99,
+            "lastData": {
+              "state": "FEEDING",
+              "stage": "FEEDING",
+              "stageProgress": 0.14803888888888853,
+              "progress": 0.03700972222222213,
+              "result": null,
+              "workpiece": "PIS-W002",
+              "message": "feeding",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "operation": {
+          "state": "FEEDING",
+          "stage": "FEEDING",
+          "stageProgress": 0.14803888888888853,
+          "progress": 0.03700972222222213,
+          "result": null,
+          "workpiece": "PIS-W002",
+          "message": "feeding",
+          "pausedState": null
+        },
+        "camera": {
+          "position": [
+            6.399170968585867,
+            5.0014981417269695,
+            7.620240167289281
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      },
+      "hiddenStart": {
+        "state": {
+          "experienceMode": "operating",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "FEEDING",
+          "operation": {
+            "state": "FEEDING",
+            "stage": "FEEDING",
+            "stageProgress": 0.14803888888888853,
+            "progress": 0.03700972222222213,
+            "result": null,
+            "workpiece": "PIS-W002",
+            "message": "feeding",
+            "pausedState": null
+          },
+          "message": "operation:feeding"
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 1.545525999999996
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 0.8527039999999982
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              -0.43985233385805494,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 99,
+            "lastData": {
+              "state": "FEEDING",
+              "stage": "FEEDING",
+              "stageProgress": 0.14803888888888853,
+              "progress": 0.03700972222222213,
+              "result": null,
+              "workpiece": "PIS-W002",
+              "message": "feeding",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "operation": {
+          "state": "FEEDING",
+          "stage": "FEEDING",
+          "stageProgress": 0.14803888888888853,
+          "progress": 0.03700972222222213,
+          "result": null,
+          "workpiece": "PIS-W002",
+          "message": "feeding",
+          "pausedState": null
+        },
+        "camera": {
+          "position": [
+            6.399170968585867,
+            5.0014981417269695,
+            7.620240167289281
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      },
+      "whileHidden": {
+        "state": {
+          "experienceMode": "operating",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "FEEDING",
+          "operation": {
+            "state": "FEEDING",
+            "stage": "FEEDING",
+            "stageProgress": 0.14803888888888853,
+            "progress": 0.03700972222222213,
+            "result": null,
+            "workpiece": "PIS-W002",
+            "message": "feeding",
+            "pausedState": null
+          },
+          "message": "operation:feeding"
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 1.545525999999996
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 0.8527039999999982
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              -0.43985233385805494,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 99,
+            "lastData": {
+              "state": "FEEDING",
+              "stage": "FEEDING",
+              "stageProgress": 0.14803888888888853,
+              "progress": 0.03700972222222213,
+              "result": null,
+              "workpiece": "PIS-W002",
+              "message": "feeding",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "operation": {
+          "state": "FEEDING",
+          "stage": "FEEDING",
+          "stageProgress": 0.14803888888888853,
+          "progress": 0.03700972222222213,
+          "result": null,
+          "workpiece": "PIS-W002",
+          "message": "feeding",
+          "pausedState": null
+        },
+        "camera": {
+          "position": [
+            6.399170968585867,
+            5.0014981417269695,
+            7.620240167289281
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      },
+      "afterVisible": {
+        "state": {
+          "experienceMode": "operating",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "FEEDING",
+          "operation": {
+            "state": "FEEDING",
+            "stage": "FEEDING",
+            "stageProgress": 0.212705555555556,
+            "progress": 0.053176388888889,
+            "result": null,
+            "workpiece": "PIS-W002",
+            "message": "feeding",
+            "pausedState": null
+          },
+          "message": "operation:feeding"
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 2.2206460000000043
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 1.2251840000000032
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              -0.4203955055369707,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 100,
+            "lastData": {
+              "state": "FEEDING",
+              "stage": "FEEDING",
+              "stageProgress": 0.19426111111111116,
+              "progress": 0.04856527777777779,
+              "result": null,
+              "workpiece": "PIS-W002",
+              "message": "feeding",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "operation": {
+          "state": "FEEDING",
+          "stage": "FEEDING",
+          "stageProgress": 0.212705555555556,
+          "progress": 0.053176388888889,
+          "result": null,
+          "workpiece": "PIS-W002",
+          "message": "feeding",
+          "pausedState": null
+        },
+        "camera": {
+          "position": [
+            6.399170968585867,
+            5.0014981417269695,
+            7.620240167289281
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      },
+      "resumed": {
+        "state": {
+          "experienceMode": "operating",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "FEEDING",
+          "operation": {
+            "state": "FEEDING",
+            "stage": "FEEDING",
+            "stageProgress": 0.4164277777777776,
+            "progress": 0.1041069444444444,
+            "result": null,
+            "workpiece": "PIS-W002",
+            "message": "feeding",
+            "pausedState": null
+          },
+          "message": "operation:feeding"
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 4.3475059999999965
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 2.3986240000000008
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              -0.3322249208447421,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 104,
+            "lastData": {
+              "state": "FEEDING",
+              "stage": "FEEDING",
+              "stageProgress": 0.37937222222222267,
+              "progress": 0.09484305555555567,
+              "result": null,
+              "workpiece": "PIS-W002",
+              "message": "feeding",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "operation": {
+          "state": "FEEDING",
+          "stage": "FEEDING",
+          "stageProgress": 0.4164277777777776,
+          "progress": 0.1041069444444444,
+          "result": null,
+          "workpiece": "PIS-W002",
+          "message": "feeding",
+          "pausedState": null
+        },
+        "camera": {
+          "position": [
+            6.399170968585867,
+            5.0014981417269695,
+            7.620240167289281
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      }
+    },
+    "pause": {
+      "before": {
+        "state": {
+          "experienceMode": "operating",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "PAUSED",
+          "operation": {
+            "state": "PAUSED",
+            "stage": "SCANNING",
+            "stageProgress": 0.7804090909090907,
+            "progress": 0.6387513636363635,
+            "result": null,
+            "workpiece": "PIS-W001",
+            "message": "paused",
+            "pausedState": "SCANNING"
+          },
+          "message": "operation:paused"
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 11.346255741114593
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 15.189594
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              0,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": true,
+            "position": [
+              0.10094727272727266,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0.5382166011454171
+          },
+          "screen": {
+            "drawCount": 55,
+            "lastData": {
+              "state": "PAUSED",
+              "stage": "SCANNING",
+              "stageProgress": 0.7804090909090907,
+              "progress": 0.6387513636363635,
+              "result": null,
+              "workpiece": "PIS-W001",
+              "message": "paused",
+              "pausedState": "SCANNING"
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "operation": {
+          "state": "PAUSED",
+          "stage": "SCANNING",
+          "stageProgress": 0.7804090909090907,
+          "progress": 0.6387513636363635,
+          "result": null,
+          "workpiece": "PIS-W001",
+          "message": "paused",
+          "pausedState": "SCANNING"
+        },
+        "camera": {
+          "position": [
+            6.399170968585867,
+            5.0014981417269695,
+            7.620240167289281
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      },
+      "after": {
+        "state": {
+          "experienceMode": "operating",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "PAUSED",
+          "operation": {
+            "state": "PAUSED",
+            "stage": "SCANNING",
+            "stageProgress": 0.7804090909090907,
+            "progress": 0.6387513636363635,
+            "result": null,
+            "workpiece": "PIS-W001",
+            "message": "paused",
+            "pausedState": "SCANNING"
+          },
+          "message": "operation:paused"
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 11.346255741114593
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 15.189594
+          },
+          "workpiece": {
+            "visible": true,
+            "position": [
+              0,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": true,
+            "position": [
+              0.10094727272727266,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0.5382166011454171
+          },
+          "screen": {
+            "drawCount": 55,
+            "lastData": {
+              "state": "PAUSED",
+              "stage": "SCANNING",
+              "stageProgress": 0.7804090909090907,
+              "progress": 0.6387513636363635,
+              "result": null,
+              "workpiece": "PIS-W001",
+              "message": "paused",
+              "pausedState": "SCANNING"
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "operation": {
+          "state": "PAUSED",
+          "stage": "SCANNING",
+          "stageProgress": 0.7804090909090907,
+          "progress": 0.6387513636363635,
+          "result": null,
+          "workpiece": "PIS-W001",
+          "message": "paused",
+          "pausedState": "SCANNING"
+        },
+        "camera": {
+          "position": [
+            6.399170968585867,
+            5.0014981417269695,
+            7.620240167289281
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      }
+    },
+    "powerOff": {
+      "immediate": {
+        "state": {
+          "experienceMode": "operating",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "OFF",
+          "operation": {
+            "state": "OFF",
+            "stage": "OFF",
+            "stageProgress": 0,
+            "progress": 0,
+            "result": null,
+            "workpiece": "PIS-W004",
+            "message": "off",
+            "pausedState": null
+          },
+          "message": "operation:off"
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 0
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 0
+          },
+          "workpiece": {
+            "visible": false,
+            "position": [
+              -0.46,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 283,
+            "lastData": {
+              "state": "OFF",
+              "stage": "OFF",
+              "stageProgress": 0,
+              "progress": 0,
+              "result": null,
+              "workpiece": "PIS-W004",
+              "message": "off",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "operation": {
+          "state": "OFF",
+          "stage": "OFF",
+          "stageProgress": 0,
+          "progress": 0,
+          "result": null,
+          "workpiece": "PIS-W004",
+          "message": "off",
+          "pausedState": null
+        },
+        "camera": {
+          "position": [
+            6.399170968585867,
+            5.0014981417269695,
+            7.620240167289281
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      },
+      "after500ms": {
+        "state": {
+          "experienceMode": "operating",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "OFF",
+          "operation": {
+            "state": "OFF",
+            "stage": "OFF",
+            "stageProgress": 0,
+            "progress": 0,
+            "result": null,
+            "workpiece": "PIS-W004",
+            "message": "off",
+            "pausedState": null
+          },
+          "message": "operation:off"
+        },
+        "mechanics": {
+          "active": true,
+          "rollers": {
+            "count": 19,
+            "angle": 0
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 0
+          },
+          "workpiece": {
+            "visible": false,
+            "position": [
+              -0.46,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 283,
+            "lastData": {
+              "state": "OFF",
+              "stage": "OFF",
+              "stageProgress": 0,
+              "progress": 0,
+              "result": null,
+              "workpiece": "PIS-W004",
+              "message": "off",
+              "pausedState": null
+            },
+            "visible": true
+          },
+          "staticScreenVisible": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "operation": {
+          "state": "OFF",
+          "stage": "OFF",
+          "stageProgress": 0,
+          "progress": 0,
+          "result": null,
+          "workpiece": "PIS-W004",
+          "message": "off",
+          "pausedState": null
+        },
+        "camera": {
+          "position": [
+            6.399170968585867,
+            5.0014981417269695,
+            7.620240167289281
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      }
+    },
+    "assemblyReturn": {
+      "assemblyReady": {
+        "state": {
+          "experienceMode": "assembly",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "assembled",
+          "operation": null,
+          "message": "assemblyReady"
+        },
+        "mechanics": {
+          "active": false,
+          "rollers": {
+            "count": 19,
+            "angle": 0
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 0
+          },
+          "workpiece": {
+            "visible": false,
+            "position": [
+              -0.46,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 283,
+            "lastData": {
+              "state": "OFF",
+              "stage": "OFF",
+              "stageProgress": 0,
+              "progress": 0,
+              "result": null,
+              "workpiece": "PIS-W004",
+              "message": "off",
+              "pausedState": null
+            },
+            "visible": false
+          },
+          "staticScreenVisible": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "operation": {
+          "state": "OFF",
+          "stage": "OFF",
+          "stageProgress": 0,
+          "progress": 0,
+          "result": null,
+          "workpiece": "PIS-W004",
+          "message": "off",
+          "pausedState": null
+        },
+        "camera": {
+          "position": [
+            6.406585603201535,
+            5.005585696707401,
+            7.628985633759042
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      },
+      "reassembled": {
+        "state": {
+          "experienceMode": "assembly",
+          "pendingMode": null,
+          "assembly": "assembled",
+          "assemblyProgress": 0,
+          "assemblyMode": "idle",
+          "targetProgress": 0,
+          "selectedKey": null,
+          "selectedType": null,
+          "isolated": false,
+          "displayState": "assembled",
+          "operation": null,
+          "message": "assembled"
+        },
+        "mechanics": {
+          "active": false,
+          "rollers": {
+            "count": 19,
+            "angle": 0
+          },
+          "fans": {
+            "groups": 2,
+            "blades": [
+              7,
+              7
+            ],
+            "angle": 0
+          },
+          "workpiece": {
+            "visible": false,
+            "position": [
+              -0.46,
+              1.061,
+              0
+            ]
+          },
+          "scan": {
+            "visible": false,
+            "position": [
+              -0.18,
+              1.19,
+              -0.03
+            ],
+            "opacity": 0
+          },
+          "screen": {
+            "drawCount": 283,
+            "lastData": {
+              "state": "OFF",
+              "stage": "OFF",
+              "stageProgress": 0,
+              "progress": 0,
+              "result": null,
+              "workpiece": "PIS-W004",
+              "message": "off",
+              "pausedState": null
+            },
+            "visible": false
+          },
+          "staticScreenVisible": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "operation": {
+          "state": "OFF",
+          "stage": "OFF",
+          "stageProgress": 0,
+          "progress": 0,
+          "result": null,
+          "workpiece": "PIS-W004",
+          "message": "off",
+          "pausedState": null
+        },
+        "camera": {
+          "position": [
+            6.515519531651066,
+            5.065639016237272,
+            7.757471805776439
+          ],
+          "target": [
+            0,
+            1.4737500436604023,
+            0.07250005049569264
+          ]
+        }
+      }
+    }
+  },
+  "responsive": [
+    {
+      "width": 768,
+      "layout": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "buttons": [
+          {
+            "name": "power-on",
+            "left": 59.59375,
+            "right": 381.203125,
+            "top": 1734.078125,
+            "bottom": 1771.671875,
+            "width": 321.609375,
+            "height": 37.59375
+          },
+          {
+            "name": "start",
+            "left": 386.796875,
+            "right": 708.40625,
+            "top": 1734.078125,
+            "bottom": 1771.671875,
+            "width": 321.609375,
+            "height": 37.59375
+          },
+          {
+            "name": "pause",
+            "left": 59.59375,
+            "right": 381.203125,
+            "top": 1777.265625,
+            "bottom": 1814.859375,
+            "width": 321.609375,
+            "height": 37.59375
+          },
+          {
+            "name": "reset",
+            "left": 386.796875,
+            "right": 708.40625,
+            "top": 1777.265625,
+            "bottom": 1814.859375,
+            "width": 321.609375,
+            "height": 37.59375
+          },
+          {
+            "name": "power-off",
+            "left": 59.59375,
+            "right": 708.40625,
+            "top": 1820.453125,
+            "bottom": 1858.046875,
+            "width": 648.8125,
+            "height": 37.59375
+          }
+        ],
+        "canvas": {
+          "width": 718,
+          "height": 544
+        },
+        "panel": {
+          "left": 42.59375,
+          "right": 725.40625,
+          "width": 682.8125
+        }
+      },
+      "state": "SCANNING",
+      "touchVerified": true,
+      "cameraBeforeTouch": [
+        6.4357098652995814,
+        5.02164137965889,
+        7.663337327515712
+      ],
+      "cameraAfterTouch": [
+        6.400779371121681,
+        5.0023848251762,
+        7.622137257459727
+      ]
+    },
+    {
+      "width": 390,
+      "layout": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "buttons": [
+          {
+            "name": "power-on",
+            "left": 45.1875,
+            "right": 192.203125,
+            "top": 1655.515625,
+            "bottom": 1697.90625,
+            "width": 147.015625,
+            "height": 42.390625
+          },
+          {
+            "name": "start",
+            "left": 197.796875,
+            "right": 344.8125,
+            "top": 1655.515625,
+            "bottom": 1697.90625,
+            "width": 147.015625,
+            "height": 42.390625
+          },
+          {
+            "name": "pause",
+            "left": 45.1875,
+            "right": 192.203125,
+            "top": 1703.5,
+            "bottom": 1745.890625,
+            "width": 147.015625,
+            "height": 42.390625
+          },
+          {
+            "name": "reset",
+            "left": 197.796875,
+            "right": 344.8125,
+            "top": 1703.5,
+            "bottom": 1745.890625,
+            "width": 147.015625,
+            "height": 42.390625
+          },
+          {
+            "name": "power-off",
+            "left": 45.1875,
+            "right": 344.8125,
+            "top": 1751.484375,
+            "bottom": 1793.875,
+            "width": 299.625,
+            "height": 42.390625
+          }
+        ],
+        "canvas": {
+          "width": 364,
+          "height": 464
+        },
+        "panel": {
+          "left": 30.59375,
+          "right": 359.40625,
+          "width": 328.8125
+        }
+      },
+      "state": "SCANNING",
+      "touchVerified": true,
+      "cameraBeforeTouch": [
+        7.057272775634462,
+        5.364297855869144,
+        8.396462811500442
+      ],
+      "cameraAfterTouch": [
+        7.810743621117337,
+        5.779672809148165,
+        9.285172013864859
+      ]
+    }
+  ],
+  "consoleErrors": []
+}

@@ -33,6 +33,7 @@ if(root&&root.dataset.viewerBound!=='true'){
   const operationResult=root.querySelector('[data-operation-result]');
   const operationActivity=root.querySelector('[data-operation-activity]');
   const operationMeter=root.querySelector('[data-operation-meter]');
+  const operationProgressBar=root.querySelector('[data-operation-progressbar]');
   const operationLight=root.querySelector('[data-operation-light]');
   const operationButtons=Object.fromEntries([...root.querySelectorAll('[data-operation-action]')].map((button)=>[button.dataset.operationAction,button]));
   const copyNode=document.querySelector('[data-viewer-copy]');
@@ -116,10 +117,12 @@ if(root&&root.dataset.viewerBound!=='true'){
       const operationPercent=Math.round((operation.progress||0)*100);
       if(operationProgress)operationProgress.textContent=`${operationPercent}%`;
       if(operationMeter)operationMeter.style.width=`${operationPercent}%`;
+      if(operationProgressBar){operationProgressBar.setAttribute('aria-valuenow',String(operationPercent));operationProgressBar.setAttribute('aria-valuetext',`${operationPercent}% — ${operationCopy.stages?.[operation.stage]||operation.stage}`);}
       if(operationWorkpiece)operationWorkpiece.textContent=operation.workpiece||'—';
       if(operationResult)operationResult.textContent=operation.result?(operationCopy.results?.[operation.result]||operation.result):'—';
       if(operationActivity)operationActivity.textContent=operationCopy.messages?.[operation.message]||operationCopy.messages?.off||'';
       if(operationLight){operationLight.dataset.state=operation.state;operationLight.setAttribute('aria-label',operationCopy.states?.[operation.state]||operation.state);}
+      if(operatingPanel)operatingPanel.dataset.state=operation.state;
       const running=['FEEDING','POSITIONING','SCANNING','EVALUATING','OUTPUTTING'].includes(operation.state);
       operationButtons['power-on'].disabled=operation.state!=='OFF';
       operationButtons.start.disabled=!['READY','COMPLETE'].includes(operation.state);
@@ -185,6 +188,7 @@ if(root&&root.dataset.viewerBound!=='true'){
         onInteraction:renderState
       });
       updateStructure(viewer.structure);
+      if(new URLSearchParams(location.search).has('inspectionQa'))root.inspectionQa=viewer;
       loading.hidden=true;controls.hidden=false;root.classList.add('viewer-ready');
       selectionButtons.forEach((button)=>{button.disabled=false;});
       if(assemblySlider)assemblySlider.disabled=false;
@@ -194,6 +198,6 @@ if(root&&root.dataset.viewerBound!=='true'){
   };
 
   launch?.addEventListener('click',start);
-  const dispose=()=>{viewer?.dispose();viewer=null;};
+  const dispose=()=>{delete root.inspectionQa;viewer?.dispose();viewer=null;};
   window.addEventListener('pagehide',dispose,{once:true});
 }

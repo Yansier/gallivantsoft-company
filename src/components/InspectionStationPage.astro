@@ -112,7 +112,7 @@ const detailComponents=['OpticalLens','InspectionHead','ConveyorRollers','Contro
                 <div><dt>{copy.operation.workpiece}</dt><dd data-operation-workpiece>—</dd></div>
                 <div><dt>{copy.operation.lastResult}</dt><dd data-operation-result>—</dd></div>
               </dl>
-              <div class="inspection-operation-meter"><i data-operation-meter></i></div>
+              <div class="inspection-operation-meter" role="progressbar" aria-label={copy.operation.progress} aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-operation-progressbar><i data-operation-meter></i></div>
               <p class="inspection-operation-disclaimer">{copy.operation.simulationNote}</p>
               <div class="inspection-operation-actions">
                 <button type="button" data-operation-action="power-on">{copy.operation.actions.powerOn}</button>

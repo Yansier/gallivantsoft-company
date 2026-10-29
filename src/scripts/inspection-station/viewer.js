@@ -213,6 +213,7 @@ export async function createInspectionViewer({root,canvas,stage,modelUrl,expecte
   const api={
     structure:{missing:registry.missing,found:expectedComponents.filter((name)=>!registry.missing.includes(name)),details:registry.detailRecords.map((record)=>record.key)},
     getState:state,
+    getDiagnostics:()=>({state:state(),mechanics:rig.getDiagnostics(),operation:operation.snapshot(),camera:{position:camera.position.toArray(),target:controls.target.toArray()}}),
     selectComponent(key){
       if(experienceMode!=='assembly'||assembly.isAnimating())return false;
       if(selection.isolated)selection.showFull();

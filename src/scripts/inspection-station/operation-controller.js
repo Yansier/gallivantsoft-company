@@ -20,7 +20,7 @@ export class OperationController{
   snapshot(message=this.state.toLowerCase()){
     return {state:this.state,stage:this.state===OPERATION_STATES.PAUSED?this.pausedState:this.state,stageProgress:this.stageProgress,progress:this.overallProgress,result:this.lastResult,workpiece:this.cycle?`PIS-W${String(this.cycle).padStart(3,'0')}`:null,message,pausedState:this.pausedState};
   }
-  emit(message){const data=this.snapshot(message);this.rig?.updateScreen(data);this.onStateChange?.(data);}
+  emit(message,forceScreen=false){const data=this.snapshot(message);this.rig?.updateScreen(data,forceScreen);this.onStateChange?.(data);}
 
   enter(){
     this.scheduler.stop('operation');this.enabled=true;this.state=OPERATION_STATES.OFF;this.stageElapsed=0;this.stageProgress=0;this.overallProgress=0;this.pausedState=null;this.lastResult=null;
@@ -29,7 +29,7 @@ export class OperationController{
 
   powerOn(){
     if(!this.enabled||this.state!==OPERATION_STATES.OFF)return false;
-    this.rig.resetMotion();this.state=OPERATION_STATES.READY;this.stageElapsed=0;this.stageProgress=0;this.overallProgress=0;this.lastResult=null;this.emit('ready');return true;
+    this.rig.resetMotion();this.state=OPERATION_STATES.READY;this.stageElapsed=0;this.stageProgress=0;this.overallProgress=0;this.lastResult=null;this.emit('ready',true);return true;
   }
 
   start(){
@@ -39,8 +39,8 @@ export class OperationController{
 
   transition(next){
     this.state=next;this.stageElapsed=0;this.stageProgress=next===OPERATION_STATES.COMPLETE?1:0;
-    if(next===OPERATION_STATES.COMPLETE){this.overallProgress=1;this.lastResult='PASS';this.rig.setWorkpiece(OPERATION_GEOMETRY.path.output,false);this.rig.setScan(0,false);this.scheduler.stop('operation');this.emit('complete');return;}
-    this.emit(next.toLowerCase());this.run();
+    if(next===OPERATION_STATES.COMPLETE){this.overallProgress=1;this.lastResult='PASS';this.rig.setWorkpiece(OPERATION_GEOMETRY.path.output,false);this.rig.setScan(0,false);this.scheduler.stop('operation');this.emit('complete',true);return;}
+    this.emit(next.toLowerCase(),true);this.run();
   }
 
   run(){
@@ -74,23 +74,23 @@ export class OperationController{
 
   pause(){
     if(!this.isRunning)return false;
-    this.scheduler.stop('operation');this.pausedState=this.state;this.state=OPERATION_STATES.PAUSED;this.emit('paused');return true;
+    this.scheduler.stop('operation');this.pausedState=this.state;this.state=OPERATION_STATES.PAUSED;this.emit('paused',true);return true;
   }
 
   resume(){
     if(this.state!==OPERATION_STATES.PAUSED||!this.pausedState)return false;
-    this.state=this.pausedState;this.pausedState=null;this.emit('resumed');this.run();return true;
+    this.state=this.pausedState;this.pausedState=null;this.emit('resumed',true);this.run();return true;
   }
 
   reset(){
     if(!this.enabled)return false;
     this.scheduler.stop('operation');this.rig.resetMotion();this.pausedState=null;this.stageElapsed=0;this.stageProgress=0;this.overallProgress=0;this.lastResult=null;
-    this.state=this.state===OPERATION_STATES.OFF?OPERATION_STATES.OFF:OPERATION_STATES.READY;this.emit(this.state.toLowerCase());return true;
+    this.state=this.state===OPERATION_STATES.OFF?OPERATION_STATES.OFF:OPERATION_STATES.READY;this.emit(this.state.toLowerCase(),true);return true;
   }
 
   powerOff(){
     if(!this.enabled)return false;
-    this.scheduler.stop('operation');this.rig.resetMotion();this.state=OPERATION_STATES.OFF;this.pausedState=null;this.stageElapsed=0;this.stageProgress=0;this.overallProgress=0;this.lastResult=null;this.emit('off');return true;
+    this.scheduler.stop('operation');this.rig.resetMotion();this.state=OPERATION_STATES.OFF;this.pausedState=null;this.stageElapsed=0;this.stageProgress=0;this.overallProgress=0;this.lastResult=null;this.emit('off',true);return true;
   }
 
   exit(){

@@ -11,6 +11,8 @@ export const OPERATION_GEOMETRY=Object.freeze({
   path:Object.freeze({input:-.46,inspection:0,output:.46,z:0}),
   chamberClearance:Object.freeze({xMin:-.7125,xMax:.7125,zMin:-.6125,zMax:.6625,opticalMinY:1.437})
 });
+export const SCREEN_REFRESH_FPS=12;
+export const SCREEN_REFRESH_INTERVAL_MS=1000/SCREEN_REFRESH_FPS;
 
 const STATIC_SCREEN_NAMES=['Control_DisplayTitle','Control_DisplayStatus','Control_UIHeaderLine','Control_UIProgress','Control_UIStatusDot'];
 const localFanCenter=(parent,worldCenter)=>parent.worldToLocal(new THREE.Vector3(...worldCenter));
@@ -74,7 +76,7 @@ export class MechanicalRig{
   constructor({model,scene,render,screenCopy={}}){
     this.model=model;this.scene=scene;this.render=render;
     this.rollers=OPERATION_GEOMETRY.rollerNames.map((name)=>model.getObjectByName(name)).filter(Boolean).map((node)=>({node,quaternion:node.quaternion.clone()}));
-    this.rollerAngle=0;this.fanAngle=0;this.fans=[];this.active=false;
+    this.rollerAngle=0;this.fanAngle=0;this.fans=[];this.active=false;this.screenElapsed=0;this.screenDrawCount=0;
     const cooling=model.getObjectByName('CoolingAssembly');
     if(cooling){
       model.updateMatrixWorld(true);
@@ -97,7 +99,7 @@ export class MechanicalRig{
   }
 
   enter(data){
-    this.active=true;this.workpiece.visible=false;this.scanEffect.visible=false;this.screen.mesh.visible=true;
+    this.active=true;this.screenElapsed=0;this.workpiece.visible=false;this.scanEffect.visible=false;this.screen.mesh.visible=true;
     this.staticScreen.forEach(({node})=>{node.visible=false;});this.updateScreen(data,true);this.render();
   }
 
@@ -114,6 +116,7 @@ export class MechanicalRig{
 
   advance(delta,{rollerSpeed=0,fanSpeed=0}={}){
     if(!this.active||delta<=0)return;
+    this.screenElapsed+=delta;
     const seconds=delta/1000;this.rollerAngle+=rollerSpeed*seconds;this.fanAngle+=fanSpeed*seconds;
     const rollerRotation=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...OPERATION_GEOMETRY.rollerAxis),this.rollerAngle);
     this.rollers.forEach(({node,quaternion})=>node.quaternion.copy(quaternion).multiply(rollerRotation));
@@ -121,7 +124,25 @@ export class MechanicalRig{
     this.model.updateMatrixWorld(true);
   }
 
-  updateScreen(data,force=false){if(drawScreen(this.screen,data,force))this.render();}
+  updateScreen(data,force=false){
+    if(!force&&this.screenElapsed<SCREEN_REFRESH_INTERVAL_MS)return false;
+    if(force)this.screenElapsed=0;
+    else this.screenElapsed%=SCREEN_REFRESH_INTERVAL_MS;
+    if(!drawScreen(this.screen,data,force))return false;
+    this.screenDrawCount+=1;this.screenLastData={...data};this.render();return true;
+  }
+
+  getDiagnostics(){
+    return {
+      active:this.active,
+      rollers:{count:this.rollers.length,angle:this.rollerAngle},
+      fans:{groups:this.fans.length,blades:this.fans.map((fan)=>fan.blades.length),angle:this.fanAngle},
+      workpiece:{visible:this.workpiece.visible,position:this.workpiece.position.toArray()},
+      scan:{visible:this.scanEffect.visible,position:this.scanEffect.position.toArray(),opacity:this.scanEffect.material.opacity},
+      screen:{drawCount:this.screenDrawCount,lastData:this.screenLastData||null,visible:this.screen.mesh.visible},
+      staticScreenVisible:this.staticScreen.map(({node})=>node.visible)
+    };
+  }
 
   resetMotion(){
     this.rollerAngle=0;this.fanAngle=0;this.rollers.forEach(({node,quaternion})=>node.quaternion.copy(quaternion));this.fans.forEach(({pivot})=>{pivot.rotation.set(0,0,0);});

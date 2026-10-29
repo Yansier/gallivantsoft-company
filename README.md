@@ -122,6 +122,7 @@ Contact 表单只进行浏览器端校验，并生成结构化邮件标题与正
 - `operation-controller.js` 单一状态机驱动 OFF、READY、FEEDING、POSITIONING、SCANNING、EVALUATING、OUTPUTTING、COMPLETE 与 PAUSED，支持启动、暂停/继续、重置和关机；
 - 工件使用检测舱内 X `-0.46～0.46 m` 的局部安全行程；自动检查在 101 个位置使用完整包围盒验证玻璃、背板和光学组件间隙，并把滚轴明确作为合法支撑面；
 - HTML 面板和设备 3D 屏幕共享同一状态快照；所有结果明确标注为概念模拟，不宣称真实视觉识别、准确率或产能；
+- 动态控制屏保留 `768 × 480` 清晰度，连续进度更新节流到约 12 FPS，状态切换、完成、暂停、恢复、重置与关机仍立即刷新；机械运动继续使用统一 RAF；
 - `pnpm run check:inspection` 还验证 19 根滚轴轴向、风扇 Pivot、固定护网、完整状态循环、非法转换、暂停/恢复、30 FPS 多轮运行、机械复位和三语言运行文案。
 
 ## 修改 Logo
@@ -197,4 +198,5 @@ dist/              构建产物
 - 已实际验证首页 CTA/Showcase 集成、1024px 导航、三语 Demo 路径保留、表单必填验证、邮件内容生成、剪贴板复制和超长内容回退；
 - 已实际操作数字孪生的启动、创建订单、开始、暂停/继续、完整流程、区域选择、重置与 WebGL 降级，并复验三个既有 Demo 路由；修复后的测试页面未出现新的控制台 error；
 - 已在真实 Chrome 中验证 Precision Inspection Station 的连续滑杆拖动（一次拖动 80 个不同进度）、反向拖回、Home/End、自动动画中途接管、65% 光学组件聚焦/隔离/恢复、Reset All、三语文案，以及 390px/768px 触控和 1440px 桌面布局；浏览器控制台无 error；
+- 已在生产构建预览的真实 Chrome 中验证 Operating Mode 全部八个阶段、HTML/3D 屏幕同步、暂停/恢复、Reset、Power Off、连续三轮检测、退出运行模式后的机械复位，以及回到 Assembly Mode 后的 Explode/Reassemble；390px 与 768px 均无横向溢出且触控旋转有效，验收截图与记录位于 `docs/screenshots/inspection-station/operation-qa/`；
 - 默认邮件客户端由浏览器请求打开，但网站无法也不会验证用户是否最终发送或邮件是否送达。

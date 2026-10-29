@@ -1,4 +1,11 @@
-import { localizedPath } from '../utils/routes.js';
+const supportedLanguages=['en','zh','ms'];
+const localizedPath=(pathname='/',lang='en')=>{
+  const language=supportedLanguages.includes(lang)?lang:'en';
+  const segments=pathname.split('/').filter(Boolean);
+  if(supportedLanguages.includes(segments[0]))segments[0]=language;
+  else segments.unshift(language);
+  return `/${segments.join('/')}/`;
+};
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
