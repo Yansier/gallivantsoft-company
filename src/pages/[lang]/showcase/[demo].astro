@@ -1,14 +1,16 @@
 ---
 import InteractiveDemoPage from '../../../components/InteractiveDemoPage.astro';
+import DigitalTwinPage from '../../../components/DigitalTwinPage.astro';
 import { supportedLanguages } from '../../../i18n/content.js';
 export function getStaticPaths(){
   const demos={
     'operations-dashboard':'operations',
     'customer-management':'customer',
-    'booking-workflow':'booking'
+    'booking-workflow':'booking',
+    'digital-twin':'digital-twin'
   } as const;
   return supportedLanguages.flatMap((lang)=>Object.entries(demos).map(([slug,demo])=>({params:{lang,demo:slug},props:{lang,demo}})));
 }
-const {lang,demo}=Astro.props as {lang:'en'|'zh'|'ms';demo:'operations'|'customer'|'booking'};
+const {lang,demo}=Astro.props as {lang:'en'|'zh'|'ms';demo:'operations'|'customer'|'booking'|'digital-twin'};
 ---
-<InteractiveDemoPage lang={lang} demo={demo}/>
+{demo==='digital-twin'?<DigitalTwinPage lang={lang}/>:<InteractiveDemoPage lang={lang} demo={demo}/>}

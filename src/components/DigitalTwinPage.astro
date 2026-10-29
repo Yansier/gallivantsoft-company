@@ -1,0 +1,22 @@
+---
+import PageChrome from './PageChrome.astro';
+import DigitalTwinPreview from './DigitalTwinPreview.astro';
+import { getContent, translations } from '../i18n/content.js';
+import { getPhase4Content, phase4Translations } from '../i18n/phase4.js';
+import { routeFor } from '../utils/routes.js';
+type Language=keyof typeof translations;
+const {lang='en'}=Astro.props as {lang?:Language};const t=getContent(lang);const copy=getPhase4Content(lang).twin as typeof phase4Translations.en.twin;
+const safeCopy=JSON.stringify(copy).replace(/</g,'\\u003c');
+---
+<PageChrome lang={lang} t={t} meta={copy.meta} currentPage="showcase" pageKey="showcase/digital-twin" pathname={routeFor(lang,'showcase/digital-twin')} bodyClass="inner-page twin-page">
+  <main id="main" data-digital-twin>
+    <section class="twin-hero dark-section" id="top"><div class="container twin-hero-grid"><div class="reveal"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href={routeFor(lang,'home')}>{t.nav.home}</a><span>/</span><a href={routeFor(lang,'showcase')}>{t.nav.showcase}</a><span>/</span><b>{copy.title}</b></nav><p class="eyebrow"><span></span>{copy.eyebrow}</p><h1>{copy.title}</h1><p>{copy.lead}</p><a class="twin-back" href={routeFor(lang,'showcase')}>← {copy.back}</a></div><DigitalTwinPreview/></div></section>
+    <section class="twin-experience dark-section"><div class="container"><div class="twin-shell">
+      <div class="twin-stage"><canvas data-twin-canvas aria-label={copy.title}></canvas><div class="twin-launch-gate" data-twin-gate><DigitalTwinPreview/><button class="btn btn-mint" type="button" data-twin-launch>{copy.launch}<span>↗</span></button><p>{copy.launchHint}</p></div><div class="twin-fallback-panel" data-twin-fallback hidden><b>{copy.fallbackTitle}</b><p>{copy.fallbackText}</p></div><div class="twin-scene-meta"><span data-twin-mode>{copy.fullMode}</span><small>{copy.sceneHelp}</small></div></div>
+      <aside class="twin-console"><div class="twin-console-head"><span>{copy.fictional}</span><h2>{copy.controls}</h2></div><div class="twin-kpis"><article><span>{copy.order}</span><b data-twin-order>—</b></article><article><span>{copy.stage}</span><b data-twin-stage>{copy.stages[0]}</b></article><article><span>{copy.status}</span><b data-twin-status>{copy.statuses.idle}</b></article><article><span>{copy.throughput}</span><b data-twin-throughput>0 / 0</b></article><article><span>{copy.cycle}</span><b data-twin-cycle>—</b></article></div><div class="twin-controls"><button type="button" data-twin-create>{copy.create}</button><button type="button" data-twin-start disabled>{copy.start}</button><button type="button" data-twin-next disabled>{copy.next}</button><button type="button" data-twin-pause disabled>{copy.pause}</button><button type="button" data-twin-reset disabled>{copy.reset}</button></div><div class="twin-zones"><h3>{copy.zones}</h3><div>{Object.entries(copy.zoneNames).map(([key,label])=><button type="button" class:list={{selected:key==='storage'}} aria-pressed={key==='storage'?'true':'false'} data-twin-zone={key}>{label}</button>)}</div><article><b data-twin-zone-name>{copy.zoneNames.storage}</b><p data-twin-zone-text>{copy.zoneText.storage}</p></article></div><div class="twin-activity"><span>{copy.activity}</span><p role="status" aria-live="polite" data-twin-activity>{copy.messages.ready}</p></div></aside>
+    </div></div></section>
+    <section class="section twin-notes light-section"><div class="container"><div class="section-heading reveal"><p class="eyebrow dark"><span></span>{copy.notesTitle}</p><h2>{copy.notesTitle}</h2></div><div class="twin-notes-grid">{copy.notes.map((item,index)=><article class="reveal"><span>0{index+1}</span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}</div></div></section>
+  </main>
+  <script type="application/json" data-twin-copy set:html={safeCopy}></script>
+  <script>import '../scripts/digital-twin/index.js';</script>
+</PageChrome>

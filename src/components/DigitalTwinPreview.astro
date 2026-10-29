@@ -1,0 +1,12 @@
+---
+const { compact=false }=Astro.props;
+---
+<div class:list={['twin-preview',{compact}]} aria-hidden="true">
+  <div class="twin-preview-grid"></div>
+  <div class="twin-preview-building"><i></i><i></i><i></i></div>
+  <div class="twin-preview-racks">{Array.from({length:compact?6:10}).map(()=><i></i>)}</div>
+  <div class="twin-preview-conveyor"><span></span></div>
+  <div class="twin-preview-package"></div>
+  <div class="twin-preview-signal signal-a"><i></i></div><div class="twin-preview-signal signal-b"><i></i></div><div class="twin-preview-signal signal-c"><i></i></div>
+  <b>GS / DIGITAL TWIN</b>
+</div>

@@ -1,0 +1,12 @@
+---
+import DigitalTwinPreview from './DigitalTwinPreview.astro';
+import { getPhase4Content, phase4Translations } from '../i18n/phase4.js';
+import { routeFor } from '../utils/routes.js';
+const {lang='en'}=Astro.props;const copy=getPhase4Content(lang) as typeof phase4Translations.en;
+---
+<section class="home-showcase home-lab section dark-section">
+  <div class="container home-lab-grid">
+    <div class="home-lab-copy reveal"><p class="eyebrow"><span></span>{copy.home.eyebrow}</p><h2>{copy.home.title}</h2><p>{copy.home.text}</p><a class="btn btn-mint" href={routeFor(lang,'showcase')}>{copy.home.button}<span>↗</span></a></div>
+    <a class="home-lab-preview reveal" href={routeFor(lang,'showcase/digital-twin')}><DigitalTwinPreview compact/><span>{copy.home.label}</span><b>{copy.lab.twinTitle}</b><i>↗</i></a>
+  </div>
+</section>

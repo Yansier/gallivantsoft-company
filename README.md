@@ -1,6 +1,6 @@
 # GallivantSoft Official Website
 
-GallivantSoft Phase 3 企业官网。项目使用 Astro 生成纯静态站点，在既有企业页面基础上加入三语 Interactive Software Showcase、三个可操作的软件概念演示，并将项目咨询重构为本地邮件流程。构建产物可直接部署到 Nginx。
+GallivantSoft Phase 4 企业官网。项目使用 Astro 生成纯静态站点，包含三语 Interactive Lab、按需加载的 Three.js 数字运营孪生体验、三个界面概念演示，以及本地邮件咨询流程。构建产物可直接部署到 Nginx。
 
 ## 环境要求
 
@@ -51,7 +51,7 @@ npm run preview
 
 ## 修改多语言文案
 
-Phase 1 首页文案由 [`src/i18n/content.js`](src/i18n/content.js) 管理，Phase 2 内页文案位于 [`src/i18n/phase2.js`](src/i18n/phase2.js)，Phase 3 展示与 Demo 文案位于 [`src/i18n/phase3.js`](src/i18n/phase3.js)。语言键包括：
+Phase 1 首页文案由 [`src/i18n/content.js`](src/i18n/content.js) 管理，Phase 2 内页文案位于 [`src/i18n/phase2.js`](src/i18n/phase2.js)，Phase 3 界面 Demo 文案位于 [`src/i18n/phase3.js`](src/i18n/phase3.js)，Phase 4 Interactive Lab 与数字孪生文案位于 [`src/i18n/phase4.js`](src/i18n/phase4.js)。语言键包括：
 
 - `en`：English
 - `zh`：简体中文
@@ -70,7 +70,7 @@ Phase 1 首页文案由 [`src/i18n/content.js`](src/i18n/content.js) 管理，Ph
 | About | `/en/about/` | `/zh/about/` | `/ms/about/` |
 | Contact | `/en/contact/` | `/zh/contact/` | `/ms/contact/` |
 
-Showcase 下另为 Operations Dashboard、Customer Management 与 Booking Workflow 各生成三种语言路由。语言切换通过替换首个路径段保留当前 Demo 页面。
+Showcase 下另为 Digital Operations Twin、Operations Dashboard、Customer Management 与 Booking Workflow 各生成三种语言路由。自定义语言切换器通过替换首个路径段保留当前深层页面。
 
 语言切换会保留当前页面类型。根路由保留可在禁用 JavaScript 时阅读的英文内容；有 JavaScript 时会在没有手动偏好的情况下参考浏览器语言。
 
@@ -95,6 +95,15 @@ Contact 表单只进行浏览器端校验，并生成结构化邮件标题与正
 - Demo 不连接数据库、真实业务系统、支付、通知或第三方 API。
 
 旧即时通讯入口、配置、链接、事件处理与相关文案已经完全移除。首页、Contact、Privacy 与 Footer 统一使用邮件和电话流程。
+
+## Phase 4 Interactive Lab
+
+- Showcase 已重构为 `GallivantSoft Interactive Lab`，旗舰入口为 `Digital Operations Twin`；三个 Phase 3 Demo 继续保留原路由，并作为界面概念档案展示；
+- Three.js 作为本地依赖安装，不使用 CDN；只有用户点击 “Launch 3D Experience” 后才动态加载场景代码；
+- 数字孪生包含可旋转/缩放的微型物流中心、Storage / Processing / Dispatch 区域、订单创建、开始、下一步、暂停/继续和重置控制；
+- 3D 包裹、流程阶段、KPI、状态与活动记录由 [`src/scripts/digital-twin/state.js`](src/scripts/digital-twin/state.js) 的单一状态模型同步驱动；
+- 场景使用共享几何体、受限像素比与按需帧渲染；小屏设备自动进入高效模式，页面隐藏时暂停动画，离开页面时释放 GPU 资源；
+- WebGL 不可用时显示可读降级信息，运营控制面板仍可使用；首页和 Showcase 列表仅渲染静态封面，不加载 Three.js。
 
 ## 修改 Logo
 
@@ -161,10 +170,10 @@ dist/              构建产物
 
 ## 当前验收结果
 
-- `pnpm run check`：42 个文件，0 errors / 0 warnings / 0 hints；
-- `pnpm run build`：成功生成 32 个静态页面；
+- `pnpm run check`：51 个文件，0 errors / 0 warnings / 0 hints；
+- `pnpm run build`：成功生成 35 个静态页面；
 - `productionDomain` 仍为空，因此不会生成包含虚构域名的绝对 sitemap；
 - 已在真实浏览器中检查 `375px`、`390px`、`768px`、`1024px`、`1440px`；代表页面均未出现整页横向溢出；
 - 已实际验证首页 CTA/Showcase 集成、1024px 导航、三语 Demo 路径保留、表单必填验证、邮件内容生成、剪贴板复制和超长内容回退；
-- 已实际操作三个 Demo 的筛选、视图/指标切换、详情选择、状态更新、合理订单流转、取消与重置；测试页面控制台未发现 error 或 warning；
+- 已实际操作数字孪生的启动、创建订单、开始、暂停/继续、完整流程、区域选择、重置与 WebGL 降级，并复验三个既有 Demo 路由；修复后的测试页面未出现新的控制台 error；
 - 默认邮件客户端由浏览器请求打开，但网站无法也不会验证用户是否最终发送或邮件是否送达。

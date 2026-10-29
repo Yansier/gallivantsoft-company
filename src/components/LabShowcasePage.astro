@@ -1,0 +1,22 @@
+---
+import PageChrome from './PageChrome.astro';
+import DigitalTwinPreview from './DigitalTwinPreview.astro';
+import ContactCTA from './ContactCTA.astro';
+import { getContent, translations } from '../i18n/content.js';
+import { getPhase2Content } from '../i18n/phase2.js';
+import { getPhase3Content, phase3Translations } from '../i18n/phase3.js';
+import { getPhase4Content, phase4Translations } from '../i18n/phase4.js';
+import { routeFor } from '../utils/routes.js';
+type Language=keyof typeof translations;
+const {lang='en'}=Astro.props as {lang?:Language};
+const t=getContent(lang);const p2=getPhase2Content(lang);const p3=getPhase3Content(lang) as typeof phase3Translations.en;const p4=getPhase4Content(lang) as typeof phase4Translations.en;const copy=p4.lab;
+---
+<PageChrome lang={lang} t={t} meta={copy.meta} currentPage="showcase" pathname={routeFor(lang,'showcase')} bodyClass="inner-page showcase-page lab-page">
+  <main id="main">
+    <section class="lab-hero dark-section" id="top"><div class="container lab-hero-inner reveal"><p class="eyebrow"><span></span>{copy.eyebrow}</p><h1>{copy.title}</h1><p>{copy.lead}</p></div></section>
+    <section class="lab-flagship dark-section"><div class="container"><article class="lab-flagship-card reveal"><div class="lab-flagship-visual"><DigitalTwinPreview/><div class="lab-orbit-label"><i></i>{copy.noDownload}</div></div><div class="lab-flagship-copy"><span>{copy.flagship}</span><h2>{copy.twinTitle}</h2><p>{copy.twinText}</p><ul>{copy.capabilities.map((item)=><li>{item}</li>)}</ul><a class="btn btn-mint" href={routeFor(lang,'showcase/digital-twin')}>{copy.launch}<span>↗</span></a></div></article></div></section>
+    <section class="section lab-archive light-section"><div class="container"><div class="lab-archive-head reveal"><div><p class="eyebrow dark"><span></span>{copy.archiveEyebrow}</p><h2>{copy.archiveTitle}</h2></div><p>{copy.archiveText}</p></div><div class="lab-archive-grid">{p3.showcase.cards.map((card,index)=><a class="lab-archive-card reveal" href={routeFor(lang,`showcase/${card.slug}`)}><span>0{index+1}</span><p>{card.category}</p><h3>{card.name}</h3><small>{copy.explore} ↗</small></a>)}</div></div></section>
+    <section class="section lab-engineering dark-section"><div class="container"><div class="section-heading split-heading reveal"><div><p class="eyebrow"><span></span>{copy.engineeringEyebrow}</p><h2>{copy.engineeringTitle}</h2></div></div><div class="engineering-grid">{copy.engineering.map((item,index)=><article class="reveal"><span>0{index+1}</span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}</div></div></section>
+    <ContactCTA lang={lang} copy={p2.common}/>
+  </main>
+</PageChrome>
