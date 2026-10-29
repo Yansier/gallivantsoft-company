@@ -1,6 +1,7 @@
 ---
 import PageChrome from './PageChrome.astro';
 import DigitalTwinPreview from './DigitalTwinPreview.astro';
+import InspectionStationPreview from './InspectionStationPreview.astro';
 import ContactCTA from './ContactCTA.astro';
 import { getContent, translations } from '../i18n/content.js';
 import { getPhase2Content } from '../i18n/phase2.js';
@@ -15,6 +16,7 @@ const t=getContent(lang);const p2=getPhase2Content(lang);const p3=getPhase3Conte
   <main id="main">
     <section class="lab-hero dark-section" id="top"><div class="container lab-hero-inner reveal"><p class="eyebrow"><span></span>{copy.eyebrow}</p><h1>{copy.title}</h1><p>{copy.lead}</p></div></section>
     <section class="lab-flagship dark-section"><div class="container"><article class="lab-flagship-card reveal"><div class="lab-flagship-visual"><DigitalTwinPreview/><div class="lab-orbit-label"><i></i>{copy.noDownload}</div></div><div class="lab-flagship-copy"><span>{copy.flagship}</span><h2>{copy.twinTitle}</h2><p>{copy.twinText}</p><ul>{copy.capabilities.map((item)=><li>{item}</li>)}</ul><a class="btn btn-mint" href={routeFor(lang,'showcase/digital-twin')}>{copy.launch}<span>↗</span></a></div></article></div></section>
+    <section class="lab-model-feature dark-section"><div class="container"><article class="lab-model-card reveal"><div class="lab-model-visual"><InspectionStationPreview alt={copy.stationFeature.title}/></div><div class="lab-model-copy"><span>{copy.stationFeature.label}</span><h2>{copy.stationFeature.title}</h2><p>{copy.stationFeature.text}</p><small>{copy.stationFeature.meta}</small><a class="btn btn-ghost" href={routeFor(lang,'showcase/inspection-station')}>{copy.stationFeature.explore}<span>↗</span></a></div></article></div></section>
     <section class="section lab-archive light-section"><div class="container"><div class="lab-archive-head reveal"><div><p class="eyebrow dark"><span></span>{copy.archiveEyebrow}</p><h2>{copy.archiveTitle}</h2></div><p>{copy.archiveText}</p></div><div class="lab-archive-grid">{p3.showcase.cards.map((card,index)=><a class="lab-archive-card reveal" href={routeFor(lang,`showcase/${card.slug}`)}><span>0{index+1}</span><p>{card.category}</p><h3>{card.name}</h3><small>{copy.explore} ↗</small></a>)}</div></div></section>
     <section class="section lab-engineering dark-section"><div class="container"><div class="section-heading split-heading reveal"><div><p class="eyebrow"><span></span>{copy.engineeringEyebrow}</p><h2>{copy.engineeringTitle}</h2></div></div><div class="engineering-grid">{copy.engineering.map((item,index)=><article class="reveal"><span>0{index+1}</span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}</div></div></section>
     <ContactCTA lang={lang} copy={p2.common}/>

@@ -1,0 +1,16 @@
+---
+import coverUrl from '../../assets/renders/precision-inspection-station/three-quarter-view.png?url';
+const { alt = 'Precision Inspection Station' } = Astro.props;
+---
+<figure class="inspection-cover-art">
+  <img src={coverUrl} width="960" height="720" loading="lazy" decoding="async" alt={alt}/>
+  <div aria-hidden="true"><span>PIS–400</span><small>BLENDER / GLTF 2.0</small></div>
+</figure>
+<style>
+  .inspection-cover-art{position:relative;overflow:hidden;width:100%;height:100%;margin:0;background:#07101f}
+  .inspection-cover-art::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(167,197,235,.12);pointer-events:none}
+  .inspection-cover-art img{width:100%;height:100%;display:block;object-fit:cover}
+  .inspection-cover-art>div{position:absolute;right:1rem;bottom:1rem;display:flex;align-items:center;gap:.65rem;padding:.5rem .65rem;border:1px solid rgba(255,255,255,.14);border-radius:2rem;color:#d7e4f5;background:rgba(4,13,28,.72);backdrop-filter:blur(12px)}
+  .inspection-cover-art span{color:#fff;font-size:.58rem;font-weight:900;letter-spacing:.12em}
+  .inspection-cover-art small{color:#8ea2c1;font-size:.48rem;font-weight:800;letter-spacing:.08em}
+</style>

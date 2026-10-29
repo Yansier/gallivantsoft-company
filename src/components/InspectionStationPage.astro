@@ -1,0 +1,86 @@
+---
+import PageChrome from './PageChrome.astro';
+import InspectionStationPreview from './InspectionStationPreview.astro';
+import { getContent, translations } from '../i18n/content.js';
+import { getPhase4Content, phase4Translations } from '../i18n/phase4.js';
+import { routeFor } from '../utils/routes.js';
+import modelUrl from '../../assets/models/precision-inspection-station.glb?url';
+import '../styles/inspection-station.css';
+
+type Language=keyof typeof translations;
+const {lang='en'}=Astro.props as {lang?:Language};
+const t=getContent(lang);
+const copy=getPhase4Content(lang).station as typeof phase4Translations.en.station;
+const viewerCopy=JSON.stringify({
+  loading:copy.loading,
+  fallbackTitle:copy.fallbackTitle,
+  fallbackText:copy.fallbackText,
+  structureReady:copy.structureReady,
+  structureMissing:copy.structureMissing
+}).replace(/</g,'\\u003c');
+const components=['MainChassis','InspectionChamber','OpticalAssembly','ConveyorAssembly','ControlModule','CoolingAssembly','MechanicalConnections','CableAssembly'];
+---
+<PageChrome lang={lang} t={t} meta={copy.meta} currentPage="showcase" pageKey="showcase/inspection-station" pathname={routeFor(lang,'showcase/inspection-station')} bodyClass="inner-page inspection-page">
+  <main id="main">
+    <section class="inspection-hero dark-section" id="top">
+      <div class="container inspection-hero-grid">
+        <div class="reveal">
+          <nav class="breadcrumbs" aria-label="Breadcrumb"><a href={routeFor(lang,'home')}>{t.nav.home}</a><span>/</span><a href={routeFor(lang,'showcase')}>{t.nav.showcase}</a><span>/</span><b>{copy.title}</b></nav>
+          <p class="eyebrow"><span></span>{copy.eyebrow}</p>
+          <h1>{copy.title}</h1>
+          <p class="inspection-subtitle">{copy.subtitle}</p>
+          <p class="inspection-lead">{copy.lead}</p>
+          <a class="twin-back" href={routeFor(lang,'showcase')}>← {copy.back}</a>
+        </div>
+        <div class="inspection-hero-specs reveal" aria-label={copy.specifications}>
+          <span>{copy.originalLabel}</span>
+          <dl><div><dt>{copy.dimensions}</dt><dd>4.33 × 2.34 × 2.96 m</dd></div><div><dt>{copy.components}</dt><dd>8</dd></div><div><dt>{copy.geometry}</dt><dd>115,140</dd></div></dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="inspection-experience dark-section">
+      <div class="container">
+        <div class="inspection-layout" data-inspection-viewer data-model-url={modelUrl}>
+          <div class="inspection-stage" data-viewer-stage>
+            <canvas data-viewer-canvas aria-label={copy.canvasLabel}></canvas>
+            <div class="inspection-cover" data-viewer-cover>
+              <InspectionStationPreview alt={copy.coverAlt}/>
+              <div class="inspection-cover-shade"></div>
+              <div class="inspection-launch-panel">
+                <span>{copy.coverLabel}</span>
+                <button class="btn btn-mint" type="button" data-viewer-launch>{copy.launch}<span>↗</span></button>
+                <p>{copy.launchHint}</p>
+              </div>
+            </div>
+            <div class="inspection-loading" data-viewer-loading hidden><i></i><b>{copy.loading}</b><span data-viewer-progress>0%</span></div>
+            <div class="inspection-fallback" data-viewer-fallback hidden><b data-viewer-fallback-title>{copy.fallbackTitle}</b><p data-viewer-fallback-text>{copy.fallbackText}</p></div>
+            <div class="inspection-views" data-viewer-controls hidden aria-label={copy.viewControls}>
+              <button type="button" data-view="front">{copy.views.front}</button>
+              <button type="button" data-view="side">{copy.views.side}</button>
+              <button type="button" data-view="rear">{copy.views.rear}</button>
+              <button type="button" data-view="three-quarter" aria-pressed="true">{copy.views.threeQuarter}</button>
+              <button type="button" data-view="reset">{copy.views.reset}</button>
+            </div>
+            <div class="inspection-hud"><span>PIS–400</span><small>{copy.sceneHelp}</small></div>
+          </div>
+
+          <aside class="inspection-info">
+            <span class="inspection-concept-label">{copy.originalLabel}</span>
+            <h2>{copy.title}</h2>
+            <p class="inspection-info-kicker">{copy.subtitle}</p>
+            <p>{copy.overviewText}</p>
+            <dl class="inspection-facts"><div><dt>{copy.dimensions}</dt><dd>4.33 × 2.34 × 2.96 m</dd></div><div><dt>{copy.components}</dt><dd>8</dd></div><div><dt>{copy.geometry}</dt><dd>115,140 {copy.triangles}</dd></div></dl>
+            <div class="inspection-components"><h3>{copy.componentTitle}</h3><p>{copy.componentIntro}</p><ul>{components.map((component)=><li data-component-name={component}><i></i>{component}</li>)}</ul></div>
+            <p class="inspection-structure-status" data-components-status>{copy.structurePending}</p>
+            <div class="inspection-original-note"><b>{copy.originalNoteTitle}</b><p>{copy.originalNote}</p></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section inspection-notes light-section"><div class="container"><div class="section-heading reveal"><p class="eyebrow dark"><span></span>{copy.notesEyebrow}</p><h2>{copy.notesTitle}</h2></div><div class="inspection-notes-grid">{copy.notes.map((item,index)=><article class="reveal"><span>0{index+1}</span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}</div></div></section>
+  </main>
+  <script type="application/json" data-viewer-copy set:html={viewerCopy}></script>
+  <script>import '../scripts/inspection-station/index.js';</script>
+</PageChrome>
